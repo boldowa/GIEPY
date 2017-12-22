@@ -1,0 +1,12 @@
+
+--langmap=Asm:
+--langdef=ASAR
+--langmap=ASAR:.s.asm.inc.i.mac.tab
+--regex-ASAR=/^\s*([a-zA-Z_][a-zA-Z_0-9]+):/\1/l,label/
+--regex-ASAR=/^\s*\.([a-zA-Z_][a-zA-Z_0-9]+)/\1/l,label/
+--regex-ASAR=/^\s*\?([a-zA-Z_][a-zA-Z_0-9]+):/\1/l,label/
+--regex-ASAR=/^\s*!?([a-zA-Z_][a-zA-Z_0-9]+)\s*[:\?]?=\s*[^\s]+/\1/d,define/
+--regex-ASAR=/^\s*[mM][aA][cC][rR][oO]\s+([a-zA-Z_][a-zA-Z_0-9]+)/\1/m,macro/
+--excmd=number
+--exclude=Makefile
+

@@ -1,0 +1,13 @@
+/roms/
+/sysLMRestore/
+/tags
+*.smc
+*.sfc
+*.srm
+*.zst
+*.png
+*.bmp
+ppu.bin
+*.swp
+stderr.txt
+stdout.txt

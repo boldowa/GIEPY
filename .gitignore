@@ -1,0 +1,11 @@
+/*
+!/.gitignore
+!/.gitmodules
+!/bolib/
+!/giepy/
+!/jansson/
+!/asm/
+!/doc/
+!/etc/
+!*.md
+
