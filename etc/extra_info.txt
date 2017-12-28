@@ -1,0 +1,42 @@
+
+[About extra info]
+
+  Up to now, extra info was used to judge whether
+the sprite is a custom sprite or not.
+
+  In this tool, the meaning of extra info changes and
+use it as a group number of sprite. You can specify
+the group number between 0 and 3.
+
+
+
+[Sprite type]
+
+  Up to now, the sprite type was judged by sprite number.
+
+  In this tool, you can specify sprite type in config file.
+So, for example, you can insert generator sprite into
+sprite number 0.
+
+
+
+[Add new type sprite]
+
+  This tool can insert these sprites.
+
+  - Initializer  ... This sprite is used for initialize cluster
+                     sprite in origial game. (Number E1-E6)
+		     This sprite is execute immediately when
+		     sprite is loaded in screen.
+		     This sprite has "Init" routine only.
+
+  - Scroller     ... This sprite is used for Auto-scroll command
+                     in original game. (Number E7-F5)
+		     This sprite has 2 "Init" and "Main" routines
+		     for scroll layer1 and layer2.
+		     So, you can specify 2 asm files.
+
+		     Only one sprite can be placed in the level.
+		     It'll be ignored if you specify later.
+
+

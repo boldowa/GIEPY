@@ -1,0 +1,46 @@
+***** new cfg file format *****
+
+01			//   line 1 : new code flag
+36			//   line 2 : oroginal smw sprite number
+81 01 08 00 10 20	//   line 3 : tweaks
+00 00			//   line 4 : extra prop 1 and 2
+venus.asm		//   line 5 : asm file (1)
+01			// * line 6 : asm type
+02			// * line 7 : sprite type
+01 02 03 04 .....	// * line 8 : extra bytes
+scroll2.asm		// * line 9 : asm file (2)
+			// * line ***
+---			// * empty line + hyphens ... end of hex info
+[description]		// \
+aaaaaaaa		//  | Text area specification is pending.
+[???]			//  |
+Pending			// /
+
+
+***** Details *****
+line 1 - 5 : No change
+
+line 6     : Ignored. This tool intends to be able to identify asm type.
+             I'm planning to correspond to the asm file for TRASM.
+	     (However, I'm planning to make them insertable only the case of LoROM)
+
+line 7     : Sprite type.
+               0      - smw original sprite.
+	                Generate an original sprite as it is.
+               1      - Custom normal sprite.
+	       2      - Custom shooter sprite.
+	       3      - Custom generator sprite.
+	       4      - Custom initializer sprite.
+	       5      - Custom scroller sprite.
+	       others - not used (same as 0)
+
+line 8     : Extra bytes.
+           : If your rom isn't enabled extra bytes feature,
+	     this line will ignored.
+
+line 9     : asm file for layer2 scroller.
+             In cases other than A, it is ignored.
+
+Others     : Pending...
+             I'll manage it with things like tags.
+

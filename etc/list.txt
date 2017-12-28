@@ -1,0 +1,89 @@
+//------------------------------------------------
+// GIEPY sprite list
+//   * list file format is based on UNKO
+//     and GPS.
+//------------------------------------------------
+
+//***************************************
+// Normal sprites group
+//   You omitted group, set to default
+//   this group.
+//
+//   Extra info will be used for specify
+//   insert group.
+//   you can set number 0 - 3.
+//
+//   Insert group 0 is used by smw original
+//   sprites. So, It isn't recommended.
+//   And sprite 7B(Goal tape) uses
+//   extra info, so it isn't recommended
+//   to insert sprite into 1:7b.
+//   For the same reason, it isn't
+//   recommended to insert sprite into
+//   0-3:e7 - 0-3:f5.
+//
+//   Sprite type is specified in
+//   cfg (or json) file.
+//***************************************
+
+[Sprite]
+00 what is the fuck.cfg		// In this case, this sprite will insert into
+				// Group 2 and 3.
+
+1:01 Hammer bro.cfg		// This sprite will insert into group1, num 01.
+
+1,3:02 venus.cfg		// This sprite will insert into group 1 and 3 num 02.
+
+1-3:03	fire bar.cfg		// This sprite will insert into group 1,2,3 num 03.
+
+0:f5	yaban chang.json	// This sprite will overwrite smw original sprite.
+				// And this tool also accepts json file.
+
+
+// This tool can insert sprites into number f6-ff.
+// However, Lunar Magic doesn't accept these number.
+// (You can generate these sprites from other sprites code.)
+
+f6 hidden.cfg
+
+
+
+//***************************************
+// Extended sprites group
+//   You can insert it into 09 - ff.
+//***************************************
+
+[Extended]
+//--- 00 - 08 is used by smw.
+//    custom exended sprite starts numer $09 -.
+09	boomelang.asm
+// :
+ff	xxx.asm
+
+//1:12	foo.asm		// <- It can't be specified like this.
+
+
+
+//***************************************
+// Cluster sprites group
+//   You can insert it into 13 - ff.
+//***************************************
+
+[Cluster]
+//--- 00 - 13 is used by smw.
+//    custom exended sprite starts numer $13 -.
+13	snow.asm
+// :
+ff	flower.asm
+
+
+//***************************************
+// Overworld sprites group
+//   * These group will be ignored.
+//     I'm lazy.
+//***************************************
+
+[Overworld]
+
+
+

@@ -1,6 +1,0 @@
-[submodule "bolib"]
-	path = bolib
-	url = git@github.com:boldowa/bolib.git
-[submodule "jansson"]
-	path = jansson
-	url = https://github.com/akheron/jansson
