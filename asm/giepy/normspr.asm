@@ -35,15 +35,18 @@ pushpc
 		jml	SprEraseTweak
 
 	if !true == !sa1
-		%org_assert_long2($018127, f074,c8b0)
+		%org_assert_long2($018127, f032,42bd)
 	else
 		%org_assert_long2($018127, f014,c8bd)
 	endif
 		jml	SpriteStatusHandlerHijack
 
-	%org_assert_long2($02a9a6, f659,bfaa)
-		jsl	SilverPowBitCheck
-		nop
+	if !true == !sa1
+		%org_assert_long2($02a9a3, aab4,b2da)
+	else
+		%org_assert_long2($02a9a3, aa9e,b5da)
+	endif
+		jml	SilverPowBitCheck
 
 	;--- Tweaks for extra bits
 	;  ... scratch ram change: $06 -> $08
@@ -55,13 +58,31 @@ pushpc
 		db	$08
 	org $02a91f
 		db	$08
-	org $02a932
+	org $02a933
 		db	$08
 
 	;--- Tweaks for extra bits
 	;  ... except extra bits from $14d4
 	org $02a964
 		db	$01
+
+	;--- Tweaks for status handler
+	;  ... change proc
+	if !sa1
+		%org_assert_long2($01d43e, 6032,429e)
+	else
+		%org_assert_long2($01d43e, 6014,c89e)
+	endif
+		jsr	$8133
+		rtl
+
+	;--- Hammer Bro init routine overwrite
+	;  ... for generate custom sprite
+	%org_assert_long2($0187a7, 02da,5922)
+		jml	SetSpriteTables
+	%org_assert_word($0182b3, 87a7)
+		dw	$85c2
+
 pullpc
 
 
@@ -163,7 +184,13 @@ SprInitHijack:
 
 ;---------------------------------------
 ; SetSpriteTables subroutine
+;   ... Init custom sprite's tweaks.
+;   args:
+;     - !extra_bits,x     ... extra bits
+;     - !new_sprite_num,x ... custom sprite num
 ;---------------------------------------
+	print "SetSpriteTable: $",pc
+if 0
 macro read_dp(dp)
 	lda.b	[<dp>],y
 	iny
@@ -176,6 +203,8 @@ SetSpriteTables:
 	php
 
 	; calc minimum inx
+	sep	#$30
+	lda.l	!extra_bits,x
 	and.b	#$0c
 	tay			; y = extra_bits
 	lda.l	!new_sprite_num,x
@@ -237,7 +266,83 @@ SetSpriteTables:
 	plb
 	ply
 	rtl
+endif
 
+SetSpriteTables:
+	print "SetSpriteTable: $",pc
+	phy
+	phb
+	phk
+	plb
+	php
+
+	; calc minimum inx
+	sep	#$30
+	lda.l	!extra_bits,x
+	and.b	#$0c
+	tay			; y = extra_bits
+	lda.l	!new_sprite_num,x
+	sec
+	sbc.w	SprTweakTablePtr,y
+
+	; mask
+	rep	#$20
+	and.w	#$00ff
+	asl	#4
+	sta.b	$00
+
+	; Get array of Tweak struct
+	lda.w	SprTweakTablePtr+1,y
+	clc
+	adc.b	$00
+	sta.b	$00
+	rep	#$10
+	sep	#$20
+	lda.w	SprTweakTablePtr+3,y
+	adc.b	#0
+	pha
+	plb
+	ldy.b	$00
+
+	; Get tweaks
+	lda.w	$0001,y
+	sta.w	!9e,x
+	lda.w	$0002,y
+	sta.w	!1656,x
+	lda.w	$0003,y
+	sta.w	!1662,x
+	lda.w	$0004,y
+	sta.w	!166e,x
+	and.b	#$0f
+	sta.w	!15f6,x
+	lda.w	$0005,y
+	sta.w	!167a,x
+	lda.w	$0006,y
+	sta.w	!1686,x
+	lda.w	$0007,y
+	sta.w	!190f,x
+
+	; return if it isn't new code
+	lda.w	$0000,y
+	sta.l	!new_code_flag
+	bne	.useUserCode
+	;--- use smw original sprite. so, custom bit = OFF
+	lda.l	!extra_bits,x		; C---EE--
+	and.b	#$7f
+	sta.l	!extra_bits,x		; 0---EE--
+	bra	.ret
+
+	; read extra prop if newcode
+.useUserCode
+	lda.w	$0008,y
+	sta.l	!extra_prop_1,x
+	lda.w	$0009,y
+	sta.l	!extra_prop_2,x
+.ret
+	plp
+	plb
+	ply
+	rtl
 
 ;-------------------------------------------------
 ; Sprite Main Hijack
@@ -260,7 +365,7 @@ SprMainHijack:
 	and.b	#$0c
 	tay
 	lda.b	#(SprMainTablePtr>>16)		;\
-	sta.b	$0b				; | $00-$02 <- Shooter ptr group adddress
+	sta.b	$0b				; | $09-$0b <- Sprite ptr group adddress
 	rep	#$20				; |
 	lda.w	#(SprMainTablePtr&$ffff)	; |
 	sta.b	$09				;/
@@ -342,10 +447,10 @@ SprEraseTweak:
 	dec
 	sta.l	!extra_bits,x
 	if !true == !EXTRA_BYTES_EXT
-		sta.l	!extra_byte_1
-		sta.l	!extra_byte_2
-		sta.l	!extra_byte_3
-		sta.l	!extra_byte_4
+		sta.l	!extra_byte_1,x
+		sta.l	!extra_byte_2,x
+		sta.l	!extra_byte_3,x
+		sta.l	!extra_byte_4,x
 	endif
 	rtl
 
@@ -393,6 +498,7 @@ SpriteStatusHandlerHijack:
 
 	;--- MAIN routine doesn't handle these status:
 	;      $00-$02, $04-$09
+	pla
 	jml	$0185c2|!bankB
 
 .CallMain
@@ -419,12 +525,25 @@ SpriteStatusHandlerHijack:
 ; Silver Pow bit check
 ;-------------------------------------------------
 SilverPowBitCheck:
+	phx
+if !sa1
+	lda.b	($b4)
+else
+	lda.b	$9e,x
+endif
 	pha
 	lda.l	!extra_bits,x
 	bmi	.isCustom
+
+.originmode
 	plx
-	lda.b	$07f659|!bankB, x	; smw original sprite's $190f tweak
-	rtl
+if !sa1
+	phy
+	rep	#$10
+	ply
+endif
+	lda.b	$07f659|!bankB,x	; smw original sprite's $190f tweak
+	jml	$02a9ab|!bankB
 
 .isCustom
 	phb
@@ -460,7 +579,23 @@ SilverPowBitCheck:
 	plp
 	plb
 	ply
+
+if !sa1
+	phy
+	rep	#$10
+	ply
+endif
+
+	jml	$02a9ab|!bankB
+
+
+;-------------------------------------------------
+; sprite nop routine
+;-------------------------------------------------
+SpriteNop:
+	stz.w	!sprite_status,x
 	rtl
+
 
 if !true == !DEBUG
 DebugSprTweakTable:

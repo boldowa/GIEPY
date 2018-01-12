@@ -35,5 +35,5 @@ HandleClusterHijack:
 	phy
 	pea	$f81c			;  jsl [<ClusterReloc>]
 ClusterReloc:
-	jml	$008000			; * This address will be overwrote by sprite tool.
+	jml	SpriteNop		; * This address will be overwrote by sprite tool.
 

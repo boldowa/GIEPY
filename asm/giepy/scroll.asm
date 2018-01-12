@@ -181,6 +181,18 @@ CallScrollerL2Hijack:
 	jmp	CallSpriteFunction
 
 
+;-------------------------------------------------
+; Scroll nop routine
+;-------------------------------------------------
+ScrollL1Nop:
+	stz.w	!scroll_num_l1
+	rtl
+ScrollL2Nop:
+	stz.w	!scroll_num_l2
+	rtl
+
+
+
 if !true == !DEBUG
 DebugScrL1InitTable:
 	dd CScrollerInit

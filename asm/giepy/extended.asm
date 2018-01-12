@@ -26,6 +26,6 @@ ExSpriteHijack:
 	sec
 	sbc.b	#19
 ExtraReloc:
-	jsl	$008000			; * This address will be overwrote by sprite tool.
+	jsl	SpriteNop		; * This address will be overwrote by sprite tool.
 	jml	$029b12|!bankB		; return to smw routine
 

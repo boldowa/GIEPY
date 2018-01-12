@@ -7,6 +7,8 @@ function patch() {
 }
 
 function main() {
+	cd $(dirname $0)
+
 	if test -z "$1"; then
 		echo "--- Non EXBytes..."
 		patch orig.smc test.smc

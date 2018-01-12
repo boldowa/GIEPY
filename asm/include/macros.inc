@@ -110,6 +110,19 @@ endmacro
 
 
 ;-------------------------------------------------
+; ORG with ROM assertion (2 bytes)
+;   args:
+;     - addr		... origin address
+;     - data            ... assertion data
+;-------------------------------------------------
+macro org_assert_word(addr, data)
+	if 0 == !DEBUG
+		assert $<data> == read2(<addr>)
+	endif
+	org <addr>
+endmacro
+
+;-------------------------------------------------
 ; Extra bits shift on compatible mode
 ;-------------------------------------------------
 macro ebshift_compatible()

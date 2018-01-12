@@ -8,8 +8,12 @@ pushpc
 		nop
 
 if !true == !EXTRA_BYTES_EXT
-	%org_assert_long2($02abeb, e802,a6c8)
-		jsl	LoadShooterExByte
+	if !sa1	
+		%org_assert_long2($02abeb, 5c02,a6c8)
+	else
+		%org_assert_long2($02abeb, e802,a6c8)
+	endif
+			jsl	LoadShooterExByte
 endif
 
 	%org_assert_long2($02b39e, abde,0390)

@@ -1,18 +1,23 @@
 ;-------------------------------------------------------------------------------
 ; GIEPY main patch system
 ;
+; *** CAUTION ***
+;   This source shouldn't depend on any other libraries.
+;   Otherwise it could break when inserting sprites.
+;
 ; Changelog)
 ;   12-23-2017 :  First version.
+;    1-12-2018 :  C3 beta version.
 ;-------------------------------------------------------------------------------
 ;--- for debug
-!DEBUG := 1
+!DEBUG ?= 1
 !map := 0
 ;---
 
 incsrc "include/sa1def.inc"
 
 !VER_MAJ := $00
-!VER_MIN := $00
+!VER_MIN := $01
 
 ;---------------------------------------
 ; Check install condition
@@ -24,7 +29,22 @@ if !true == !EXTRA_BYTES_EXT
 	!INSFLAGS #= !INSFLAGS|!INS_EXTRA_BYTES
 endif
 
+if !DEBUG
 freecode
+	db $82,$cb,$82,$d5,$81,$48
+	db "MAIN"
+	dw 0
+endif
+;-------------------------------------------------
+; version info
+;-------------------------------------------------
+	db	"VER "
+	dw	_ver_end-_ver_start
+_ver_start:
+	dw	!INSFLAGS
+	db	!VER_MIN, !VER_MAJ
+_ver_end:
+
 ;-------------------------------------------------
 ; Main codes
 ;-------------------------------------------------
@@ -41,7 +61,7 @@ _code_start:
 	incsrc "giepy/cluster.asm"
 	incsrc "giepy/owspr.asm"
 	incsrc "giepy/tweaks.asm"
-InternalReturn:
+SomethingNop:
 	rtl
 _code_end:
 
@@ -58,7 +78,7 @@ if !true == !EXTRA_BYTES_EXT
 		;--- Group 0
 		rep 256 : db 3
 		;--- Group 1
-		rep 256 : db 4
+		rep 256 : db 3
 		;--- Group 2
 		rep 256 : db 3
 		;--- Group 3
@@ -99,7 +119,7 @@ SprTypeTable:
 	;--- Group 0
 	rep 256 : db 0
 	;--- Group 1
-	rep 256 : db 1
+	rep 256 : db 0
 	;--- Group 2
 	rep 256 : db 0
 	;--- Group 3
@@ -343,29 +363,31 @@ _scm2_end:
 	db	"LOC "
 	dw	_loc_end-_loc_start
 _loc_start:
-	;--- SetSpriteTables subroutine address.
-	;    This is used for generate library.
-	dl	SetSpriteTables
-
 	;--- Re-location info.
 	;    GIEPY rewites the data indicated by this data.
 	dl	ClusterReloc+1		; Cluster sprite routine address
 	dl	ExtraReloc+1		; Extended sprite routine address
+
+	;--- SetSpriteTables subroutine address.
+	;    This is used for generate library.
+	dl	SetSpriteTables
+
+	;--- Nop routines
+	dl	SomethingNop
+	dl	SpriteNop
+	dl	ScrollL1Nop
+	dl	ScrollL2Nop
+
+	;--- this area is reserved for GIEPY.
+	;    (uses for save table groups location)
+	rep 5 : dl !NULL
 _loc_end:
 
+;-------------------------------------------------
+; end of data
+;-------------------------------------------------
+	db	"TERM"
 
-	;-----------------------------
-	; version info
-	;-----------------------------
-	db	"VER "
-	dw	_ver_end-_ver_start
-_ver_start:
-	dw	!INSFLAGS
-	db	!VER_MIN, !VER_MAJ
-_ver_end:
-	
-;if !DEBUG
-	print "Insert size............. ", freespaceuse, " bytes."
-	print "Total bytes modified.... ", bytes, " bytes."
-;endif
+print "Insert size............. ", freespaceuse, " bytes."
+print "Total bytes modified.... ", bytes, " bytes."
 
