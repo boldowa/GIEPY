@@ -1,0 +1,44 @@
+//----------------------------------------------------------
+//  giepy.rc
+//----------------------------------------------------------
+
+#include "version.h"
+#include <windows.h>
+
+/**
+ * StringVersionInfo
+ */
+#define ResV(i) Res(i)
+#define _Res(s,term)	s # term
+#define Res(s)		_Res(#s,\0)
+
+//UNKO	ICON	DISCARDABLE	"unko.ico"
+
+VS_VERSION_INFO VERSIONINFO
+	FILEVERSION	ResVersion
+	PRODUCTVERSION	ResVersion
+	FILEOS		VOS__WINDOWS32
+	FILETYPE	VFT_APP
+	FILESUBTYPE	VFT2_UNKNOWN
+	FILEFLAGS	0x0L
+	FILEFLAGSMASK	VS_FFI_FILEFLAGSMASK
+{
+	BLOCK "StringFileInfo"
+	{
+		BLOCK "040904b0"
+		{
+			VALUE "CompanyName",		"Giepyyyyyyy!!\0"
+			VALUE "FileDescription",	"SMW sprites insertion utility\0"
+			VALUE "FileVersion",		ResV(FileVersion)
+			VALUE "InternalVersion",	"Isamu Akai\0"
+			VALUE "OriginalFileName",	"giepy.exe\0"
+			VALUE "LegalCopyright",		"(C) 2018 Baa~n\0"
+			VALUE "ProductName",		ResV(_AppName)
+			VALUE "ProductVersion",		ResV(AppVersion)
+		}
+	}
+	BLOCK "VarFileInfo"
+	{
+		VALUE "Translation", 0x0409, 1200
+	}
+}

@@ -66,7 +66,6 @@ SprLoadHijack:
 	plx
 	lda.b	$05
 	%jml_assert_long(jml, $02a866, 90e7c9)	; return to orig smw routine
-	;jml	$02a866|!bankB
 
 .isCustom
 	%putdebug("isCustom")
@@ -79,7 +78,7 @@ SprLoadHijack:
 	sta.b	$07
 	plp
 	plx
-	jml	$02a8dd|!bankB		; jump to normal sprite routine
+	%jml_assert_long(jml, $02a8dd, 8501a9)	; jump to normal sprite routine
 
 +	dec
 	bne	+
@@ -102,7 +101,7 @@ LoadScroller:
 	beq	+			; scroller is already working. return.
 	plp
 	plx
-	jml	$02a846|!bankB		; jmp to LoadNextSprite
+	%jml_assert_long(jml, $02a846, e8c8c8)	; jmp to LoadNextSprite
 
 	;--- Execute scroller if any scroller isn't working
 +	plp
@@ -131,7 +130,7 @@ LoadScroller:
 	inc
 	sta.w	!scroll_num_l1
 	sta.w	!scroll_num_l2
-	jml	$02a87c|!bankB		; jmp to LoadScrollSprite
+	%jml_assert_long(jml, $02a87c, ceb788)	; jmp to LoadScrollSprite
 
 
 
@@ -157,9 +156,9 @@ LoadGenerator:
 		bne	-			;/
 	.return
 		inx
-		jml	$02a82e|!bankB		; jmp to LoadSpriteLoopStart
+		%jml_assert_long(jml, $02a82e, c9ceb7)	; jmp to LoadSpriteLoopStart
 	else
-		jml	$02a846|!bankB		; jmp to LoadNextSprite
+		%jml_assert_long(jml, $02a846, e8c8c8)	; jmp to LoadNextSprite
 	endif
 	
 
@@ -211,7 +210,7 @@ LoadInitializer:
 	ply
 	plp
 	plx
-	jml	$02a846|!bankB			; jmp to LoadNextSprite
+	%jml_assert_long(jml, $02a846, e8c8c8)	; jmp to LoadNextSprite
 
 
 LoadShooter:
@@ -245,6 +244,7 @@ LoadShooter:
 	inc
 	sta.w	!1783,x
 	jml	$02aba8|!bankB
+	%jml_assert_long(jml, $02aba8, 4a5ba5)
 
 
 
@@ -255,19 +255,23 @@ if !true == !EXTRA_BYTES_EXT
 	LoadNextSprHijack:
 		%putdebug("LoadNextSprHijack")
 		; Skip extra bytes
+		iny
+		lda.b	[$ce],y
+		sta.b	$05
 		dey
-		tya
+		dey
 		phx
 		php
 		rep	#$10
+		tya
 		ldx.b	$05			; load table inx
 		clc
 		adc.l	EBLengthTable,x
-		;sep	#$10
+		sep	#$10
+		tay
 		plp
 		plx
-		tay
 		inx
-		jml	$02a82e|!bankB
+		%jml_assert_long(jml, $02a82e, c9ceb7)	; jmp to LoadSpriteLoopStart
 endif
 
