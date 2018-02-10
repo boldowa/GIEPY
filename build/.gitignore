@@ -1,0 +1,6 @@
+*
+!.gitignore
+!build.sh
+!mingw_build.sh
+!x64mingw_build.sh
+!components/

@@ -1,0 +1,13 @@
+#-----------------------------
+# git attributes
+#-----------------------------
+*			text=auto
+
+*.asm			text eol=crlf
+*.inc			text eol=crlf
+*.cfg			text eol=crlf
+*.json			text eol=crlf
+*.bat			text eol=crlf
+
+*.sh			text eol=lf
+

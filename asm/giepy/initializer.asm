@@ -26,10 +26,3 @@ CallInitializer:
 	;--- Call initializer routine
 	jmp	CallSpriteFunction
 
-if !true == !DEBUG
-DebugInitializerTable:
-	rep 10 : dd	ClusterGen
-
-	incsrc	"debug/clsp_gen.asm"
-endif
-

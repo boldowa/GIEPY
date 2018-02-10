@@ -62,10 +62,3 @@ GeneratorHijack:
 	;--- Call generator main routine
 	jmp	CallSpriteFunction
 	
-if !true == !DEBUG
-DebugGeneratorTable:
-	rep 10 : dd	ExGenerator
-
-	incsrc	"debug/exgenerator.asm"
-endif
-

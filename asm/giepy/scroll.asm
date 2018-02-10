@@ -193,30 +193,3 @@ ScrollL2Nop:
 
 
 
-if !true == !DEBUG
-DebugScrL1InitTable:
-	dd CScrollerInit
-	dd CSRET
-	dd CScrollerInit
-
-DebugScrL2InitTable:
-	dd CSRET
-	dd CScrollerInit
-	dd CScrollerInit
-
-DebugScrL1MainTable:
-	dd CScrollerMain
-	dd CSRET
-	dd CScrollerMain
-
-DebugScrL2MainTable:
-	dd CSRET
-	dd CScrollerMain
-	dd CScrollerMain
-
-	rep 40 : dd CSRET
-
-CSRET:	rtl
-
-	incsrc	"debug/cscroller.asm"
-endif

@@ -29,12 +29,12 @@ pullpc
 SetShooterExBits:
 	sbc.b	#$cb
 	sta.w	!1783,x
-	lda.b	$07
-	sta.l	!extra_bits_sh,x
 if !EXTRA_BYTES_EXT
 	lda.b	#0
 	sta.l	!extra_byte_sh,x
 endif
+	lda.b	$07
+	sta.l	!extra_bits_sh,x
 	rtl
 
 ;-------------------------------------------------
@@ -88,15 +88,4 @@ ShooterHijack:
 	xba
 	pea	$b3a6				; rtl return address
 	jmp	CallSpriteFunction
-
-if !true == !DEBUG
-DebugShooterTable:
-	rep 10 : dd	ExShooter
-;
-;SHTest:
-;	dd	$02b3b6		; torpido
-;	dd	$02b466		; bullet bill
-
-	incsrc	"debug/exshooter.asm"
-endif
 

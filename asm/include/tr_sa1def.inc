@@ -32,9 +32,9 @@ extra_byte_1		= $4000A4
 extra_byte_2		= $4000BA
 extra_byte_3		= $4000D0
 extra_byte_4		= $4000E6
-extra_byte_sh		= $4000FC
-extra_byte_gen		= $400104
-extra_byte_scr		= $400105
+extra_byte_sh		= $41C800
+extra_byte_gen		= $4000FC
+extra_byte_scr		= $4000FD
 
 
 ;---------------------------------------

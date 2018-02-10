@@ -85,15 +85,24 @@ endif
 ;   based on sprite tool / pixi
 ;-------------------------------------------------
 %define_sprite_table(extra_bits, !_extra_bits, !_extra_bits_sa1)
+%define_sprite_table(7FAB10, !_extra_bits, !_extra_bits_sa1)
 %define_sprite_table(new_code_flag, !_new_code_flag, !_new_code_flag_sa1)
+%define_sprite_table(7FAB1C, !_new_code_flag, !_new_code_flag_sa1)
 %define_sprite_table(extra_prop_1, !_extra_prop_1, !_extra_prop_1_sa1)
+%define_sprite_table(7FAB28, !_extra_prop_1, !_extra_prop_1_sa1)
 %define_sprite_table(extra_prop_2, !_extra_prop_2, !_extra_prop_2_sa1)
+%define_sprite_table(7FAB34, !_extra_prop_2, !_extra_prop_2_sa1)
 %define_sprite_table(new_sprite_num, !_new_sprite_num, !_new_sprite_num_sa1)
+%define_sprite_table(7FAB9E, !_new_sprite_num, !_new_sprite_num_sa1)
 if !true == !EXTRA_BYTES_EXT
 	%define_sprite_table(extra_byte_1, !_extra_byte_1, !_extra_byte_1_sa1)
+	%define_sprite_table(7FAB40, !_extra_byte_1, !_extra_byte_1_sa1)
 	%define_sprite_table(extra_byte_2, !_extra_byte_2, !_extra_byte_2_sa1)
+	%define_sprite_table(7FAB4C, !_extra_byte_2, !_extra_byte_2_sa1)
 	%define_sprite_table(extra_byte_3, !_extra_byte_3, !_extra_byte_3_sa1)
+	%define_sprite_table(7FAB58, !_extra_byte_3, !_extra_byte_3_sa1)
 	%define_sprite_table(extra_byte_4, !_extra_byte_4, !_extra_byte_4_sa1)
+	%define_sprite_table(7FAB64, !_extra_byte_4, !_extra_byte_4_sa1)
 endif
 
 

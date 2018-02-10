@@ -3,6 +3,9 @@
 ; GIEPY Normal Sprite code
 ;-------------------------------------------------------------------------------
 pushpc
+	org $02a9ca					; This address is overritten by SA-1 patch.
+		dl	InitSpriteTableFix		; So strict checking is impossible.
+
 	if !true == !sa1
 		%org_assert_long2($02a9d4, c87f,d69d)
 	else
@@ -48,6 +51,9 @@ pushpc
 	endif
 		jml	SilverPowBitCheck
 
+	%org_assert_long2($02a971, 04a5,c8c8)
+		jsl	SetExtraBits
+
 	;--- Tweaks for extra bits
 	;  ... scratch ram change: $06 -> $08
 	org $02a8ee
@@ -63,7 +69,9 @@ pushpc
 
 	;--- Tweaks for extra bits
 	;  ... except extra bits from $14d4
-	org $02a964
+	org $02a964		; Horizontal level
+		db	$01
+	org $02a94c		; Vertical level
 		db	$01
 
 	;--- Tweaks for status handler
@@ -87,17 +95,34 @@ pullpc
 
 
 ;-------------------------------------------------
+; InitSpriteTableFix
+;-------------------------------------------------
+InitSpriteTableFix:
+	; backup extra bits
+	lda.l	!extra_bits,x
+	pha
+if !sa1
+	phx
+	phy
+	sep	#$10
+endif
+	jsl	$07f7d2|!bankB
+if !sa1
+	rep	#$10
+	ply
+	plx
+endif
+	pla
+	sta.l	!extra_bits,x
+	rtl
+
+
+;-------------------------------------------------
 ; Load Sprite's Extra info
 ;-------------------------------------------------
 LoadNrmSprExtraInfo:
 	%putdebug("LoadNrmSprExtraInfo")
 	sta.w	!1fe2,x
-	;--- set sprite number
-	lda.b	$05
-	sta.l	!new_sprite_num,x
-	;--- set extra bits
-	lda.b	$07
-	sta.l	!extra_bits,x
 
 if !true == !EXTRA_BYTES_EXT
 	;--- get extra bytes length
@@ -189,87 +214,7 @@ SprInitHijack:
 ;     - !extra_bits,x     ... extra bits
 ;     - !new_sprite_num,x ... custom sprite num
 ;---------------------------------------
-	print "SetSpriteTable: $",pc
-if 0
-macro read_dp(dp)
-	lda.b	[<dp>],y
-	iny
-endmacro
 SetSpriteTables:
-	phy
-	phb
-	phk
-	plb
-	php
-
-	; calc minimum inx
-	sep	#$30
-	lda.l	!extra_bits,x
-	and.b	#$0c
-	tay			; y = extra_bits
-	lda.l	!new_sprite_num,x
-	sec
-	sbc.w	SprTweakTablePtr,y
-
-	; mask
-	rep	#$20
-	and.w	#$00ff
-	asl	#4
-	pha
-
-	; Get array of Tweak struct
-	lda.w	SprTweakTablePtr+1,y
-	sta.b	$00
-	lda.w	SprTweakTablePtr+2,y
-	sta.b	$01
-
-	; Get tweaks
-	rep	#$10
-	ply
-	sep	#$20
-	%read_dp($00)
-	sta.l	!new_code_flag
-	%read_dp($00)
-	sta.w	!9e,x
-	%read_dp($00)
-	sta.w	!1656,x
-	%read_dp($00)
-	sta.w	!1662,x
-	%read_dp($00)
-	sta.w	!166e,x
-	and.b	#$0f
-	sta.w	!15f6,x
-	%read_dp($00)
-	sta.w	!167a,x
-	%read_dp($00)
-	sta.w	!1686,x
-	%read_dp($00)
-	sta.w	!190f,x
-
-	; return if it isn't new code
-	lda.l	!new_code_flag
-	bne	.useUserCode
-	;--- use smw original sprite. so, custom bit = OFF
-	lda.l	!extra_bits,x		; C---EE--
-	and.b	#$7f
-	sta.l	!extra_bits,x		; 0---EE--
-	bra	.ret
-
-	; read extra prop if newcode
-.useUserCode
-	%read_dp($00)
-	sta.l	!extra_prop_1,x
-	%read_dp($00)
-	sta.l	!extra_prop_2,x
-.ret
-	plp
-	plb
-	ply
-	rtl
-endif
-
-SetSpriteTables:
-	print "SetSpriteTable: $",pc
 	phy
 	phb
 	phk
@@ -385,11 +330,18 @@ SprMainHijack:
 ;             A : Sprite number
 ;-------------------------------------------------
 CallSpriteFunction:
-;	php
-;	jsl	.sub
-;	plp
-;	rtl
-;.sub
+
+if !PIXI_COMPATIBLE
+	phx			;\
+	php			; | PIXI saves registers
+	phb			; | before call sprites routine.
+	jsl	.subCall	; |
+	plb			; |
+	plp			; |
+	plx			; |
+	rtl			;/
+.subCall
+endif
 	; calc minimun inx
 	sep	#$30
 	sec
@@ -430,11 +382,18 @@ CallSpriteFunction:
 	xba			;/
 
 	sta.b	$0b		;\
-	pla			; | store address
+if !PIXI_COMPATIBLE		; |
+	pha			; |
+	plb			; | store address
+endif				; |
+	pla			; |
 	sta.b	$0a		; |
 	pla			; |
 	sta.b	$09		;/
 	sep	#$30
+if !PIXI_COMPATIBLE
+	txy
+endif	
 	jml	[$0009|!base1]	; jump to code
 
 
@@ -525,69 +484,100 @@ SpriteStatusHandlerHijack:
 ; Silver Pow bit check
 ;-------------------------------------------------
 SilverPowBitCheck:
-	phx
-if !sa1
-	lda.b	($b4)
-else
-	lda.b	$9e,x
-endif
-	pha
-	lda.l	!extra_bits,x
-	bmi	.isCustom
+	%putdebug("SilverPowBitCheck")
+	phx			; push for origin codes.
 
-.originmode
-	plx
+	lda.l	!extra_bits,x	;\  check custom spr bit
+	bmi	.isCustom	;/
+if !sa1				;\
+	lda.b	($b4)		; | Get sprite number
+else				; |
+	lda.b	!9e,x		; |
+endif				;/
+
 if !sa1
-	phy
-	rep	#$10
-	ply
+	phy			;\  Vitor's SA-1 patch codes
+	rep	#$10		; |
+	ply			;/
+
+	php			;\
+	rep	#$30		; | mask for 16bits X register
+	and.w	#$00ff		; |
+	plp			;/
 endif
-	lda.b	$07f659|!bankB,x	; smw original sprite's $190f tweak
+	tax
+	lda.l	$07f659|!bankB,x	; smw original sprite's $190f tweak
+	jml	$02a9ab|!bankB
+;-------------------
+.isCustom
+	jsr	.GetSilverPByte	; read silver p-switch byte into A register.
+if !sa1
+	phy			;\  Vitor's SA-1 patch codes
+	rep	#$10		; |
+	ply			;/
+endif
 	jml	$02a9ab|!bankB
 
-.isCustom
+
+;-----------------------------
+; A = extra bits
+;-----------------------------
+.GetSilverPByte
+	%putdebug("GetSilverPByte")
 	phb
 	phk
 	plb
 	php
-
+;-------------------	
+	sep	#$30
 	and.b	#$0c
-	tay			; y = extra_bits
+	tay			; Y = extra bits
+
+	;--- get table index
 	lda.l	!new_sprite_num,x
 	sec
 	sbc.w	SprTweakTablePtr,y
+
 	; mask
 	rep	#$20
 	and.w	#$00ff
 	asl	#4
-	clc
-	adc.w	#0008
-	pha
+	sta.b	$00
 
 	; Get array of Tweak struct
 	lda.w	SprTweakTablePtr+1,y
+	clc
+	adc.b	$00
 	sta.b	$00
-	lda.w	SprTweakTablePtr+2,y
-	sta.b	$01
-
-	; Get tweaks
 	rep	#$10
-	ply
 	sep	#$20
-	lda.b	[$00],y
+	lda.w	SprTweakTablePtr+3,y
+	adc.b	#0
+	pha				;\  switch bank
+	plb				;/
+	ldy.b	$00
 
+	; get tweak byte
+	lda.w	$0007,y			; cfg line2 tweaks 6 ($190F value)
+;-------------------	
 	plp
 	plb
-	ply
+	rts
 
-if !sa1
-	phy
-	rep	#$10
-	ply
-endif
-
-	jml	$02a9ab|!bankB
-
+;-------------------------------------------------
+; Set extra bits
+;-------------------------------------------------
+SetExtraBits:
+	;--- set sprite number
+	lda.b	$05
+	sta.l	!new_sprite_num,x
+	;--- set extra bits
+	lda.b	$07
+	sta.l	!extra_bits,x
+	iny
+	iny
+	lda.b	$04
+	rtl
 
 ;-------------------------------------------------
 ; sprite nop routine
@@ -595,25 +585,4 @@ endif
 SpriteNop:
 	stz.w	!sprite_status,x
 	rtl
-
-
-if !true == !DEBUG
-DebugSprTweakTable:
-	%putdebug("DebugSprTweakTable")
-	db $00, $93, $10, $b7, $05, $01, $00, $00, $00, $ff, $ff, $ff, $ff, $ff, $ff
-	rep 10 : db $01, $36, $10, $b7, $05, $01, $00, $00, $00, $ff, $ff, $ff, $ff, $ff, $ff
-	;rep 10 : db $01, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
-
-DebugSprInitTable:
-	dd CoinInit
-	dd CoinInit
-	rep 10 : dd HBrosInit
-
-DebugSprMainTable:
-	dd CoinMain
-	dd CoinMain
-	rep 10 : dd HBrosMain
-
-	incsrc	"debug/hbros.asm"
-endif
 

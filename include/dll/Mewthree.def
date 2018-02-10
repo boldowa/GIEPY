@@ -1,0 +1,18 @@
+/**
+ * Mewthree defines
+ */
+
+/************************************************/
+/* Observer value				*/
+/************************************************/
+#define MEW_OBS_OK		0
+#define MEW_OBS_YES		1
+#define MEW_OBS_NO		2
+#define MEW_OBS_CANCEL		3
+#define MEW_OBS_RETRY		4
+#define MEW_OBS_ABORT		5
+
+#define MEW_OBS_FLGXXX		1 /* pending */
+
+
+

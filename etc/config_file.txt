@@ -1,14 +1,15 @@
 ***** new cfg file format *****
 
-01			//   line 1 : new code flag
-36			//   line 2 : oroginal smw sprite number
-81 01 08 00 10 20	//   line 3 : tweaks
-00 00			//   line 4 : extra prop 1 and 2
-venus.asm		//   line 5 : asm file (1)
-01			// * line 6 : asm type
-02			// * line 7 : sprite type
-01 02 03 04 .....	// * line 8 : extra bytes
-scroll2.asm		// * line 9 : asm file (2)
+01			//   line  1 : new code flag
+36			//   line  2 : oroginal smw sprite number
+81 01 08 00 10 20	//   line  3 : tweaks
+00 00			//   line  4 : extra prop 1 and 2
+venus.asm		//   line  5 : asm file (1)
+01			// * line  6 : asm type
+02			// * line  7 : sprite type
+03			// * line  8 : unique info
+01 02 03 04 .....	// * line  9 : extra bytes
+scroll2.asm		// * line 10 : asm file (2)
 			// * line ***
 ---			// * empty line + hyphens ... end of hex info
 [description]		// \

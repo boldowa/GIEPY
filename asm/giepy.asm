@@ -10,8 +10,9 @@
 ;    1-12-2018 :  C3 beta version.
 ;-------------------------------------------------------------------------------
 ;--- for debug
+!SYSTEM_INITIALIZING ?= 0
 !DEBUG ?= 1
-!map := 0
+!map ?= 0
 ;---
 
 incsrc "include/sa1def.inc"
@@ -28,13 +29,13 @@ endif
 if !true == !EXTRA_BYTES_EXT
 	!INSFLAGS #= !INSFLAGS|!INS_EXTRA_BYTES
 endif
-
-if !DEBUG
-freecode
-	db $82,$cb,$82,$d5,$81,$48
-	db "MAIN"
-	dw 0
+if !PIXI_COMPATIBLE
+	!INSFLAGS #= !INSFLAGS|!INS_PIXI_COMPATIBLE
 endif
+
+;--- Load $02A9C9 (for backup)
+!Val_02a9ca	:= read3($02a9ca)
+
 ;-------------------------------------------------
 ; version info
 ;-------------------------------------------------
@@ -138,11 +139,7 @@ SprTweakTablePtr:
 	;--- Group 0
 	db  0      :  dl !NULL
 	;--- Group 1
-	if !true == !DEBUG
-	db  0      :  dl DebugSprTweakTable
-	else
 	db  0      :  dl !NULL
-	endif
 	;--- Group 2
 	db  0      :  dl !NULL
 	;--- Group 3
@@ -161,11 +158,7 @@ SprInitTablePtr:
 	;--- Group 0
 	db  0      :  dl !NULL
 	;--- Group 1
-	if !true == !DEBUG
-	db  0      :  dl DebugSprInitTable
-	else
 	db  0      :  dl !NULL
-	endif
 	;--- Group 2
 	db  0      :  dl !NULL
 	;--- Group 3
@@ -184,11 +177,7 @@ SprMainTablePtr:
 	;--- Group 0
 	db  0      :  dl !NULL
 	;--- Group 1
-	if !true == !DEBUG
-	db  0      :  dl DebugSprMainTable
-	else
 	db  0      :  dl !NULL
-	endif
 	;--- Group 2
 	db  0      :  dl !NULL
 	;--- Group 3
@@ -207,11 +196,7 @@ ShooterTablePtr:
 	;--- Group 0
 	db  0      :  dl !NULL
 	;--- Group 1
-	if !true == !DEBUG
-	db  0      :  dl DebugShooterTable
-	else
 	db  0      :  dl !NULL
-	endif
 	;--- Group 2
 	db  0      :  dl !NULL
 	;--- Group 3
@@ -230,11 +215,7 @@ GeneratorTablePtr:
 	;--- Group 0
 	db  0      :  dl !NULL
 	;--- Group 1
-	if !true == !DEBUG
-	db  0      :  dl DebugGeneratorTable
-	else
 	db  0      :  dl !NULL
-	endif
 	;--- Group 2
 	db  0      :  dl !NULL
 	;--- Group 3
@@ -253,11 +234,7 @@ InitializerTablePtr:
 	;--- Group 0
 	db  0      :  dl !NULL
 	;--- Group 1
-	if !true == !DEBUG
-	db  0      :  dl DebugInitializerTable
-	else
 	db  0      :  dl !NULL
-	endif
 	;--- Group 2
 	db  0      :  dl !NULL
 	;--- Group 3
@@ -276,11 +253,7 @@ ScrL1InitTablePtr:
 	;--- Group 0
 	db  0      :  dl !NULL
 	;--- Group 1
-	if !true == !DEBUG
-	db  0      :  dl DebugScrL1InitTable
-	else
 	db  0      :  dl !NULL
-	endif
 	;--- Group 2
 	db  0      :  dl !NULL
 	;--- Group 3
@@ -299,11 +272,7 @@ ScrL1MainTablePtr:
 	;--- Group 0
 	db  0      :  dl !NULL
 	;--- Group 1
-	if !true == !DEBUG
-	db  0      :  dl DebugScrL1MainTable
-	else
 	db  0      :  dl !NULL
-	endif
 	;--- Group 2
 	db  0      :  dl !NULL
 	;--- Group 3
@@ -322,11 +291,7 @@ ScrL2InitTablePtr:
 	;--- Group 0
 	db  0      :  dl !NULL
 	;--- Group 1
-	if !true == !DEBUG
-	db  0      :  dl DebugScrL2InitTable
-	else
 	db  0      :  dl !NULL
-	endif
 	;--- Group 2
 	db  0      :  dl !NULL
 	;--- Group 3
@@ -345,11 +310,7 @@ ScrL2MainTablePtr:
 	;--- Group 0
 	db  0      :  dl !NULL
 	;--- Group 1
-	if !true == !DEBUG
-	db  0      :  dl DebugScrL2MainTable
-	else
 	db  0      :  dl !NULL
-	endif
 	;--- Group 2
 	db  0      :  dl !NULL
 	;--- Group 3
@@ -368,15 +329,20 @@ _loc_start:
 	dl	ClusterReloc+1		; Cluster sprite routine address
 	dl	ExtraReloc+1		; Extended sprite routine address
 
-	;--- SetSpriteTables subroutine address.
-	;    This is used for generate library.
-	dl	SetSpriteTables
+if !PIXI_COMPATIBLE
+	dl	ExecutePtrLongPb
+else
+	dl	0
+endif
 
 	;--- Nop routines
 	dl	SomethingNop
 	dl	SpriteNop
 	dl	ScrollL1Nop
 	dl	ScrollL2Nop
+
+	;--- $02a9ca backup(this is used for uninstall.)
+	dl	!Val_02a9ca
 
 	;--- this area is reserved for GIEPY.
 	;    (uses for save table groups location)

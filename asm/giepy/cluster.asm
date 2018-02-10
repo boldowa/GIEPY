@@ -34,6 +34,21 @@ HandleClusterHijack:
 	ldy.b	#(($020000|!bankB)>>16)
 	phy
 	pea	$f81c			;  jsl [<ClusterReloc>]
+if !PIXI_COMPATIBLE
+	phx
+	php
+	phb
+	txy
+endif
+
 ClusterReloc:
+if !PIXI_COMPATIBLE
+	jsl	SpriteNop		; * This address will be overwrote by sprite tool.
+	plb
+	plp
+	plx
+	rtl
+else
 	jml	SpriteNop		; * This address will be overwrote by sprite tool.
+endif
 
