@@ -3,4 +3,5 @@
 !build.sh
 !mingw_build.sh
 !x64mingw_build.sh
+!release_win32.py
 !components/

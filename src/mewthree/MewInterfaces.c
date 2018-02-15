@@ -61,7 +61,7 @@ static void _InitializeWorkspace(MewInterface*, List*);
 static bool _CollectLibraries(MewInterface*, const char*);
 static bool _InitializeRom(MewInterface*, bool, bool, bool);
 static bool _AssembleAll(MewInterface*, srcdirs* dir);
-static bool _InsertSprite(MewInterface*);
+static bool _InsertSprite(MewInterface*, bool);
 static bool _InsertExtended(MewInterface*);
 static bool _InsertCluster(MewInterface*);
 static bool _InsertOverworld(MewInterface*);
@@ -503,13 +503,14 @@ static bool _AssembleAll(MewInterface* m, srcdirs* dirs)
  * @brief Insert information about sprites(tweaks, subroutine address etc...)
  *
  * @param m mew interface object
+ * @param disableSscGen 
  *
  * @return succeeded(true) / failure(false)
  */
-static bool _InsertSprite(MewInterface* m)
+static bool _InsertSprite(MewInterface* m, bool disableSscGen)
 {
 	assertMewMew(m, mi);
-	return mi->InsertSprite(mi);
+	return mi->InsertSprite(mi, disableSscGen);
 }
 
 /**

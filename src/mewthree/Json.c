@@ -232,6 +232,108 @@ static uint8 GetTweaks(json_t* json, const char* key, uint8 (*gets)(json_t*))
 	return result;
 }
 
+static char* con(const char* s1, const char* s2)
+{
+	size_t s1len, s2len, len;
+	char* newStr;
+
+	s1len = strlen(s1);
+	s2len = strlen(s2);
+	len = s1len + s2len;
+
+	newStr = calloc(len+3, sizeof(len));
+	assert(newStr);
+
+	strcpy_s(&newStr[0], s1len+3, s1);
+	strcpy_s(&newStr[s1len], s2len+3, s2);
+
+	newStr[len+0] = '\\';
+	newStr[len+1] = 'n';
+	newStr[len+2] = '\0';
+	return newStr;
+}
+
+static char* GetStringArray(json_t* json, const char* key)
+{
+	jmp_buf e;
+	char* desc;
+	char* tmp;
+	const char* str;
+	size_t len;
+	size_t i;
+	json_t* jarray;
+	json_t* jstr;
+
+	jarray = json_object_get(json, key);
+	if(NULL == jarray || !json_is_array(jarray)) return NULL;
+
+	len = json_array_size(jarray);
+	if(0 == len) return NULL;
+
+	desc = calloc(1,sizeof(char));
+	assert(desc);
+
+	if(0 == setjmp(e))
+	{
+		for(i=0;i<len;i++)
+		{
+			jstr = json_array_get(jarray, i);
+			if(!json_is_string(jstr)) longjmp(e,1);
+
+			str = json_string_value(jstr);
+			if(NULL == str) longjmp(e,1);
+
+			tmp = con(desc, str);
+			if(NULL == tmp) longjmp(e,1);
+			free(desc);
+			desc = tmp; tmp=NULL;
+		}
+	}
+	else
+	{
+		free(desc);
+		return NULL;
+	}
+
+	len = strlen(desc);
+	if(1<len)
+	{
+		desc[len-2] = '\0';
+		desc[len-1] = '\0';
+	}
+	return desc;
+}
+
+void GetTiles(json_t* json, const char* key, List* tiles)
+{
+	size_t len;
+	size_t i;
+	json_t* jarray;
+	json_t* jtiles;
+	int* v;
+
+	jarray = json_object_get(json, key);
+	if(NULL == jarray || !json_is_array(jarray)) return;
+
+	len = json_array_size(jarray);
+	if(0 == len) return;
+
+	for(i=0;i<len;i++)
+	{
+		jtiles = json_array_get(jarray, i);
+		if(NULL==jtiles) return;
+
+		v = malloc(3*sizeof(int));
+		if(NULL==v) return;
+
+		v[0] = JsonGetInt(jtiles, "X");
+		v[1] = JsonGetInt(jtiles, "Y");
+		v[2] = JsonGetInt(jtiles, "Tile");
+
+		tiles->push(tiles,v);
+	}
+}
+
 /**
  * @brief Decode the json file
  *
@@ -252,6 +354,10 @@ CfgData* ParseJson(const char* jsonPath, int number, Observers* obs)
 
 	data = calloc(1, sizeof(CfgData));
 	assert(data);
+	data->tag.x = 7;
+	data->tag.y = 7;
+	data->tag.tiles = new_List(NULL, free);
+	assert(data->tag.tiles);
 
 	if(0 == setjmp(e)) /* try */
 	{
@@ -302,6 +408,23 @@ CfgData* ParseJson(const char* jsonPath, int number, Observers* obs)
 
 		/* get asm name2 (GIEPY INFO) */
 		data->asm_name2 = JsonGetString(jroot, "AsmFile2");
+
+		/* get X,Y */
+		data->tag.x = JsonGetInt(jroot, "X");
+		data->tag.y = JsonGetInt(jroot, "Y");
+
+		/* get sprite name for ssc */
+		data->tag.name = JsonGetString(jroot, "Name");
+
+		/* get label text for ssc */
+		data->tag.label = GetStringArray(jroot, "Label");
+		if(NULL == data->tag.label)
+		{
+			GetTiles(jroot, "Tiles", data->tag.tiles);
+		}
+
+		/* get description for ssc */
+		data->tag.description = GetStringArray(jroot, "Description");
 
 		/* release objects */
 		json_decref(jroot);

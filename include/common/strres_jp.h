@@ -211,6 +211,8 @@
 #define		GSTR_JP_PARSECFG_OLD_FORMAT_SH		"\"%s\": スプライト種別を特定できません(古いフォーマットのファイルです)。シューターと仮定します。"
 #define		GSID_JP_PARSECFG_OLD_FORMAT_GEN		(GSID_JP_BEGIN +  275)
 #define		GSTR_JP_PARSECFG_OLD_FORMAT_GEN		"\"%s\": スプライト種別を特定できません(古いフォーマットのファイルです)。ジェネレータと仮定します。"
+#define		GSID_JP_PARSECFG_TAG_INVALID		(GSID_JP_BEGIN +  276)
+#define		GSTR_JP_PARSECFG_TAG_INVALID		GSTR_JP_LIST_INVALID_SECTION
 
 #define		GSID_JP_EXTCLS_BROKEN_RELOC_ADR		(GSID_JP_BEGIN +  280)
 #define		GSTR_JP_EXTCLS_BROKEN_RELOC_ADR		"ROMの位置情報が破損しています。過去のデータからROMを復元してください。"
@@ -273,6 +275,10 @@
 #define		GSID_JP_RAMEN_END_TITLE			(GSID_JP_BEGIN +  401)
 #define		GSTR_JP_RAMEN_END_TITLE			"チーン"
 
+/* Tooltip warnings */
+#define		GSID_JP_TOOLTIP_OPEN_FAILED		(GSID_JP_BEGIN +  410)
+#define		GSTR_JP_TOOLTIP_OPEN_FAILED	"\"%s\" を開けませんでした。ファイルのアクセス権を確認してください。"
+
 #if defined(GUI) && isWindows
 
 /*--- win32 menu ---*/
@@ -303,6 +309,8 @@
 #define		GSTR_JP_MENU_OPTION_WARN	"警告情報を出力しない(&W)"
 #define		GSID_JP_MENU_OPTION_DIR		(GSID_JP_BEGIN + 2016)
 #define		GSTR_JP_MENU_OPTION_DIR		"ディレクトリ オプション(&D)"
+#define		GSID_JP_MENU_OPTION_SSC		(GSID_JP_BEGIN + 2017)
+#define		GSTR_JP_MENU_OPTION_SSC		"カスタムツールチップを作成しない(&T)"
 
 /* Help */
 #define		GSID_JP_MENU_HELP		(GSID_JP_BEGIN + 2020)
@@ -390,9 +398,21 @@
 
 /* Status bar */
 #define		GSID_JP_STSBAR_READY		(GSID_JP_BEGIN + 2260)
-#define		GSTR_JP_STSBAR_READY		"Ready"
+#define		GSTR_JP_STSBAR_READY		"レディ"
 #define		GSID_JP_STSBAR_PROGRESS		(GSID_JP_BEGIN + 2261)
 #define		GSTR_JP_STSBAR_PROGRESS		"アセンブル中 ... %d / %d"
+
+/* input error */
+#define		GSID_JP_INPUTERR_EMPTY		(GSID_JP_BEGIN + 2270)
+#define		GSTR_JP_INPUTERR_EMPTY		"\"%s\" が入力されていません。"
+#define		GSID_JP_INPUTERR_DUPKEY		(GSID_JP_BEGIN + 2271)
+#define		GSTR_JP_INPUTERR_DUPKEY		"定義名が重複しています。"
+
+/* Ini file error */
+#define		GSID_JP_INI_LOAD_FAILED		(GSID_JP_BEGIN + 2280)
+#define		GSTR_JP_INI_LOAD_FAILED		"ini ファイルの読み込みに失敗しました。初期設定で起動しますか？"
+#define		GSID_JP_INI_SAVE_FAILED		(GSID_JP_BEGIN + 2281)
+#define		GSTR_JP_INI_SAVE_FAILED		"ini ファイルの書き込みに失敗しました。ファイルのアクセス権を確認してください。"
 
 
 #endif

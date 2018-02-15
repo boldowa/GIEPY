@@ -4,6 +4,9 @@
 #include "common/types.h"
 #include <assert.h>
 #include <setjmp.h>
+#if !isWindows
+#include <strings.h>
+#endif
 #include "common/Str.h"
 #include "common/List.h"
 #include "common/ReadWrite.h"
@@ -419,6 +422,7 @@ bool AssembleAll(RomFile* rom, RomMap* map, srcdirs* dirs, List* list, LibsInser
 	Iterator* itcfg;
 	InsertItem* item;
 	FilePath* fp;
+	char* realDir = NULL;
 	jmp_buf e;
 	char* asmdir = NULL;
 	const char* sp = NULL;
@@ -463,6 +467,11 @@ bool AssembleAll(RomFile* rom, RomMap* map, srcdirs* dirs, List* list, LibsInser
 				obs->err(0, GSID_ASSEMBLE_CFG_READ_ERROR, item->fname);
 				return false;
 			}
+
+			if(false == inf->giepyIsExtBytesCode)
+			{
+				cfg->extra_byte_nums = 0;
+			}
 	
 			item->cfg = cfg;
 
@@ -470,13 +479,14 @@ bool AssembleAll(RomFile* rom, RomMap* map, srcdirs* dirs, List* list, LibsInser
 			if(cfg->new_code_flag)
 			{
 				fp = new_FilePath(cfg->path);
+				realDir = abspath(fp->dir_get(fp));
 				if(0 == setjmp(e)) /* try */
 				{
 					if(NULL != cfg->asm_name1)
 					{
 						if(false == AssembleSub(
 									rom, map, inf->giepyIsPixiCompatible,
-									fp->dir_get(fp),
+									realDir,
 									list, lman,
 									env, obs,
 									it, item, cfg->sprite_type, cfg->extra_byte_nums,
@@ -497,7 +507,7 @@ bool AssembleAll(RomFile* rom, RomMap* map, srcdirs* dirs, List* list, LibsInser
 					{
 						if(false == AssembleSub(
 									rom, map, inf->giepyIsPixiCompatible,
-									fp->dir_get(fp),
+									realDir,
 									list, lman,
 									env, obs,
 									it, item, cfg->sprite_type, cfg->extra_byte_nums,
@@ -517,10 +527,12 @@ bool AssembleAll(RomFile* rom, RomMap* map, srcdirs* dirs, List* list, LibsInser
 				else /* catch */
 				{
 					obs->err(0, GSID_ASSEMBLE_CFG_PROC_FAILED, fp->path_get(fp));
+					free(realDir);
 					delete_FilePath(&fp);
 					return false;
 				}
 				delete_FilePath(&fp);
+				free(realDir);
 			} /* cfg->new_code_flag */
 		} /* SpriteType_Sprite == item->type */
 		else

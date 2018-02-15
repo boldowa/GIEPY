@@ -4,6 +4,9 @@
 #include "common/types.h"
 #include <assert.h>
 #include <setjmp.h>
+#if !isWindows
+#include <strings.h>
+#endif
 #include "common/Str.h"
 #include "common/InsertList.h"
 #include "common/strres.h"
@@ -228,7 +231,6 @@ bool AssembleAsar(
 
 		/* write sys define */
 		tmpAsm->Printf(tmpAsm, "!SYSTEM_INITIALIZING ?= 0\n");
-		tmpAsm->Printf(tmpAsm, "!GIEPY_ONLY ?= 0\n");
 		tmpAsm->Printf(tmpAsm, "!GIEPY_VER := %06d\n", DllAppVersionInt);
 
 		/* pixi inc */
@@ -274,12 +276,6 @@ bool AssembleAsar(
 		/* write main src include */
 		tmpAsm->Printf(tmpAsm, "__main__:\n");
 		tmpAsm->Printf(tmpAsm, "incsrc \"%s\"\n", path);
-
-		/* is giepy only sprite */
-		tmpAsm->Printf(tmpAsm, "if 0 != !GIEPY_ONLY && !PIXI_COMPATIBLE\n");
-		tmpAsm->Printf(tmpAsm, "print \"GIEPY ONLY SPRITE!!\"\n");
-		tmpAsm->Printf(tmpAsm, "assert 0\n");
-		tmpAsm->Printf(tmpAsm, "endif\n");
 
 		/* write injection signature */
 		/* if(NULL != sigput) sigput(tmpAsm, data); */

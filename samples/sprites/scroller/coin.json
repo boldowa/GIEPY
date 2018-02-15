@@ -1,0 +1,23 @@
+{
+	"Type":                                                     3,
+	"SubType":                                                  5,
+
+	"Unique Info":                                              0,
+
+	"AsmFile":                                         "coin.asm",
+	"AsmFile2":                                        "coin.asm",
+
+	"Extra Bytes Length":                                       0,
+
+	"Name": "Coin",
+
+	"Description": [
+		"Get coins infinity\\ncoin coin coin ..."
+	],
+
+	"X": 7, "Y": 7,
+
+	"Label": [
+		"Coin"
+	]
+}

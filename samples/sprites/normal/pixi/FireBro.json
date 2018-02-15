@@ -1,0 +1,80 @@
+{
+	"Type":                                                     1,
+	"SubType":                                                  1,
+	"ActLike":                                                 54,
+
+	"$1656": {
+		"Object Clipping":                                  0,
+		"Can be jumped on":                              true,
+		"Dies when jumped on":                          false,
+		"Hop in/kick shell":                            false,
+		"Disappears in cloud of smoke":                 false
+	},
+	"$1662": {
+		"Sprite Clipping":                                 55,
+		"Use shell as death frame":                     false,
+		"Fall straight down when killed":                true
+	},
+	"$166E": {
+		"Use second graphics page":                      true,
+		"Palette":                                          4,
+		"Disable fireball killing":                     false,
+		"Disable cape killing":                         false,
+		"Disable water splash":                         false,
+		"Don't interact with Layer 2":                  false
+	},
+	"$167A": {
+		"Don't disable cliping when starkilled":         true,
+		"Invincible to star/cape/fire/bounce blk.":     false,
+		"Process when off screen":                      false,
+		"Don't change into shell when stunned":         false,
+		"Can't be kicked like shell":                   false,
+		"Process interaction with Mario every frame":   false,
+		"Gives power-up when eaten by Yoshi":           false,
+		"Don't use default interaction with Mario":     false
+	},
+	"$1686": {
+		"Inedible":                                     false,
+		"Stay in Yoshi's mouth":                        false,
+		"Weird ground behaviour":                       false,
+		"Don't interact with other sprites":            false,
+		"Don't change direction if touched":             true,
+		"Don't turn into coin when goal passed":        false,
+		"Spawn a new sprite":                           false,
+		"Don't interact with objects":                  false
+	},
+	"$190F": {
+		"Make platform passable from below":            false,
+		"Don't erase when goal passed":                 false,
+		"Can't be killed by sliding":                   false,
+		"Takes 5 fireballs to kill":                    false,
+		"Can be jumped on with upwards Y speed":        false,
+		"Death frame two tiles high":                   false,
+		"Don't turn into a coin with silver POW":       false,
+		"Don't get stuck in walls (carryable sprites)": false
+	},
+
+	"Extra Property Byte 1":                                    0,
+	"Extra Property Byte 2":                                    0,
+	"Unique Info":                                             15,
+
+	"AsmFile":                                      "FireBro.asm",
+	"AsmFile2":                                                "",
+
+	"Extra Bytes Length":                                       0,
+
+	"Name": "Fire Bros",
+
+	"Description": [
+		"The Fire Bro from Super Mario Bros. 3.",
+		"It walks around and occasionally hops.\\nIt periodically spits 2 fireballs at Mario."
+	],
+
+	"X": 7, "Y": 7,
+
+	"Tiles": [
+		{ "X":   0, "Y":   0, "Tile": 769 },
+		{ "X":   0, "Y": -16, "Tile": 768 },
+		{ "X":  -8, "Y":   0, "Tile": 770 }
+	]
+}

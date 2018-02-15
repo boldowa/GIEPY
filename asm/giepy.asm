@@ -8,6 +8,7 @@
 ; Changelog)
 ;   12-23-2017 :  First version.
 ;    1-12-2018 :  C3 beta version.
+;    2-15-2018 :  ver. 1.00
 ;-------------------------------------------------------------------------------
 ;--- for debug
 !SYSTEM_INITIALIZING ?= 0
@@ -17,8 +18,8 @@
 
 incsrc "include/sa1def.inc"
 
-!VER_MAJ := $00
-!VER_MIN := $01
+!VER_MAJ := $01
+!VER_MIN := $00
 
 ;---------------------------------------
 ; Check install condition

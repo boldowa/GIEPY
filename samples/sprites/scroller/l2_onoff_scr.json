@@ -1,0 +1,29 @@
+{
+	"Type":                                                     3,
+	"SubType":                                                  5,
+
+	"Unique Info":                                              0,
+
+	"AsmFile":                                 "l2_onoff_scr.asm",
+	"AsmFile2":                                                "",
+
+	"Extra Bytes Length":                                       0,
+
+	"Name": "Layer2 On/Off Switch scroller",
+
+	"Description": [
+		"[Disassembled] Layer2 On/Off switch controlled scroller",
+		"  *Fixed an earth quake issue."
+	],
+
+	"X": 4,  "Y": 7,
+
+	"Label": [
+		"Layer2",
+		"On/Off Switch fixed"
+	],
+
+	"Tiles": [
+		{ "X": 0, "Y": 0, "Tile": 0 }
+	]
+}

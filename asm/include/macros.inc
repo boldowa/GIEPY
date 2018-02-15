@@ -156,5 +156,26 @@ macro jml_assert_long(code, addr, data)
 	<code>	<addr>|!bankB
 endmacro
 
+;-------------------------------------------------
+; GIEPY only sprite assertion code
+;-------------------------------------------------
+macro GiepyOnly()
+	if !PIXI_COMPATIBLE
+		print "Error: This sprite is for GIEPY only."
+		assert 0
+	endif
+endmacro
+
+;-------------------------------------------------
+; PIXI sprite assertion code
+;-------------------------------------------------
+macro PixiSprite()
+	if !false == !PIXI_COMPATIBLE
+		print "Error: This sprite is for PIXI."
+		print "       Please enable PIXI compatible mode."
+		assert 0
+	endif
+endmacro
+
 
 endif

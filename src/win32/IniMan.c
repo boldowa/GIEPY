@@ -28,6 +28,7 @@ struct _IniMan_private {
 	BOOL isForce;
 	BOOL isExtraBytes;
 	BOOL isPixiCompatible;
+	BOOL disableSscGen;
 
 	/* info option */
 	BOOL isDebug;
@@ -59,6 +60,8 @@ static BOOL get_isExtraBytes(void);
 static void set_isExtraBytes(BOOL);
 static BOOL get_isPixiCompatible(void);
 static void set_isPixiCompatible(BOOL);
+static BOOL get_disableSscGen(void);
+static void set_disableSscGen(BOOL);
 static BOOL get_isDebug(void);
 static void set_isDebug(BOOL);
 static BOOL get_isDisableWarn(void);
@@ -130,6 +133,7 @@ static IniMan* new_IniMan(void)
 	pri->isForce = FALSE;
 	pri->isExtraBytes = FALSE;
 	pri->isPixiCompatible = FALSE;
+	pri->disableSscGen = FALSE;
 	pri->isDebug = FALSE;
 	pri->isDisableWarn = FALSE;
 	/*--- defines ---*/
@@ -166,6 +170,8 @@ static IniMan* new_IniMan(void)
 	instance->set_isExtraBytes = set_isExtraBytes;
 	instance->get_isPixiCompatible = get_isPixiCompatible;
 	instance->set_isPixiCompatible = set_isPixiCompatible;
+	instance->get_disableSscGen = get_disableSscGen;
+	instance->set_disableSscGen = set_disableSscGen;
 	instance->get_isDebug = get_isDebug;
 	instance->set_isDebug = set_isDebug;
 	instance->get_isDisableWarn = get_isDisableWarn;
@@ -272,6 +278,8 @@ static BOOL   get_isExtraBytes(void)		{ return instance->pri->isExtraBytes; }
 static void   set_isExtraBytes(BOOL b)		{ instance->pri->isExtraBytes = b; }
 static BOOL   get_isPixiCompatible(void)	{ return instance->pri->isPixiCompatible; }
 static void   set_isPixiCompatible(BOOL b)	{ instance->pri->isPixiCompatible = b; }
+static BOOL   get_disableSscGen(void)		{ return instance->pri->disableSscGen; }
+static void   set_disableSscGen(BOOL b)		{ instance->pri->disableSscGen = b; }
 static BOOL   get_isDebug(void)			{ return instance->pri->isDebug; }
 static void   set_isDebug(BOOL b)		{ instance->pri->isDebug = b; }
 static BOOL   get_isDisableWarn(void)		{ return instance->pri->isDisableWarn; }
@@ -414,6 +422,7 @@ static bool WritePVInt(LPCTSTR sec, LPCTSTR key, INT* pval)
 #define KeyIsForce		_T("IsForce")
 #define KeyIsExtraBytes		_T("IsExtraBytes")
 #define KeyIsPixiCompatible	_T("IsPixiCompatible")
+#define KeyDisableSscGen	_T("DisableSscGen")
 #define KeyIsDebug		_T("IsDebug")
 #define KeyIsDisableWarn	_T("IsDisableWarn")
 
@@ -574,6 +583,7 @@ static bool loadIni(void)
 	if(!GetPVInt(SecFlags, KeyIsForce, &instance->pri->isForce)) return false;
 	if(!GetPVInt(SecFlags, KeyIsExtraBytes, &instance->pri->isExtraBytes)) return false;
 	if(!GetPVInt(SecFlags, KeyIsPixiCompatible, &instance->pri->isPixiCompatible)) return false;
+	if(!GetPVInt(SecFlags, KeyDisableSscGen, &instance->pri->disableSscGen)) return false;
 	if(!GetPVInt(SecFlags, KeyIsDebug, &instance->pri->isDebug)) return false;
 	if(!GetPVInt(SecFlags, KeyIsDisableWarn, &instance->pri->isDisableWarn)) return false;
 
@@ -687,6 +697,7 @@ static bool saveIni(void)
 	if(!WritePVInt(SecFlags, KeyIsForce, &instance->pri->isForce)) return false;
 	if(!WritePVInt(SecFlags, KeyIsExtraBytes, &instance->pri->isExtraBytes)) return false;
 	if(!WritePVInt(SecFlags, KeyIsPixiCompatible, &instance->pri->isPixiCompatible)) return false;
+	if(!WritePVInt(SecFlags, KeyDisableSscGen, &instance->pri->disableSscGen)) return false;
 	if(!WritePVInt(SecFlags, KeyIsDebug, &instance->pri->isDebug)) return false;
 	if(!WritePVInt(SecFlags, KeyIsDisableWarn, &instance->pri->isDisableWarn)) return false;
 
@@ -708,7 +719,7 @@ static bool saveIni(void)
 	return true;
 }
 
-static bool   add_definesList(DefineListItem* dli)
+static bool add_definesList(DefineListItem* dli)
 {
 	DefineListItem* old = NULL;
 	int i,j;
@@ -716,6 +727,16 @@ static bool   add_definesList(DefineListItem* dli)
 	if(NULL==dli) return false;
 	if(NULL==dli->name) return false;
 	if(NULL==dli->defines) return false;
+
+	if(NULL == instance->pri->definesLists)
+	{
+		int x;
+		DefineListItem** tmp;
+		tmp = malloc((uint)(instance->pri->definesListNums+1)*sizeof(DefineListItem*));
+		if(NULL==tmp) return false;
+		for(x=0;x<(instance->pri->definesListNums+1);x++) tmp[x]=NULL;
+		instance->pri->definesLists = tmp;
+	}
 
 	/* count contents */
 	for(i=0; i<instance->pri->definesListNums; i++)

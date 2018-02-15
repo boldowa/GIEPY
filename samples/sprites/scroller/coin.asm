@@ -1,8 +1,7 @@
-@include
 ;-------------------------------------------------
 ; custom scroller code for debug
 ;-------------------------------------------------
-CScrollerInit:
+init:
 	%putdebug("CScrollerInit")
 	phb
 	phk
@@ -10,8 +9,7 @@ CScrollerInit:
 	jsr	CSI
 	plb
 	rtl
-
-CScrollerMain:
+main:
 	%putdebug("CScrollerMain")
 	phb
 	phk

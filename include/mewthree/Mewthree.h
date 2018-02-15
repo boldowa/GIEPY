@@ -38,7 +38,7 @@ struct _Mewthree {
 	bool (*CollectLibraries)(Mewthree*, const char*);
 	bool (*InitializeRom)(Mewthree*, bool, bool, bool);
 	bool (*AssembleAll)(Mewthree*, srcdirs* dir);
-	bool (*InsertSprite)(Mewthree*);
+	bool (*InsertSprite)(Mewthree*, bool disableSscGen);
 	bool (*InsertExtended)(Mewthree*);
 	bool (*InsertCluster)(Mewthree*);
 	bool (*InsertOverworld)(Mewthree*);

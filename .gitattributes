@@ -3,6 +3,7 @@
 #-----------------------------
 *			text=auto
 
+*.txt			text eol=crlf
 *.asm			text eol=crlf
 *.inc			text eol=crlf
 *.cfg			text eol=crlf

@@ -74,7 +74,7 @@ static void _InitializeWorkspace(Mewthree*, List*);
 static bool _CollectLibraries(Mewthree*, const char*);
 static bool _InitializeRom(Mewthree*, bool, bool, bool);
 static bool _AssembleAll(Mewthree*, srcdirs* dirs);
-static bool _InsertSprite(Mewthree*);
+static bool _InsertSprite(Mewthree*, bool disableSscGen);
 static bool _InsertExtended(Mewthree*);
 static bool _InsertCluster(Mewthree*);
 static bool _InsertOverworld(Mewthree*);
@@ -373,9 +373,9 @@ static bool _AssembleAll(Mewthree* mi, srcdirs* dirs)
 	return AssembleAll(mi->pro->rom, &mi->pro->map, dirs, mi->pro->inslist, mi->pro->libsMan, &mi->pro->inf, &mi->pro->env, &mi->pro->obs);
 }
 
-static bool _InsertSprite(Mewthree* mi)
+static bool _InsertSprite(Mewthree* mi, bool disableSscGen)
 {
-	return InsertSprites(mi->pro->rom, &mi->pro->inf, mi->pro->inslist, &mi->pro->env, &mi->pro->obs);
+	return InsertSprites(mi->pro->rom, &mi->pro->inf, mi->pro->inslist, disableSscGen, &mi->pro->env, &mi->pro->obs);
 }
 
 static bool _InsertExtended(Mewthree* mi)

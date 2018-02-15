@@ -9,9 +9,7 @@
 #define isWindows 1
 //#include "common/strres.h"
 
-/**
- * StringVersionInfo
- */
+// StringVersionInfo
 #define ResV(i) Res(i)
 #define _Res(s,term)	s # term
 #define Res(s)		_Res(#s,\0)
@@ -21,8 +19,8 @@ ICON_PIEE	ICON	DISCARDABLE	"piee.ico"
 CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "piee.manifest"
 
 VS_VERSION_INFO VERSIONINFO
-	FILEVERSION	ResVersion
-	PRODUCTVERSION	ResVersion
+	FILEVERSION	Win32ResVersion
+	PRODUCTVERSION	Win32ResVersion
 	FILEOS		VOS__WINDOWS32
 	FILETYPE	VFT_APP
 	FILESUBTYPE	VFT2_UNKNOWN
