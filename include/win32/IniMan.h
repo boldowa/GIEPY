@@ -24,6 +24,8 @@ struct _IniMan {
 	void (*set_isExtraBytes)(BOOL);
 	BOOL (*get_isPixiCompatible)(void);
 	void (*set_isPixiCompatible)(BOOL);
+	BOOL (*get_disableSscGen)(void);
+	void (*set_disableSscGen)(BOOL);
 	BOOL (*get_isDebug)(void);
 	void (*set_isDebug)(BOOL);
 	BOOL (*get_isDisableWarn)(void);

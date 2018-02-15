@@ -41,6 +41,7 @@ typedef struct _OptionValue {
 	bool enableExtraBytes;
 	bool forceReInstall;
 	bool isPixiCompatible;
+	bool disableSscGen;
 	const char* listName;
 	const char* libsDirName;
 	const char* spritesDirName;
@@ -135,7 +136,7 @@ static bool Insert(MewInterface* mew, const OptionValue* opt)
 
 	/* insert sprites */
 	putinf(OBSFLG_IMPORTANT, GSID_INSERT_SPRITES);
-	if(false == mew->InsertSprite(mew))
+	if(false == mew->InsertSprite(mew, opt->disableSscGen))
 	{
 		return false;
 	}
@@ -262,6 +263,7 @@ int Giepy(int argc, TCHAR** argv)
 		{ "bytes",	'b', "enable extra bytes feature", OptionType_Bool, &opt.enableExtraBytes },
 		{ "force",	'f', "force re-install " AppName , OptionType_Bool, &opt.forceReInstall },
 		{ "pixi",	'p', "PIXI compatible mode" , OptionType_Bool, &opt.isPixiCompatible },
+		{ "notooltip",	't', "disable to generate custom tooltips" , OptionType_Bool, &opt.disableSscGen },
 		{ "list",	'l', "specify list file path (default: " DefaultListName ")", OptionType_String, (void*)&opt.listName },
 		{ "library",	'L', "specify library dir (default: " DefaultLibsDirName ")", OptionType_String, (void*)&opt.libsDirName },
 		{ "sprite",	's', "specify sprites dir (default: " DefaultSprDirName ")", OptionType_String, (void*)&opt.spritesDirName },
@@ -274,7 +276,7 @@ int Giepy(int argc, TCHAR** argv)
 		{ "cfgcheck",	'C', "check cfg file syntax", OptionType_Bool|OPT_Hyde, &cfgSyntaxCheckMode },
 		{ "jsoncheck",	'J', "check json file syntax", OptionType_Bool|OPT_Hyde, &jsonSyntaxCheckMode },
 		{ "uninstall",	'u', "uninstall " AppName, OptionType_Bool, &uninstallMode },
-		{ "nwarn",	'w', "disable verbose warningas", OptionType_Bool, &disableWarn },
+		{ "nowarn",	'w', "disable to verbose warningas", OptionType_Bool, &disableWarn },
 		{ "debug",	'd', "verbose debug info", OptionType_Bool, &vdebug },
 		{ "version",	'v', "show version", OptionType_Bool, &showVersion },
 		{ "help",	'?', "show help message", OptionType_Bool, &showHelp },
@@ -320,6 +322,7 @@ int Giepy(int argc, TCHAR** argv)
 	opt.enableExtraBytes = false;
 	opt.forceReInstall = false;
 	opt.isPixiCompatible = false;
+	opt.disableSscGen = false;
 	opt.listName = DefaultListName;
 	opt.libsDirName = DefaultLibsDirName;
 	opt.spritesDirName = DefaultSprDirName;

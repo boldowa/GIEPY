@@ -8,6 +8,7 @@
 #include "common/defines.h"
 #include "common/strres.h"
 #include "common/GetFmtStr.h"
+#include "common/Observer.h"
 #include "win32/IniMan.h"
 #include "win32/PieeDialog.h"
 #include "win32/DirOptDialogProc.h"
@@ -56,7 +57,6 @@ static void RemoveSpaces(TCHAR* str, size_t* plen)
 static void OnOK(HWND hWnd, WORD wNotify, HWND hControl)
 {
 	TCHAR buf[MAX_PATH];
-	TCHAR ctlStr[256];
 	HWND hCtl;
 	IniMan* ini = IniMan_GetInstance();
 	uint i;
@@ -82,8 +82,7 @@ static void OnOK(HWND hWnd, WORD wNotify, HWND hControl)
 		RemoveSpaces(buf, &len);
 		if(0 == len)
 		{
-			sprintf_s(ctlStr, sizeof(TCHAR)*256, "%s", GetFmtStr(ctlSaveData[i].idStr));
-			/* TODO: puterr */
+			puterrimm(0, GSID_INPUTERR_EMPTY, GetFmtStr(ctlSaveData[i].idStr));
 			return;
 		}
 	}

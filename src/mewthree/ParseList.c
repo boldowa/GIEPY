@@ -626,7 +626,7 @@ bool ParseList(const char* listName, List** listPtr, MewEnvStruct* env, Observer
 			linebuf = lstFile->GetLine(lstFile);
 		}
 
-		env->ListDir = Str_copy(lstFile->super.dir_get(&lstFile->super));
+		env->ListDir =  abspath(lstFile->super.dir_get(&lstFile->super));
 		delete_TextFile(&lstFile);
 	}
 	else

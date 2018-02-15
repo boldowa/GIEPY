@@ -1,9 +1,8 @@
-@include
 ;-------------------------------------------------
-; Cluster sprite initialize code for debug
+; Cluster sprite initialize code
 ; (boo ring generator)
 ;
-; [Scratch Memory Usage]
+; [Initializer's Scratch Memory Usage]
 ;   $00       ... Screen boundary X(Y) + offset
 ;   $01       ... Screen boundary X(Y) + offset
 ;   $02       ... 's' bit (#$10 or #$00)
@@ -18,29 +17,21 @@
 ;   $98       ... extra bytes pointer (if you enabled it)
 ;-------------------------------------------------
 
-!NumOfGenerate = 10
-
-ClusterGen:
-	%putdebug("ClusterGen")
-	phb
-	phk
-	plb
-	jsr	GenCluster
-	plb
-	rtl
+;!NumOfGenerate = 10
 
 GenCluster:
+	%putdebug("ClusterGen")
+
 	;--- Get extra byte
 if !true == !EXTRA_BYTES_EXT
-;	ldy.b	$03		; get sprite data index
-;	iny			;\
-;	iny			; | skip until extra byte
-;	iny			;/
-;	lda.b	[$ce],y		;   get extra byte
 	lda.b	[$98]
 	dec
 else
-	lda.b	#!NumOfGenerate-1
+;	lda.b	#!NumOfGenerate-1
+	xba			; get unique info
+	bne	+		; if 0 is specified, nothing to do.
+	rts
++	dec
 endif
 	sta.b	$0e		; set cluster sprite number
 
@@ -101,4 +92,16 @@ endif
 	inc.w	$18ba|!base2
 .return
 	rts                       ; return 
+
+
+;---------------------------------------
+; Entry point
+;---------------------------------------
+	print	"INIT ", pc
+	phb
+	phk
+	plb
+	jsr	GenCluster
+	plb
+	rtl
 

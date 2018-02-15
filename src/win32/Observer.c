@@ -176,6 +176,7 @@ uint putwar(uint flag, uint id, ...)
 	{
 		va_start(vl, id);
 		PushStrCommon(warnList,id,vl);
+		if(vdebug) PushStrCommon(dbgList,id,vl);
 		va_end(vl);
 	}
 
@@ -188,6 +189,7 @@ uint puterr(uint flag, uint id, ...)
 
 	va_start(vl, id);
 	PushStrCommon(errList,id,vl);
+	if(vdebug) PushStrCommon(dbgList,id,vl);
 	va_end(vl);
 
 	return MEW_OBS_OK;
@@ -199,6 +201,22 @@ uint putfatal(uint flag, uint id, ...)
 
 	va_start(vl, id);
 	PushStrCommon(fatalList,id,vl);
+	if(vdebug) PushStrCommon(dbgList,id,vl);
+	va_end(vl);
+
+	return MEW_OBS_OK;
+}
+
+uint puterrimm(uint flag, uint id, ...)
+{
+	va_list vl;
+	TCHAR buf[2048];
+
+	va_start(vl, id);
+
+	vsprintf(buf, GetFmtStr(id), vl);
+	MessageBox(hMainWnd, buf, GetFmtStr(GSID_ERROR), MB_ICONHAND);
+
 	va_end(vl);
 
 	return MEW_OBS_OK;

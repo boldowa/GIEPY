@@ -1,0 +1,14 @@
+[Remarks]
+  This is the file for test giepy.
+
+[Sprite]
+00:1	scroller/l2_onoff_scr.json
+00:2	initializer/boo_ring_gen.cfg
+//00:3	normal/pixi/FireBro.json		// please read "readme.txt" in the same directory.
+01:1	shooter/grp3cshoot.cfg
+01:2	scroller/coin.json
+
+[Extended]
+
+[Cluster]
+

@@ -2,6 +2,14 @@
 /**
  * @file CfgData.h
  */
+typedef struct _TagData {
+	char*		name;
+	char*		description;
+	char*		label;
+	int		x;
+	int		y;
+	List*		tiles;
+} TagData;
 typedef struct _CfgData {
 	char*		basename;
 	char*		path;
@@ -17,4 +25,5 @@ typedef struct _CfgData {
 	uint8		extra_byte_nums;	/* line  9 */
 	char*		asm_name2;		/* line 10 */
 	InsertInf	insinf2;
+	TagData		tag;
 }CfgData;

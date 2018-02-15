@@ -19,6 +19,7 @@
 #include "file/FilePath.h"
 #include "file/File.h"
 #include "file/TextFile.h"
+#include "file/libfile.h"
 #include "mewthree/MewEnv.h"
 #include "mewthree/SearchPath.h"
 #include "mewthree/LibsInsertMan.h"

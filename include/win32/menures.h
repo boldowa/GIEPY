@@ -18,6 +18,7 @@
 #define ID_OPTION_DEBUG		114
 #define ID_OPTION_WARN		115
 #define ID_OPTION_DIR		116
+#define ID_OPTION_SSC		117
 
 /* Help */
 #define ID_HELP			120

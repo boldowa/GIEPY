@@ -204,6 +204,8 @@
 #define		GSTR_PARSECFG_OLD_FORMAT_SH	"\"%s\": It couldn't identify the type of sprite(it is an old format cfg). It's assumed that it is a shooter."
 #define		GSID_PARSECFG_OLD_FORMAT_GEN	(GSID_BEGIN +  275)
 #define		GSTR_PARSECFG_OLD_FORMAT_GEN	"\"%s\": It couldn't identify the type of sprite(it is an old format cfg). It's assumed that it is a generator."
+#define		GSID_PARSECFG_TAG_INVALID	(GSID_BEGIN +  276)
+#define		GSTR_PARSECFG_TAG_INVALID	GSTR_LIST_INVALID_SECTION
 
 #define		GSID_EXTCLS_BROKEN_RELOC_ADR	(GSID_BEGIN +  280)
 #define		GSTR_EXTCLS_BROKEN_RELOC_ADR	"Location information in ROM is broken. Please restore the ROM from the previous data."
@@ -266,6 +268,10 @@
 #define		GSID_RAMEN_END_TITLE		(GSID_BEGIN +  401)
 #define		GSTR_RAMEN_END_TITLE		"('tt')"
 
+/* Tooltip warnings */
+#define		GSID_TOOLTIP_OPEN_FAILED	(GSID_BEGIN +  410)
+#define		GSTR_TOOLTIP_OPEN_FAILED	"Failed to open \"%s\". Please check write permission of file."
+
 #if defined(GUI) && isWindows
 
 /*--- win32 menu ---*/
@@ -297,6 +303,8 @@
 #define		GSTR_MENU_OPTION_WARN		"Don't care &Warnings"
 #define		GSID_MENU_OPTION_DIR		(GSID_BEGIN + 2016)
 #define		GSTR_MENU_OPTION_DIR		"&Directory option"
+#define		GSID_MENU_OPTION_SSC		(GSID_BEGIN + 2017)
+#define		GSTR_MENU_OPTION_SSC		"Disable to generate Custom &Tooltips"
 
 /* Help */
 #define		GSID_MENU_HELP			(GSID_BEGIN + 2020)
@@ -387,6 +395,18 @@
 #define		GSTR_STSBAR_READY		"Ready"
 #define		GSID_STSBAR_PROGRESS		(GSID_BEGIN + 2261)
 #define		GSTR_STSBAR_PROGRESS		"Assembling ... %d / %d"
+
+/* input error */
+#define		GSID_INPUTERR_EMPTY		(GSID_BEGIN + 2270)
+#define		GSTR_INPUTERR_EMPTY		"\"%s\" is empty."
+#define		GSID_INPUTERR_DUPKEY		(GSID_BEGIN + 2271)
+#define		GSTR_INPUTERR_DUPKEY		"Define name is duplicated."
+
+/* Ini file error */
+#define		GSID_INI_LOAD_FAILED		(GSID_BEGIN + 2280)
+#define		GSTR_INI_LOAD_FAILED		"Failed to load ini file. Would you like to start with the default settings?"
+#define		GSID_INI_SAVE_FAILED		(GSID_BEGIN + 2281)
+#define		GSTR_INI_SAVE_FAILED		"Failed to save ini file. Please check write permission of ini file."
 
 
 #endif

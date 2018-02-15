@@ -5,14 +5,10 @@
 #include "version.h"
 #include <windows.h>
 
-/**
- * StringVersionInfo
- */
+// StringVersionInfo
 #define ResV(i) Res(i)
 #define _Res(s,term)	s # term
 #define Res(s)		_Res(#s,\0)
-
-//UNKO	ICON	DISCARDABLE	"unko.ico"
 
 VS_VERSION_INFO VERSIONINFO
 	FILEVERSION	ResVersion

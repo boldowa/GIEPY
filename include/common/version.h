@@ -11,9 +11,9 @@
 /**
  * CUI Version
  */
-#define AppVersion		0.50
-#define ResVersion		0,5,0,0
-#define FileVersion		1
+#define AppVersion		1.00
+#define ResVersion		1,0,0,0
+#define FileVersion		2
 
 /**
  * Core DLL Name
@@ -23,10 +23,10 @@
 /**
  * DLL Version
  */
-#define DllAppVersion		0.50
-#define DllAppVersionInt	005000
-#define DllResVersion		0,5,0,0
-#define DllFileVersion		1
+#define DllAppVersion		1.00
+#define DllAppVersionInt	010000
+#define DllResVersion		1,0,0,0
+#define DllFileVersion		2
 
 /**
  * GUI App Name
@@ -36,9 +36,9 @@
 /**
  * GUI App Version
  */
-#define Win32AppVersion		0.01
-#define Win32ResVersion		0,0,1,0
-#define Win32FileVersion	0
+#define Win32AppVersion		1.00
+#define Win32ResVersion		1,0,0,0
+#define Win32FileVersion	1
 
 /**
  * GIEPY main asm version
@@ -53,7 +53,7 @@
  *         ... It's necesary to match the version info
  *             of this one.
  */
-#define CodeVer_Maj		0x00
-#define CodeVer_Min		0x01
+#define CodeVer_Maj		0x01
+#define CodeVer_Min		0x00
 #define CodeVersion		((CodeVer_Maj<<8)+CodeVer_Min)
 

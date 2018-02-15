@@ -5,6 +5,8 @@
 #include <windows.h>
 #include <commctrl.h>
 #include <tchar.h>
+#include "common/strres.h"
+#include "common/Observer.h"
 #include "win32/NewLVEditProc.h"
 #include "win32/NewListViewProc.h"
 
@@ -126,7 +128,7 @@ static LRESULT NotifyHandler(HWND hWnd, INT id, LPARAM lParam, bool* bHandled)
 						{
 							/* define name is duplicated... */
 							duplicate = true;
-							/* TODO: Duplicate Error */
+							puterrimm(0, GSID_INPUTERR_DUPKEY);
 						}
 					}
 					if(!duplicate)

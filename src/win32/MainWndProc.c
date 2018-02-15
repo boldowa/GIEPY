@@ -53,6 +53,7 @@ typedef struct _ThreadData {
 	bool isPixiCompatible;
 	bool enableExtraBytes;
 	bool forceReInstall;
+	bool disableSscGen;
 } ThreadData;
 typedef struct _MewController {
 	HANDLE hThread;
@@ -240,6 +241,12 @@ void InsertOptionMenu(HMENU hMenu)
 	mii.dwTypeData	= GetFmtStr(GSID_MENU_OPTION_FORCE);
 	mii.dwItemData	= (DWORD)ini->set_isForce;
 	InsertMenuItem(hPopup, ID_OPTION_FORCE, FALSE, &mii);
+
+	mii.fState	= ini->get_disableSscGen() ? MFS_CHECKED : MFS_UNCHECKED;
+	mii.wID		= ID_OPTION_SSC;
+	mii.dwTypeData	= GetFmtStr(GSID_MENU_OPTION_SSC);
+	mii.dwItemData	= (DWORD)ini->set_disableSscGen;
+	InsertMenuItem(hPopup, ID_OPTION_SSC, FALSE, &mii);
 
 	mii.fMask	= MIIM_FTYPE;
 	mii.fType	= MFT_SEPARATOR;
@@ -697,7 +704,7 @@ static bool Insert(ThreadData* td)
 
 	/* insert sprites */
 	putinf(OBSFLG_IMPORTANT, GSID_INSERT_SPRITES);
-	if(false == mew->InsertSprite(mew))
+	if(false == mew->InsertSprite(mew, td->disableSscGen))
 	{
 		return false;
 	}
@@ -784,7 +791,6 @@ static UINT CALLBACK ThreadProc(LPVOID lpData)
 		result = td->mew->WriteRomFile(td->mew);
 		if(false == result)
 		{
-			/* TODO: Error */
 			putfatal(OBSFLG_FAILURE, GSID_ROM_WRITE_FAILED);
 		}
 	}
@@ -901,6 +907,7 @@ static BOOL CreateProcessThread(HWND hWnd, MewController* mewCtrl, UINT uId)
 	mewCtrl->td->isPixiCompatible = ini->get_isPixiCompatible();
 	mewCtrl->td->enableExtraBytes = ini->get_isExtraBytes();
 	mewCtrl->td->forceReInstall = ini->get_isForce();
+	mewCtrl->td->disableSscGen = ini->get_disableSscGen();
 	mewCtrl->td->defineList = GenerateDefinesFromLV(hWnd);
 
 	hControl = GetDlgItem(hWnd, ID_CMB_ROM_FILE);
@@ -938,7 +945,7 @@ static BOOL ValidCheck(HWND hWnd)
 	hCtl = GetDlgItem(hWnd, ID_CMB_ROM_FILE);
 	if(0 == GetWindowTextLength(hCtl))
 	{
-		/* TODO: show error */
+		puterrimm(0, GSID_INPUTERR_EMPTY, GetFmtStr(GSID_MAINWND_ROM_FILE));
 		return FALSE;
 	}
 
@@ -946,7 +953,7 @@ static BOOL ValidCheck(HWND hWnd)
 	hCtl = GetDlgItem(hWnd, ID_CMB_LIST_FILE);
 	if(0 == GetWindowTextLength(hCtl))
 	{
-		/* TODO: show error */
+		puterrimm(0, GSID_INPUTERR_EMPTY, GetFmtStr(GSID_MAINWND_LIST_FILE));
 		return FALSE;
 	}
 
@@ -1080,6 +1087,7 @@ static BOOL CommandHandler(HWND hWnd, WORD wId, WORD wNotify, HWND hControl)
 		case ID_OPTION_FORCE:
 		case ID_OPTION_DEBUG:
 		case ID_OPTION_WARN:
+		case ID_OPTION_SSC:
 		{
 			MENUITEMINFO mii;
 			ZeroMemory(&mii, sizeof(MENUITEMINFO));
@@ -1301,7 +1309,10 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			InitCommonControls();
 			if(false == IniMan_GetInstance()->load())
 			{
-				/* TODO: showError */
+				if(MEW_OBS_YES!=putques(0,GSID_INI_LOAD_FAILED))
+				{
+					return -1;
+				}
 
 				/* discard ini config (for use default config) */
 				IniMan_DiscardInstance();
@@ -1315,7 +1326,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			SaveRecentPaths(hWnd);
 			if(false == IniMan_GetInstance()->save())
 			{
-				/* TODO: showError */
+				puterrimm(0, GSID_INI_SAVE_FAILED);
 			}
 			IniMan_DiscardInstance();
 			UninitObserver();

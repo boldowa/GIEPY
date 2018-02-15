@@ -37,7 +37,7 @@ struct _MewInterface {
 	bool (*CollectLibraries)(MewInterface*, const char*);
 	bool (*InitializeRom)(MewInterface*, bool, bool, bool);
 	bool (*AssembleAll)(MewInterface*, srcdirs* dir);
-	bool (*InsertSprite)(MewInterface*);
+	bool (*InsertSprite)(MewInterface*, bool);
 	bool (*InsertExtended)(MewInterface*);
 	bool (*InsertCluster)(MewInterface*);
 	bool (*InsertOverworld)(MewInterface*);

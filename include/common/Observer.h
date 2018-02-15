@@ -14,6 +14,7 @@ uint putwar(uint flag, uint id, ...);
 uint puterr(uint flag, uint id, ...);
 uint putfatal(uint flag, uint id, ...);
 void progress(uint cur, uint all);
+uint puterrimm(uint flag, uint id, ...);
 #if defined(GUI) && isWindows
 #include <windows.h>
 bool InitObserver(HWND hWnd);

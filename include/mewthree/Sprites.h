@@ -3,6 +3,6 @@
  * @file Sprites.h
  */
 
-bool InsertSprites(RomFile* rom, MewInsInfo* inf, List* iList, MewEnvStruct* env, Observers* obs);
+bool InsertSprites(RomFile* rom, MewInsInfo* inf, List* iList, bool disableSscGen, MewEnvStruct* env, Observers* obs);
 
 

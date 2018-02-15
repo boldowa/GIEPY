@@ -2,6 +2,9 @@
  * @file ChkAsmType.c
  */
 #include "common/types.h"
+#if !isWindows
+#  include <strings.h>
+#endif
 #include "common/Str.h"
 #include "common/Observer.h"
 #include "common/Funex.h"

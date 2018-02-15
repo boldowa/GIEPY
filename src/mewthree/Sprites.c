@@ -8,10 +8,13 @@
 #include "common/ReadWrite.h"
 #include "common/strres.h"
 #include "common/InsertList.h"
+#include "common/strres.h"
 #include "common/Observer.h"
 #include "common/CfgData.h"
+#include "file/FilePath.h"
 #include "file/File.h"
 #include "file/RomFile.h"
+#include "file/TextFile.h"
 #include "mewthree/MewEnv.h"
 #include "mewthree/InsInfo.h"
 #include "mewthree/Exbytes.h"
@@ -198,6 +201,68 @@ static void OpiUpdate(opi* o, int grp, int num)
 	o[grp].nums++;
 }
 
+static void WriteSsc(InsertItem* item, TextFile* ssc)
+{
+	if(NULL==ssc) return;
+
+	if(NULL!=item->cfg->tag.description)
+		ssc->Printf(ssc, "%02X	%2d	%s\n", item->number, item->grp*10, item->cfg->tag.description);
+	else
+		ssc->Printf(ssc, "%02X	%2d	%s\n", item->number, item->grp*10, item->cfg->basename);
+
+	if(NULL!=item->cfg->tag.label)
+		ssc->Printf(ssc, "%02X	%2d	0,0,*%s*\n", item->number, (item->grp*10)+2, item->cfg->tag.label);
+	else
+	{
+		Iterator* it;
+		int* v;
+		List* l = item->cfg->tag.tiles;
+		if(0 != l->length(l))
+		{
+			ssc->Printf(ssc, "%02X	%2d	", item->number, (item->grp*10)+2);
+			for(it=l->begin(l); NULL!=it; it=it->next(it))
+			{
+				v = (int*)it->data(it);
+				ssc->Printf(ssc, "%d,%d,%X ", v[0], v[1], v[2]);
+			}
+			ssc->Printf(ssc, "\n");
+		}
+	}
+}
+
+static void WriteMwt(InsertItem* item, TextFile* mwt)
+{
+	static int nPrevious = -1;
+	if(NULL==mwt) return;
+
+	if(nPrevious != item->number) mwt->Printf(mwt, "%02X", item->number);
+	nPrevious = item->number;
+	if(NULL != item->cfg->tag.name)
+		mwt->Printf(mwt, "	%s\n", item->cfg->tag.name);
+	else
+		mwt->Printf(mwt, "	%s\n", item->cfg->basename);
+}
+
+static void WriteMw2(InsertItem* item, FILE* mw2)
+{
+	uint8 buf[260] = {0};
+	if(NULL==mw2) return;
+
+	buf[0]  = (uint8)((item->cfg->tag.y & 0xf)<<4);		/* Y */
+	buf[0] |= (uint8)(item->grp<<2);			/* extra bits */
+	buf[0] |= (uint8)1;					/* top/bottom bit */
+	buf[1]  = (uint8)((item->cfg->tag.x & 0xf)<<4);		/* X */
+	buf[2]  = (uint8)(item->number);
+	fwrite(buf, 1, (size_t)(3+item->cfg->extra_byte_nums), mw2);
+}
+
+static void WriteToolTips(InsertItem* item, TextFile* ssc, TextFile* mwt, FILE* mw2)
+{
+	WriteSsc(item,ssc);
+	WriteMwt(item,mwt);
+	WriteMw2(item,mw2);
+}
+
 /**
  * @brief Insert sprite information into ROM image.
  *
@@ -206,10 +271,11 @@ static void OpiUpdate(opi* o, int grp, int num)
  * @param iList Insert list
  * @param env Environment
  * @param obs Observer
+ * @param ssc Custom Tooltips file object
  *
  * @return succeeded / failure
  */
-bool InsertSprites(RomFile* rom, MewInsInfo* inf, List* iList, MewEnvStruct* env, Observers* obs)
+bool InsertSpritesMain(RomFile* rom, MewInsInfo* inf, List* iList, MewEnvStruct* env, Observers* obs, TextFile* ssc, TextFile* mwt, FILE* mw2)
 {
 	Iterator* it;
 	Iterator* it_next;
@@ -335,6 +401,7 @@ bool InsertSprites(RomFile* rom, MewInsInfo* inf, List* iList, MewEnvStruct* env
 				return false;
 		}
 
+		WriteToolTips(item, ssc, mwt, mw2);
 		it_next = it->next(it);
 		iList->remove(iList, it);
 		it = it_next;
@@ -521,5 +588,93 @@ bool InsertSprites(RomFile* rom, MewInsInfo* inf, List* iList, MewEnvStruct* env
 	}
 
 	return true;
+}
+
+/**
+ * @brief Insert sprite information into ROM image.
+ *
+ * @param rom ROM file object
+ * @param inf system information
+ * @param iList Insert list
+ * @param env Environment
+ * @param obs Observer
+ *
+ * @return succeeded / failure
+ */
+bool InsertSprites(RomFile* rom, MewInsInfo* inf, List* iList, bool disableSscGen, MewEnvStruct* env, Observers* obs)
+{
+	bool r;
+	TextFile* ssc = NULL;
+	TextFile* mwt = NULL;
+	FILE*     mw2 = NULL;
+	FilePath* fp;
+	uint8 buf;
+
+	if(!disableSscGen)
+	{
+
+		fp = new_FilePath(rom->super.path_get(&rom->super));
+		if(NULL!=fp)
+		{
+			fp->ext_set(fp, ".ssc");
+			ssc = new_TextFile(fp->path_get(fp));
+			fp->ext_set(fp, ".mwt");
+			mwt = new_TextFile(fp->path_get(fp));
+			fp->ext_set(fp, ".mw2");
+			if(NULL==ssc || FileOpen_NoError!=ssc->Open2(ssc,"w"))
+			{
+				obs->err(0, GSID_TOOLTIP_OPEN_FAILED, ssc->super.path_get(&ssc->super));
+				delete_TextFile(&ssc);
+			}
+			if(NULL==mwt || FileOpen_NoError!=mwt->Open2(mwt,"w"))
+			{
+				obs->err(0, GSID_TOOLTIP_OPEN_FAILED, mwt->super.path_get(&mwt->super));
+				delete_TextFile(&mwt);
+			}
+			if(NULL == (mw2 = fopen(fp->path_get(fp), "wb")))
+			{
+				obs->err(0, GSID_TOOLTIP_OPEN_FAILED, fp->path_get(fp));
+			}
+			else
+			{
+				buf=0; /* sprite data header byte */
+				fwrite(&buf,1,1,mw2);
+			}
+		}
+	}
+
+	r = InsertSpritesMain(rom, inf, iList, env, obs, ssc, mwt, mw2);
+
+	if(NULL!=ssc)
+	{
+		TextFile* ssx = NULL;
+
+		fp->ext_set(fp, ".ssx");
+		ssx = new_TextFile(fp->path_get(fp));
+
+		if(NULL!=ssx && FileOpen_NoError==ssx->Open2(ssx,"r"))
+		{
+			const char* linebuf;
+
+			linebuf = ssx->GetLine(ssx);
+			while(NULL!=linebuf)
+			{
+				ssc->Printf(ssc, "%s\n",linebuf);
+				linebuf = ssx->GetLine(ssx);
+			}
+		}
+		delete_TextFile(&ssx);
+	}
+	if(NULL != mw2)
+	{
+		buf=0xff; /* term code */
+		fwrite(&buf,1,1,mw2);
+		fclose(mw2);
+	}
+
+	delete_TextFile(&ssc);
+	delete_TextFile(&mwt);
+	delete_FilePath(&fp);
+	return r;
 }
 
