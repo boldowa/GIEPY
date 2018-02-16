@@ -1,0 +1,24 @@
+#-------------------------------------------------
+# ignore main repo files
+#-------------------------------------------------
+# files
+/CMakeList.txt
+/Makefile
+/tags
+/ct.sh
+
+# directories
+/asm/
+/build/
+/doc/
+/etc/
+/include/
+/junk_code/
+/lib/
+/objs/
+/samples/
+/scripts/
+/src/
+/tests/
+/toolchain/
+
