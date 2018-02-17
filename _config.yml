@@ -1,5 +1,23 @@
-title: Slate theme
-description: Slate is a theme for GitHub Pages.
-show_downloads: true
+title: GIEPY
+description: An Sprite Insertion Tool For SMW
+show_downloads: false
 google_analytics:
 theme: jekyll-theme-slate
+########################################
+###
+github:
+        is_project_page: true
+        owner_name: boldowa
+        owner_url: https://boldowa.github.io/
+        repository_name:
+        repository_url: https://github.com/boldowa/GIEPY
+        build_revision:
+        project_tagline:
+        zip_url:
+        tar_url:
+
+markdown: kramdown
+kramdown:
+        input: GFM
+        hard_wrap: false
+
