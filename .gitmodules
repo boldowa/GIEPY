@@ -1,0 +1,4 @@
+[submodule "doxygen"]
+	path = doxygen
+	url = git@github.com:boldowa/GIEPY
+	branch = doxygen

@@ -125,7 +125,7 @@ You can't use these tools together.
 
 - [System patch info](tec/syspatch)
 
-- [Doxygen documents](doxygen/html/index.html)
+- ~~[Doxygen documents](#doxygen/html/index.html)~~
 
 
 # Troubleshooting
