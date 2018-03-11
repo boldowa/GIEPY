@@ -59,6 +59,8 @@ When using the exita bytes feature, version **1.80 or higher** is required.
 
 - [VWF Level Intros v. 1.21](https://smwc.me/s/16065) \([^1]\)
 
+  [^1]: Only LoROM is supported.
+
 I haven't checked anything other than these.
 Other than the tools listed here may work.
 
@@ -75,8 +77,6 @@ You can't use these tools together.
 
 - [Daiyousei, the unsanctioned sprite tool (v0.4.1)](https://smwc.me/1451004)
 
-[^1]: Only LoROM is supported.
-
 # Download
 
 - [Github](https://github.com/boldowa/GIEPY/releases/latest)
@@ -91,35 +91,41 @@ You can't use these tools together.
 
 ## File formats
 
-- [Sprites list file format](fspecs/list.md)
+- [Sprites list file format](fspecs/list)
 
-- [Sprites config file format](fspecs/spconfig.md)
+- [Sprites config file format](fspecs/spconfig)
 
 ## Sprite coding information
 
-- [TRASM sprite file coding guide](asmspec/trasm.md)
+- [TRASM sprite file coding guide](asmspec/trasm)
 
-- [ASAR sprite file coding guide](asmspec/trasm.md)
+- [ASAR sprite file coding guide](asmspec/asar)
 
-- [Library file coding & using guide](asmspec/trasm.md)
+- [Library file coding & using guide](asmspec/library)
+
+- [RAM](asmspec/ram)
 
 ## Advanced
 
-- [Use Romi's Sprite Tool's sprites](advanced/spt.md)
+- [Use Romi's Sprite Tool's sprites](advanced/spt)
 
-- [Use PIXI's sprites](advanced/pixi.md)
+- [Use PIXI's sprites](advanced/pixi)
 
-- [Add user definition](advanced/userdef.md)
+- ~~Use other tool's sprites~~
 
-- [Use for multiple projects](advanced/multiprj.md)
+- [Add user definitions](advanced/userdef)
+
+- [Use for multiple projects](advanced/multiprj)
 
 ## Technical information
 
-- [ASM macros](tec/macros.md)
+- [ASM libraries](tec/libraries)
 
-- [System patch info](tec/syspatch.md)
+- [ASM defines and macros](tec/macros)
 
-- [Doxygen documents](tec/doxygen/index.html)
+- [System patch info](tec/syspatch)
+
+- [Doxygen documents](doxygen/html/index.html)
 
 
 # Troubleshooting
@@ -179,7 +185,16 @@ Correct sprite 's asm file.
 
 # License
 
-[MIT license](https://github.com/boldowa/GIEPY/blob/master/LICENSE)
+License of GIEPY is [MIT license](https://github.com/boldowa/GIEPY/blob/master/LICENSE).
+
+And GIEPY is using these libraries and softwares.
+
+|Library                                      |Copylight                                          |License                                                                |
+|:--------------------------------------------|:--------------------------------------------------|:----------------------------------------------------------------------|
+|[Asar](https://github.com/RPGHacker/asar)    |&copy;Alcaro, p4plus2, Raidenthequick and RPGHacker|[LGPLv3](https://github.com/RPGHacker/asar/blob/master/LICENSE)        |
+|[TRASM](https://github.com/boldowa/Trasm)    |&copy;1994 Norman Yen AKA 1000 Miles \[Tricks\]    |[PUBLIC DOMAIN](https://github.com/boldowa/Trasm/blob/master/trasm.txt)|
+|[Jansson](https://github.com/akheron/jansson)|&copy;2009-2016 Petri Lehtinen                     |[MIT](https://github.com/akheron/jansson/blob/master/LICENSE)          |
+|[bolib](https://github.com/boldowa/bolib)    |&copy;2017-2018 boldowa                            |[MIT](https://github.com/boldowa/bolib/blob/master/LICENSE)            |
 
 ---
 
