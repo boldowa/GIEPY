@@ -356,7 +356,7 @@ CfgData* ParseJson(const char* jsonPath, int number, Observers* obs)
 	assert(data);
 	data->tag.x = 7;
 	data->tag.y = 7;
-	data->tag.tiles = new_List(NULL, free);
+	data->tag.tiles = new_List(CloneTiles, free);
 	assert(data->tag.tiles);
 
 	if(0 == setjmp(e)) /* try */

@@ -454,6 +454,11 @@ bool AssembleAll(RomFile* rom, RomMap* map, srcdirs* dirs, List* list, LibsInser
 				cfg->insinf1.path = Str_copy(src->insinf1.path);
 				cfg->insinf2.path = Str_copy(src->insinf2.path);
 
+				cfg->tag.name = Str_copy(src->tag.name);
+				cfg->tag.label = Str_copy(src->tag.label);
+				cfg->tag.description = Str_copy(src->tag.description);
+				cfg->tag.tiles = src->tag.tiles->clone(src->tag.tiles);
+
 				item->cfg = cfg;
 
 				obs->progress(++ctr, (uint)list->length(list));

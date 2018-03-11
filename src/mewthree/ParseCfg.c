@@ -370,6 +370,27 @@ void VerifyCfgData(CfgData* data)
 	}
 }
 
+/**
+ * @brief Clone tiles array
+ *        This function is used in List.
+ *
+ * @param src
+ *
+ * @return Cloned data
+ */
+void* CloneTiles(const void* vsrc)
+{
+	int* dst;
+	const int* src = (const int*)vsrc;
+
+	dst = malloc(3*sizeof(int));
+	assert(dst);
+
+	memcpy(dst, src, 3*sizeof(int));
+
+	return dst;
+}
+
 CfgData* ParseCfg(const char* cfgPath, int number, Observers* obs)
 {
 	CfgData* data;
@@ -385,7 +406,7 @@ CfgData* ParseCfg(const char* cfgPath, int number, Observers* obs)
 	assert(data);
 	data->tag.x = 7;
 	data->tag.y = 7;
-	data->tag.tiles = new_List(NULL, free);
+	data->tag.tiles = new_List(CloneTiles, free);
 	assert(data->tag.tiles);
 
 	if(0 == setjmp(e)) /* try */
