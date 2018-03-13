@@ -6,7 +6,7 @@ description:
 
 # Requires
 
-- [GIEPY](/#download)
+- [GIEPY](../#download)
 
 - ROM file that has not installed any SpriteTools
 
@@ -14,9 +14,9 @@ description:
 
 **No special procedure is necessary.**
 
-1. Edit the **[sprites list file](/fspecs/list)**.
+1. Edit the **[sprites list file](../fspecs/list)**.
 
-2. Correct the sprite's **[config file](/fspecs/spconfig)** for GIEPY.  
+2. Correct the sprite's **[config file](../fspecs/spconfig)** for GIEPY.  
 
 3. Execute GIEPY.
 
@@ -46,12 +46,12 @@ it will not work without modification.
 
 **Extra bits RAM After \(GIEPY\)**
 
-| bit    |Description                                                     |
-|:-------|:---------------------------------------------------------------|
-| bit0-1 |Not used                                                        |
-| bit2-3 |[Sprite group](/fspecs/list#sprite-insertion-destination-group) |
-| bit4-6 |Not used                                                        |
-| bit7   |**Custom sprite bit**                                           |
+| bit    |Description                                                       |
+|:-------|:-----------------------------------------------------------------|
+| bit0-1 |Not used                                                          |
+| bit2-3 |[Sprite group](../fspecs/list#sprite-insertion-destination-group) |
+| bit4-6 |Not used                                                          |
+| bit7   |**Custom sprite bit**                                             |
 
 Also, this information must be set before calling **$0187a7**.
 

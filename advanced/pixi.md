@@ -6,7 +6,7 @@ description: ''
 
 # Requires
 
-- [GIEPY](/#download)
+- [GIEPY](../#download)
 
 - [PIXI](https://smwc.me/s/16731)
 
@@ -31,9 +31,9 @@ description: ''
    |:--------------|:----------:|
    |Force-reinstall|true(Enable)|
 
-3. Edit the **[sprites list file](/fspecs/list)**.
+3. Edit the **[sprites list file](../fspecs/list)**.
 
-4. Correct the sprite's **[config file](/fspecs/spconfig)** for GIEPY.  
+4. Correct the sprite's **[config file](../fspecs/spconfig)** for GIEPY.  
 
 5. Execute GIEPY.
 

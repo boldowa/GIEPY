@@ -8,9 +8,9 @@ Sprite files are require a config file.
 
 # Supports
 
-|                      |00-xx<br>SMW orig|01-01<br>Regular|03-02<br>Shooter|03-03<br>Generator|03-04<br>Initializer|03-05<br>Scroller|
+|                      |00-01<br>Tweak   |01-01<br>Regular|03-02<br>Shooter|03-03<br>Generator|03-04<br>Initializer|03-05<br>Scroller|
 |:---------------------|:---------------:|:--------------:|:--------------:|:----------------:|:------------------:|:---------------:|
-|**Tweaks**            | ×              | ○             | ×             | ×               | ×                 | ×              |
+|**Tweaks**            | ○              | ○             | ×             | ×               | ×                 | ×              |
 |**Extra props**       | ×              | ○             | ×             | ×               | ×                 | ×              |
 |**ASM file name 1**   | ×              | ○             | ○             | ○               | ○                 | ○              |
 |**Unique code**       | ×              | ○             | ○             | ○               | ○                 | ○              |
@@ -71,7 +71,7 @@ Sprite sub-type.
 |Number|Type                               |
 |:-----|:----------------------------------|
 |00    |(Reserved for SMW original sprites)|
-|01    |Regular sprite                     |
+|01    |Regular sprite (or Tweak only)     |
 |02    |Shooter sprite                     |
 |03    |Generator sprite                   |
 |04    |Initializer sprite                 |

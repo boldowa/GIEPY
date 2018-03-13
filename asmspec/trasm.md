@@ -19,7 +19,7 @@ Routines that are not used can be omitted.
 |Sprite Type                 |INIT routine|MAIN routine|
 |:---------------------------|:----------:|:----------:|
 |Sprite - SMW original(00-00)|     ×     |     ×     |
-|Sprite - SMW tweak(01-00)   |     ×     |     ×     |
+|Sprite - SMW tweak(00-01)   |     ×     |     ×     |
 |Sprite - Regular(01-01)     |     ○     |     ○     |
 |Sprite - Shooter(03-02)     |     ×     |     ○     |
 |Sprite - Generator(03-03)   |     ×     |     ○     |

@@ -14,8 +14,8 @@ description:
 |AH            |Higher 8 bits of A register. You can't access this value unless you use 16 bits mode or swap the value with XBA.             |
 |XL            |Lower 8 bits of X register.                                                                                                  |
 |XH            |Higher 8 bits of X register. You can't access this value unless you use 16 bits mode or swap the value with TAX, XBA and TXA.|
-|XL            |Lower 8 bits of Y register.                                                                                                  |
-|XH            |Higher 8 bits of Y register. You can't access this value unless you use 16 bits mode or swap the value with TAY, XBA and TYA.|
+|YL            |Lower 8 bits of Y register.                                                                                                  |
+|YH            |Higher 8 bits of Y register. You can't access this value unless you use 16 bits mode or swap the value with TAY, XBA and TYA.|
 
 
 ---

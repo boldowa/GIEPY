@@ -103,7 +103,7 @@ You can't use these tools together.
 
 - [Library file coding & using guide](asmspec/library)
 
-- [RAM](asmspec/ram)
+- ~~[RAM](asmspec/ram)~~
 
 ## Advanced
 
@@ -115,7 +115,7 @@ You can't use these tools together.
 
 - [Add user definitions](advanced/userdef)
 
-- [Use for multiple projects](advanced/multiprj)
+- ~~[Use for multiple projects](advanced/multiprj)~~
 
 ## Technical information
 
@@ -123,7 +123,9 @@ You can't use these tools together.
 
 - [ASM defines and macros](tec/macros)
 
-- [System patch info](tec/syspatch)
+- ~~[System patch info](tec/syspatch)~~
+
+- [GIEPY program design](tec/pg_design)
 
 - ~~[Doxygen documents](#doxygen/html/index.html)~~
 
@@ -195,6 +197,25 @@ And GIEPY is using these libraries and softwares.
 |[TRASM](https://github.com/boldowa/Trasm)    |&copy;1994 Norman Yen AKA 1000 Miles \[Tricks\]    |[PUBLIC DOMAIN](https://github.com/boldowa/Trasm/blob/master/trasm.txt)|
 |[Jansson](https://github.com/akheron/jansson)|&copy;2009-2016 Petri Lehtinen                     |[MIT](https://github.com/akheron/jansson/blob/master/LICENSE)          |
 |[bolib](https://github.com/boldowa/bolib)    |&copy;2017-2018 boldowa                            |[MIT](https://github.com/boldowa/bolib/blob/master/LICENSE)            |
+
+# Referenced projects
+
+I referred to the following projects and sites.
+
+|Name                                                               |Copylight                  |License|
+|:------------------------------------------------------------------|:--------------------------|:------|
+|[PIXI](https://github.com/JackTheSpades/SpriteToolSuperDelux)      |&copy;JackTheSpades        |       |
+|[Romi's Spritetool - v1.41](https://smwc.me/s/14583)               |&copy;mikeyk, Romi         |       |
+|[Daiyousei](https://github.com/katrinasm/daiyousei)                |&copy;Katrina              |       |
+|[Tessera, v. 0.52 (imamelia's Sprite Tool)](https://smwc.me/s/4601)|&copy;imamelia             |       |
+|[MeiMei](https://github.com/Amaterasite/MeiMei)                    |&copy;Amaterasite          |       |
+|[VilelaBot](http://bowser.caffie.net/online/)                      |&copy;Vitor Vilela         |       |
+|[SMWiki](http://old.smwiki.net/wiki/Main_Page)                     |                           |       |
+|[SMWCentral](https://www.smwcentral.net/)                          |&copy;2005-2018 SMW Central|       |
+
+Also, I would like to express my gratitude to everyone
+who reported bugs and advice at Twitter and Discord.
+
 
 ---
 

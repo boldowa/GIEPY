@@ -53,11 +53,11 @@ It becomes 0 when Extra bytes feature is disabled.
 
 ## g_sprite_group
 
-[Group number of sprite](/fspecs/list#sprite-insertion-destination-group) currently being processed.
+[Group number of sprite](../fspecs/list#sprite-insertion-destination-group) currently being processed.
 
 ## g_sprite_number
 
-[Insertion number of sprite](/fspecs/list#sprite-insertion-destination-number) currently being processed.
+[Insertion number of sprite](../fspecs/list#sprite-insertion-destination-number) currently being processed.
 
 ## g_sprite_type
 
@@ -71,7 +71,7 @@ Type of sprite currently being processed.
 
 ## g_sprite_subtype
 
-[Sub-type of sprite](/fspecs/spconfig#line-7) currently being processed.
+[Sub-type of sprite](../fspecs/spconfig#line-7) currently being processed.
 
 
 
