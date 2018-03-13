@@ -123,6 +123,24 @@ macro org_assert_word(addr, data)
 endmacro
 
 ;-------------------------------------------------
+; ORG with ROM assertion (jsl)
+;   args:
+;     - addr		... origin address
+;     - data            ... assertion data
+;-------------------------------------------------
+macro org_assert_jsl(addr, data)
+	if 0 == !DEBUG
+		assert $22 == read1(<addr>)
+		if !sa1
+			assert <data> == read3(<addr>+1)
+		else
+			assert (<data>&$7fffff) == (read3(<addr>+1)&$7fffff)
+		endif
+	endif
+	org <addr>
+endmacro
+
+;-------------------------------------------------
 ; Extra bits shift on compatible mode
 ;-------------------------------------------------
 macro ebshift_compatible()

@@ -19,7 +19,7 @@
 incsrc "include/sa1def.inc"
 
 !VER_MAJ := $01
-!VER_MIN := $00
+!VER_MIN := $01
 
 ;---------------------------------------
 ; Check install condition

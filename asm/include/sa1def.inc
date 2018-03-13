@@ -12,6 +12,11 @@ incsrc "config.inc"
 incsrc "inschk.inc"
 
 ;-----------------------------
+; FastROM defines
+;-----------------------------
+!FastROM	:= !false	;   default is SlowROM.
+
+;-----------------------------
 ; sa-1 defines
 ;-----------------------------
 !sa1	:= !false	;\ default isn't sa-1

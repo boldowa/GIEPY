@@ -233,6 +233,12 @@ bool AssembleAsar(
 		tmpAsm->Printf(tmpAsm, "!SYSTEM_INITIALIZING ?= 0\n");
 		tmpAsm->Printf(tmpAsm, "!GIEPY_VER := %06d\n", DllAppVersionInt);
 
+		/* FastROM detection */
+		if(MapMode_20H==rom->mapmode_get(rom) || MapMode_21H==rom->mapmode_get(rom))
+		{
+			tmpAsm->Printf(tmpAsm, "!FastROM := 1\n", tmpPath);
+		}
+
 		/* pixi inc */
 		if(isPixiCompatible)
 		{

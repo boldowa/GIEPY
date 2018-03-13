@@ -54,6 +54,6 @@
  *             of this one.
  */
 #define CodeVer_Maj		0x01
-#define CodeVer_Min		0x00
+#define CodeVer_Min		0x01
 #define CodeVersion		((CodeVer_Maj<<8)+CodeVer_Min)
 

@@ -207,6 +207,13 @@ static bool Restore_v0100(RomFile* rom, Observers* obs)
 		{ 0x000000, 0,          NULL         }
 	};
 
+	static RestoreData FastRomRestore[] = {
+		/* normspr.asm */
+		{ 0x0187a7, 4, (uint8*)"\x22\x59\xda\x82"     },
+
+		{ 0x000000, 0,          NULL         }
+	};
+
 
 	/************************************************/
 	/* Restore data (SA-1 ROM)			*/
@@ -241,6 +248,11 @@ static bool Restore_v0100(RomFile* rom, Observers* obs)
 
 	/* restore common data */
 	if(false == RestoreSub(CommonRestore, rom, obs)) return false;
+
+	if(MapMode_20H == rom->mapmode_get(rom))
+	{
+		if(false == RestoreSub(FastRomRestore, rom, obs)) return false;
+	}
 
 	/* restore lo / sa1 ROM data */
 	if(MapMode_SA1 == rom->mapmode_get(rom)) return RestoreSub(SA1Restore, rom, obs);
@@ -634,8 +646,9 @@ bool UninstallMainData(RomFile* rom, MewInsInfo* inf, Observers* obs)
 	obs->debug(0, GSID_UNINSTALL_RESTORE);
 	switch(inf->giepyCodeVer)
 	{
-		case 0x0001:	/* v00.01 (*** dev ver. ***) */
-		case 0x0100:	/* v01.00 */
+		case 0x0001:	/* v00.01 : (*** dev ver. ***)       */
+		case 0x0100:	/* v01.00 : first version            */
+		case 0x0101:	/* v01.01 : github #1,#5,#6          */
 			return Restore_v0100(rom, obs);
 
 		default:

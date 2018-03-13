@@ -86,7 +86,7 @@ pushpc
 
 	;--- Hammer Bro init routine overwrite
 	;  ... for generate custom sprite
-	%org_assert_long2($0187a7, 02da,5922)
+	%org_assert_jsl($0187a7, $02da59)
 		jml	SetSpriteTables
 	%org_assert_word($0182b3, 87a7)
 		dw	$85c2
