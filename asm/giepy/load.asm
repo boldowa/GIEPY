@@ -144,7 +144,7 @@ LoadGenerator:
 	lda.b	$05
 	inc	a
 	sta.w	!18b9
-	stz.w	!1938
+	stz.w	!1938,x
 	if !true == !EXTRA_BYTES_EXT
 		iny
 		jsr	LoadExBytesSub
@@ -237,8 +237,7 @@ LoadShooter:
 	lda.b	$07			; extra bits
 	ora.b	#$80
 	sta.l	!extra_bits_sh,x
-	lda.b	#0
-	sta.w	!1938
+	stz.w	!1938,x
 	ldy.b	$03
 	lda.b	$05
 	inc
