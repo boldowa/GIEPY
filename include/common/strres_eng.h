@@ -366,7 +366,7 @@
 #define		GSID_INFDLG_VERSION		(GSID_BEGIN + 2231)
 #define		GSTR_INFDLG_VERSION		"Version information"
 #define		GSID_INFDLG_VER_DESC		(GSID_BEGIN + 2232)
-#define		GSTR_INFDLG_VER_DESC		"%s version %0.2lf [Code: v0x%04x]\n(C)2018 boldowa"
+#define		GSTR_INFDLG_VER_DESC		"%s version %s [Code: v0x%04x]\n(C)2018 boldowa"
 #define		GSID_INFDLG_DEBUG		(GSID_BEGIN + 2233)
 #define		GSTR_INFDLG_DEBUG		"Debug information"
 #define		GSID_INFDLG_WARNING		(GSID_BEGIN + 2234)

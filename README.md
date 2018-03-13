@@ -40,8 +40,6 @@ And if you are using the Linux OS, it needs libasar.so.
 
 ### Windows
 
-![cmake gui](pic/cmake-gui.png)
-
 1. Clone [this repository](https://github.com/boldowa/smw-utils).
 
 2. Move to **GIEPY** directory.

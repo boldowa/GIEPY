@@ -667,7 +667,7 @@ bool UninstallMainData(RomFile* rom, MewInsInfo* inf, Observers* obs)
  * @param inf Install info
  * @param obs observer
  *
- * @return 
+ * @return true:succeed / false:failure
  */
 bool CleanData(RomFile* rom, MewInsInfo* inf, Observers* obs)
 {
@@ -675,13 +675,6 @@ bool CleanData(RomFile* rom, MewInsInfo* inf, Observers* obs)
 	{
 		if(false == UninstallLibraries(rom, inf, obs)) return false;
 		if(false == UninstallSprites(rom, inf, obs))   return false;
-
-		/*
-		if(inf->giepyIsExtBytesCode)
-		{
-			memset(inf->giepyExtBytesPtr, 3, 256*4);
-		}
-		*/
 	}
 
 	return true;

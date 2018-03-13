@@ -11,9 +11,9 @@
 /**
  * CUI Version
  */
-#define AppVersion		1.00
-#define ResVersion		1,0,0,0
-#define FileVersion		2
+#define AppVersion		"1.0.1"
+#define ResVersion		1,0,1,0
+#define FileVersion		3
 
 /**
  * Core DLL Name
@@ -23,10 +23,10 @@
 /**
  * DLL Version
  */
-#define DllAppVersion		1.00
-#define DllAppVersionInt	010000
-#define DllResVersion		1,0,0,0
-#define DllFileVersion		2
+#define DllAppVersion		1.0.1
+#define DllAppVersionInt	010001
+#define DllResVersion		1,0,1,0
+#define DllFileVersion		3
 
 /**
  * GUI App Name
@@ -36,9 +36,9 @@
 /**
  * GUI App Version
  */
-#define Win32AppVersion		1.00
-#define Win32ResVersion		1,0,0,0
-#define Win32FileVersion	1
+#define Win32AppVersion		"1.0.1"
+#define Win32ResVersion		1,0,1,0
+#define Win32FileVersion	2
 
 /**
  * GIEPY main asm version

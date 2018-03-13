@@ -2,21 +2,24 @@
 | GIEPY - New type SMW Sprites insertion tool -                                |
 | ---------------------------------------------                                |
 |                                                                              |
-|   - ver. 1.00                                                                |
+|   - ver. 1.0.1                                                               |
 |                                                                              |
-|   Repository : https://github.com/boldowa/giepy/                             |
-|   Web        : https://boldowa.github.io/giepy/                              |
-|                                         not yet...                           |
+|   Repository : https://github.com/boldowa/GIEPY/                             |
+|   Web        : https://boldowa.github.io/GIEPY/                              |
 |                                                                              |
 |   Changelog)                                                                 |
 |                                                                              |
-|     01-12-2018 [v0.01] : beta version (for SMWC C3).                         |
+|     01-12-2018 [v0.0.1] : beta version (for SMWC C3).                        |
 |                                                                              |
-|     02-15-2018 [v1.00] : first release version.                              |
+|     02-15-2018 [v1.0.0] : first release version.                             |
+|                                                                              |
+|     03-13-2018 [v1.0.1] : Fix some issues(includes fatal err)                |
+|                           (Issue #1, #5, #6)                                 |
 |                                                                              |
 +------------------------------------------------------------------------------+
 
   OH MY SHIT DOCUMENTS...........................!!! sorry.
+  You may get more information by visiting a Web page.
 
 
 [What is this?]

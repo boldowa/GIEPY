@@ -62,7 +62,7 @@ extern ProgressMode pMode;
  */
 static void ShowVersion()
 {
-	printf("%s v%.2lf [Code: v0x%04x]\n", AppName, AppVersion, CodeVersion);
+	printf("%s v%s [Code: v0x%04x]\n", AppName, AppVersion, CodeVersion);
 	printf("  by boldowa\n");
 	printf("  since    : December 10 2017\n");
 	printf("  compiled : %s\n", __DATE__);
