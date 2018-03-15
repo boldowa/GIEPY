@@ -65,11 +65,16 @@ else
 	%putdebug("ADDRESS MODE : LoROM or ExLoROM")
 endif
 
-!SA1	 = !sa1
-!Base1 = !base1
-!Base2 = !base2
-!BankA = !bankA
-!BankB = !bankB
+!SA1	= !sa1
+!Base1	= !base1
+!Base2	= !base2
+!BankA	= !bankA
+!BankB	= !bankB
+!dp	= !base1
+!abs	= !base2
+!addr	= !base2
+
+function bank(abl) = abl>>16
 
 ;-----------------------------
 ; extra bytes defines

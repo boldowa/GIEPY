@@ -50,3 +50,9 @@
 
 # tags
 tags
+
+# gh-pages files
+/.sass-cache/
+/Gemfile.lock
+/_site/
+/src/_site/
