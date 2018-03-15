@@ -25,9 +25,36 @@ description:
 
 **Under constructing...**
 
-|Name                |Type       |Description                            |
-|:-------------------|:----------|:--------------------------------------|
-|                    |JSL routine|                                       |
+|Address|Name                                 |Type       |Description                            |
+|:------|:------------------------------------|:----------|:--------------------------------------|
+|$0086DF|SMW\_ExecutePtr                      |JSL routine|                                       |
+|$0086FA|SMW\_ExecutePtrLong                  |JSL routine|                                       |
+|$00F5B7|SMW\_HurtMario                       |JSL routine|                                       |
+|$00F606|SMW\_KillMario                       |JSL routine|                                       |
+|$05B160|SMW\_SubSideExit                     |JSL routine|                                       |
+|$0286BF|SMW\_YoshiStomp                      |JSL routine|                                       |
+|$0294C1|SMW\_GroundPound                     |JSL routine|                                       |
+|$00BEB0|SMW\_GenerateTile                    |JSL routine|                                       |
+|$01ACF9|SMW\_GetRand                         |JSL routine|                                       |
+|$02ACE5|SMW\_GivePoints                      |JSL routine|                                       |
+|$05B329|SMW\_GiveCoins                       |JSL routine|                                       |
+|$03A6C8|SMW\_KillMostSprites                 |JSL routine|                                       |
+|$01AA33|SMW\_BoostMarioSpeed                 |JSL routine|                                       |
+|$03B664|SMW\_GetMarioClipping                |JSL routine|                                       |
+|$03B69F|SMW\_GetSpriteClippingA              |JSL routine|                                       |
+|$03B6E5|SMW\_GetSpriteClippingB              |JSL routine|                                       |
+|$03B72B|SMW\_CheckContack                    |JSL routine|                                       |
+|$07F7D2|SMW\_InitSpriteTables                |JSL routine|                                       |
+|$01801A|SMW\_UpdateSpriteYPosNoGravity       |JSL routine|                                       |
+|$018022|SMW\_UpdateSpriteXPosNoGravity       |JSL routine|                                       |
+|$01802A|SMW\_UpdateSpritePosWithGravity      |JSL routine|                                       |
+|$018032|SMW\_SpriteSpriteInteraction         |JSL routine|                                       |
+|$01A7DC|SMW\_SpriteMarioInteraction          |JSL routine|                                       |
+|$01803A|SMW\_SpriteInteraction               |JSL routine|                                       |
+|$019138|SMW\_SpriteObjectInteraction         |JSL routine|                                       |
+|$01B7B3|SMW\_SpriteFinishOAMWrite            |JSL routine|                                       |
+|$0DA8A6|SMW\_IndexToBit                      |Data       |                                       |
+|$07F7DB|SMW\_CircleCoords                    |Data       |                                       |
 
 
 ---
