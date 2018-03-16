@@ -68,6 +68,7 @@ The library of frequently used routines.
 |:----------------------------|:----------|:--------------------------------------|
 |[GetDrawInfo](#akagi-gdi)    |JSL routine|Get sprite tile map index.             |
 |[SubOffScreen](#akagi-sos)   |JSL routine|Kill sprite when sprite is off screen. |
+|[SubOffScreenA](#akagi-sosa) |JSL routine|Kill sprite when sprite is off screen. |
 
 ## GetDrawInfo # {#akagi-gdi}
 
@@ -91,6 +92,25 @@ Get sprite tile map index.
 |Return     |Description                    |
 |:----------|:------------------------------|
 |YL         |Index to sprite tile map($0300)|
+
+
+### Note
+
+Be sure to call this routine in the following format.
+
+```
+AnyRoutine:
+    JSR SubGfx   ; <-- Be sure to use JSR.
+        ;
+        ;
+    RTL
+
+SubGfx:
+    JSL GetDrawInfo
+        ;
+        ;
+    RTS
+```
 
 
 ## SubOffScreen # {#akagi-sos}
@@ -120,6 +140,37 @@ none.
 ### Note
 
 The operation from X4 to X7 processing isn't guaranteed.
+
+
+## SubOffScreenA # {#akagi-sosa}
+
+Kill sprite when sprite is off screen.
+
+It is compatible with PIXI's SubOffScreen, but slightly slower.
+
+### Register width
+
+|Register      |Width |
+|:-------------|:-----|
+|Accumlator (A)|8 bits|
+|Index    (X,Y)|8 bits|
+
+### Inputs
+
+|Input      |Description                                                                                                                                  |
+|:----------|:--------------------------------------------------------------------------------------------------------------------------------------------|
+|AL         |Sub off screen type<br>  **0**: X0<br>  **1**: X1<br> **2**: X2<br>  **3**: X3<br>  **4**: X4<br>  **5**: X5<br>  **6**: X6<br>  **7**: X7   |
+|XL         |Index of currently executing sprite                                                                                                          |
+
+### Return
+
+none.
+
+### Note
+
+The operation from X4 to X7 processing isn't guaranteed.
+
+
 
 
 ---
