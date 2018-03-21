@@ -12,6 +12,10 @@ if 0 == !SYSTEM_INITIALIZING
 ; This file is included when assembling with asar
 ; if pixi cpmpatible mode.
 ;-------------------------------------------------
+macro Between(x,label)
+	%BranchWithinAbsoluteValue(<x>,<label>)
+endmacro
+
 if !false == !LIBRARY_ASSEMBLING
 	!ExtendedOffset = 0
 	!ClusterOffset = 0

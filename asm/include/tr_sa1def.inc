@@ -6,6 +6,8 @@ Base1			= $3000
 Base2			= $6000
 BankA			= $400000
 BankB			= $000000
+CustomBit		= $80
+SprSize			= 22
 
 ;---------------------------------------
 ;--- New memory address

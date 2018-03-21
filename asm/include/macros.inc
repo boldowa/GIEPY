@@ -195,5 +195,17 @@ macro PixiSprite()
 	endif
 endmacro
 
+;-------------------------------------------------
+; Branch within absolute value
+;   args:
+;     - threshold	... (unsigned threshold)
+;     - label		... branch address when A register value is within threshold
+;-------------------------------------------------
+macro BranchWithinAbsoluteValue(threshold, label)
+	clc
+	adc	#<threshold>
+	cmp	#<threshold>*2
+	bcs	<label>
+endmacro
 
 endif

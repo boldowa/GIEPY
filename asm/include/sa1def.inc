@@ -17,6 +17,11 @@ incsrc "inschk.inc"
 !FastROM	:= !false	;   default is SlowROM.
 
 ;-----------------------------
+; Custom sprite bit
+;-----------------------------
+!CustomBit	:= $80
+
+;-----------------------------
 ; sa-1 defines
 ;-----------------------------
 !sa1	:= !false	;\ default isn't sa-1
@@ -28,6 +33,9 @@ incsrc "inschk.inc"
 ; base bank define
 !bankA := $7e0000	; base bank 1 : WRAM
 !bankB := $800000	; base bank 2 : FastMode
+
+; max sprites
+!SprSize := 12
 
 !map	?= 1		; if map mode isn't defined, 
 			; set LoRom
@@ -61,6 +69,9 @@ if 3 == !map	; sa-1 rom
 	; base bank define
 	!bankA = $400000	; base adr 1 : SRAM
 	!bankB = $000000	; base adr 2 : disable fastrom
+
+	; max sprites
+	!SprSize := 22
 else
 	%putdebug("ADDRESS MODE : LoROM or ExLoROM")
 endif
