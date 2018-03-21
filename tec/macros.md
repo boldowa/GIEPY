@@ -83,11 +83,12 @@ Type of sprite currently being processed.
 
 These macros are available in ASAR only.
 
-|Name                                    |Description                                             |
-|:---------------------------------------|:-------------------------------------------------------|
-|[putdebug](#putdebug)                   |Print debug message when \[!DEBUG != 0\]                |
-|[GiepyOnly](#giepyonly)                 |Generate an error when PIXI compatible mode is enabled. |
-|[PixiSprite](#pixisprite)               |Generate an error when PIXI compatible mode is disabled.|
+|Name                                                   |Description                                             |
+|:------------------------------------------------------|:-------------------------------------------------------|
+|[putdebug](#putdebug)                                  |Print debug message when \[!DEBUG != 0\]                |
+|[GiepyOnly](#giepyonly)                                |Generate an error when PIXI compatible mode is enabled. |
+|[PixiSprite](#pixisprite)                              |Generate an error when PIXI compatible mode is disabled.|
+|[BranchWithinAbsoluteValue](#BranchWithinAbsoluteValue)||
 
 ## putdebug
 
@@ -118,6 +119,18 @@ Generate an error when PIXI compatible mode is enabled.
 
 Generate an error when PIXI compatible mode is disabled.
 
+
+## BranchWithinAbsoluteValue
+
+`%BranchWithinAbsoluteValue(threshold, label)`
+
+
+|Argument  |Description                                             |
+|:---------|:-------------------------------------------------------|
+|threshold |Threshold(unsigned value)                               |
+|label     |Branch address when A register value is within threshold|
+
+Branch to **label** if A register value is within threshold.
 
 ---
 

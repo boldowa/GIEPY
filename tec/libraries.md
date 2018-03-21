@@ -135,7 +135,9 @@ Kill sprite when sprite is off screen.
 
 ### Return
 
-none.
+|Return     |Description                                                        |
+|:----------|:------------------------------------------------------------------|
+|Carry flag |**Set**: sprite is killed <br> **Clear**: sprite is alive(OnScreen)|
 
 ### Note
 
@@ -164,7 +166,10 @@ It is compatible with PIXI's SubOffScreen, but slightly slower.
 
 ### Return
 
-none.
+|Return     |Description                                                        |
+|:----------|:------------------------------------------------------------------|
+|Carry flag |**Set**: sprite is killed <br> **Clear**: sprite is alive(OnScreen)|
+
 
 ### Note
 
