@@ -27,7 +27,7 @@ However, there is also a way to use it as before.
 
 ## How to use
 
-Under constructing ...
+https://boldowa.github.io/GIEPY/
 
 
 ## How to compile
@@ -42,11 +42,13 @@ And if you are using the Linux OS, it needs libasar.so.
 
 1. Clone [this repository](https://github.com/boldowa/smw-utils).
 
-2. Move to **GIEPY** directory.
+2. Update submodules.
 
-3. Load **CMakeList.txt** with cmake(or cmake-gui).
+3. Move to **GIEPY** directory.
 
-4. Compile.
+4. Load **CMakeList.txt** with cmake(or cmake-gui).
+
+5. Compile.
 
 And if you are using python(3), you can use **release\_win32.py** to create a release package.  
 (However, I think customization is essential.)
@@ -55,8 +57,26 @@ And if you are using python(3), you can use **release\_win32.py** to create a re
 
 1. Clone [this repository](https://github.com/boldowa/smw-utils).
 
-2. Move to **GIEPY/build** directory.
+2. Update submodules.
 
-3. Run "build.sh".
+3. Move to **GIEPY/build** directory.
 
+4. Run "build.sh".
+
+
+## TODO
+
+### Sprite config file formats
+
+- [ ] Yaml
+- [ ] Ucl
+
+### Uninstaller
+
+I'm planning to create another project for these.
+
+- [ ] Romi's Sprite Tool
+- [ ] PIXI
+- [ ] Tessera
+- [ ] Daiyousei
 
