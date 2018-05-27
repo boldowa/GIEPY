@@ -40,6 +40,7 @@ GeneratorHijack:
 
 +	lda.l	!extra_bits_gen
 	bmi	.isCustom
+	lda.w	!18b9
 	jml	$02b007|!bankB			; origin generator
 
 .isCustom
