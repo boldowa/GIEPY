@@ -27,7 +27,7 @@ pullpc
 ;   be not execute.
 ;-------------------------------------------------
 SetShooterExBits:
-	sbc.b	#$cb
+	sbc.b	#$c8
 	sta.w	!1783,x
 if !EXTRA_BYTES_EXT
 	lda.b	#0
