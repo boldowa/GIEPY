@@ -649,6 +649,7 @@ bool UninstallMainData(RomFile* rom, MewInsInfo* inf, Observers* obs)
 		case 0x0001:	/* v00.01 : (*** dev ver. ***)       */
 		case 0x0100:	/* v01.00 : first version            */
 		case 0x0101:	/* v01.01 : github #1,#5,#6          */
+		case 0x0102:	/* v01.02 : github #7,#8,#10,#13     */
 			return Restore_v0100(rom, obs);
 
 		default:

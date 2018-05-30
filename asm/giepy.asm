@@ -7,8 +7,10 @@
 ;
 ; Changelog)
 ;   12-23-2017 :  First version.
-;    1-12-2018 :  C3 beta version.
-;    2-15-2018 :  ver. 1.00
+;   01-12-2018 :  C3 beta version.
+;   02-15-2018 :  ver. 1.00
+;   03-13-2018 :  ver. 1.01 (fatal issue fix)
+;   05-30-2018 :  ver. 1.02 (major issue fix)
 ;-------------------------------------------------------------------------------
 ;--- for debug
 !SYSTEM_INITIALIZING ?= 0
@@ -19,7 +21,7 @@
 incsrc "include/sa1def.inc"
 
 !VER_MAJ := $01
-!VER_MIN := $01
+!VER_MIN := $02
 
 ;---------------------------------------
 ; Check install condition
