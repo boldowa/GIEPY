@@ -1,16 +1,14 @@
 /**
  * @file Workspace.c
  */
-#include "common/types.h"
-#include "common/List.h"
-#include "common/ReadWrite.h"
+#include <bolib.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "common/defines.h"
 #include "common/srcpath.h"
 #include <assert.h>
-#include "common/Str.h"
+#include <bolib/file/TextFile.h>
 #include "common/Observer.h"
-#include "file/File.h"
-#include "file/TextFile.h"
 #include "mewthree/MewEnv.h"
 #include "mewthree/InsInfo.h"
 #include "mewthree/Workspace.h"
@@ -40,14 +38,14 @@ static void createDefineFile(const char* const dir, const char* const name, cons
 	free(path);
 	assert(file);
 
-	file->Open2(file, "w");
+	file->open2(file, "w");
 	switch(type)
 	{
 		case type_trasm:
 			for(it=defs->begin(defs); it != NULL; it=it->next(it))
 			{
 				def = it->data(it);
-				file->Printf(file, "%s = %s\n", def->name, def->val);
+				file->printf(file, "%s = %s\n", def->name, def->val);
 			}
 			break;
 
@@ -55,14 +53,14 @@ static void createDefineFile(const char* const dir, const char* const name, cons
 			for(it=defs->begin(defs); it != NULL; it=it->next(it))
 			{
 				def = it->data(it);
-				file->Printf(file, "!%s = %s\n", def->name, def->val);
+				file->printf(file, "!%s = %s\n", def->name, def->val);
 			}
 			break;
 
 		default:
 			break;
 	}
-	file->super.Close(&file->super);
+	file->close(file);
 	delete_TextFile(&file);
 }
 

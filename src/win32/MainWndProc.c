@@ -1,7 +1,7 @@
 /**
  * @file MainWndProc.c
  */
-#include "common/types.h"
+#include <bolib.h>
 #include <assert.h>
 #include <windows.h>
 #include <tchar.h>
@@ -11,10 +11,7 @@
 #include <process.h>
 
 #include "common/version.h"
-#include "common/List.h"
-#include "common/Str.h"
 #include "common/Observer.h"
-#include "common/Str.h"
 #include "common/defines.h"
 #include "common/strres.h"
 #include "common/GetFmtStr.h"

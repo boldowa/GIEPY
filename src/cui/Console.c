@@ -1,7 +1,8 @@
 /**
  * @file Console.c
  */
-#include "common/types.h"
+#include <stdio.h>
+#include <bolib.h>
 #if isWindows
 #  include <windows.h>
 #endif

@@ -1,8 +1,7 @@
 extern "C"
 {
-#include "common/types.h"
+#include <bolib.h>
 #include <string.h>
-#include "common/Str.h"
 #include "common/Environment.h"
 }
 
@@ -32,14 +31,14 @@ TEST(Environment, SetSearchPath)
 	strcpy_s((char*)Environment.CurDir, MAX_PATH, "./testdata/");
 	Environment.RomDir = Str_copy("./testdata/");
 
-	SetSearchPath();
+	SetSystemEnvironment();
 
 	POINTERS_EQUAL(NULL, Environment.SearchPath[2]);
 
 	strcpy_s((char*)Environment.ExeDir, MAX_PATH, "./testdata/");
 	strcpy_s((char*)Environment.CurDir, MAX_PATH, "./tests/");
 
-	SetSearchPath();
+	SetSystemEnvironment();
 
 	POINTERS_EQUAL(NULL, Environment.SearchPath[2]);
 

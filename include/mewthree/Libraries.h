@@ -2,6 +2,9 @@
 /**
  * @file Libraries.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 bool InsertLibraries(
 		RomFile* rom,
@@ -14,3 +17,6 @@ bool InsertLibraries(
 		MewEnvStruct* env,
 		Observers* obs);
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

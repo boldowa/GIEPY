@@ -2,6 +2,9 @@
 /**
  * @file srcpath.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #if isWindows
 #  define DELIM "\\"
@@ -34,3 +37,6 @@ typedef struct _srcdirs {
 	const char* overworld;
 }srcdirs;
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

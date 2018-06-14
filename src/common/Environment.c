@@ -1,7 +1,8 @@
 /**
  * @file Environment.c
  */
-#include "common/types.h"
+#include <bolib.h>
+#include <string.h>
 #if isWindows
 #  include <windows.h>
 #else

@@ -2,11 +2,8 @@
  * IniManTest.cpp
  */
 #include <assert.h>
-extern "C"
-{
-#include "common/types.h"
+#include <bolib.h>
 #include "win32/IniMan.h"
-}
 
 #include "CppUTest/TestHarness.h"
 

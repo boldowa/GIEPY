@@ -2,11 +2,8 @@
  * MewthreeTest.cpp
  */
 #include <assert.h>
-extern "C"
-{
-#include "common/types.h"
+#include <bolib.h>
 #include "mewthree/Mewthree.h"
-}
 
 #include "CppUTest/TestHarness.h"
 

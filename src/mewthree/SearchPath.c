@@ -1,8 +1,8 @@
 /**
  * @file SearchPath.c
  */
-#include "common/types.h"
-#include "common/Str.h"
+#include <bolib.h>
+#include <stdlib.h>
 #include "common/strres.h"
 #include "common/Observer.h"
 #include "mewthree/MewEnv.h"

@@ -2,6 +2,9 @@
 /**
  * @file Asar.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 bool AssembleAsar(
 	MewEnvStruct* env,
@@ -19,3 +22,6 @@ bool AssembleAsar(
 	bool (*labinj)(const struct labeldata*, int, InsertInf* inf, void* data, MewEnvStruct*, Observers*),
 	void* data);
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

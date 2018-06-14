@@ -1,11 +1,8 @@
 /**
  * ParseListTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "ParseList.h"
-}
+#include <bolib.h>
+#include "mewthree/ParseList.h"
 
 #include "CppUTest/TestHarness.h"
 

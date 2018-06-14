@@ -2,16 +2,14 @@
  * @file Uninstall.c
  *   ... GIEPY code uninstaller
  */
-#include "common/types.h"
+#include <bolib.h>
 #include <assert.h>
+#include <memory.h>
 #include <setjmp.h>
+#include <bolib/file/RomFile.h>
 #include "mewthree/Signature.h"
-#include "common/List.h"
-#include "common/ReadWrite.h"
 #include "common/strres.h"
 #include "common/Observer.h"
-#include "file/File.h"
-#include "file/RomFile.h"
 #include "mewthree/InsInfo.h"
 #include "mewthree/Exbytes.h"
 #include "mewthree/Uninstall.h"

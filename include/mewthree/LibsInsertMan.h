@@ -2,6 +2,9 @@
 /**
  * @file LibsInsertMan.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef struct {
 	char* libpath;
@@ -40,3 +43,6 @@ LibsInsertMan* new_LibsInsertMan(void);
  */
 void delete_LibsInsertMan(LibsInsertMan**);
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

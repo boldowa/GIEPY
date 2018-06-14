@@ -2,6 +2,9 @@
 /**
  * @file Option.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define OPT_Hyde 0x80000000
 
@@ -34,3 +37,6 @@ typedef struct SetOptStruct {
 bool Option_Parse(int*, TCHAR***, OptionStruct*);
 void Option_Usage(const OptionStruct*);
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

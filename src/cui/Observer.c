@@ -1,8 +1,8 @@
 /**
  * @file Observer.c
  */
-
-#include "common/types.h"
+#include <stdio.h>
+#include <bolib.h>
 #include <stdarg.h>
 #include <ctype.h>
 #include "common/Observer.h"

@@ -1,15 +1,12 @@
 /**
  * TestRomFile.c
  */
-#include "common/types.h"
+#if 0
+#include <bolib.h>
 #include <stdlib.h>
 #include <memory.h>
 #include <assert.h>
 #include <ctype.h>
-#include "common/Str.h"
-#include "common/ReadWrite.h"
-#include "file/FilePath.h"
-#include "file/File.h"
 #include "file/RomFile.h"
 #include "File.protected.h"
 #include "RomFile.protected.h"
@@ -326,3 +323,4 @@ static uint32 RatsClean(RomFile* self, const uint32 sna)
 
 	return (uint32)sz;
 }
+#endif

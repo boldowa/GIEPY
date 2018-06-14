@@ -2,6 +2,9 @@
 /**
  * @file Observer.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define OBSFLG_IMPORTANT	0x00000001
 #define OBSFLG_SUCCESS		0x00000002
@@ -46,3 +49,6 @@ typedef struct _Observers {
 	ProgressNotifier_t progress;
 }Observers;
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

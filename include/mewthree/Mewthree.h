@@ -2,6 +2,9 @@
 /**
  * @file Mewthree.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * public accessor
@@ -65,3 +68,6 @@ Mewthree* new_Mewthree(void);
  */
 void delete_Mewthree(Mewthree**);
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

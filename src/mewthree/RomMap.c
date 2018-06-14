@@ -2,9 +2,9 @@
  * @file RomMap.c
  */
 
-#include "common/types.h"
-#include "file/File.h"
-#include "file/RomFile.h"
+#include <memory.h>
+#include <bolib.h>
+#include <bolib/file/RomFile.h>
 
 #include "mewthree/RomMap.h"
 

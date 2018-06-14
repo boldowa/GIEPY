@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "common/types.h"
+#include <bolib.h>
 #include "common/Observer.h"
 #include "common/Funex.h"
 

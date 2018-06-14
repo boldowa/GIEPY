@@ -1,25 +1,22 @@
 /**
  * @file AssembleAll.c
  */
-#include "common/types.h"
 #include <assert.h>
+#include <bolib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <setjmp.h>
 #if !isWindows
 #include <strings.h>
 #endif
-#include "common/Str.h"
-#include "common/List.h"
-#include "common/ReadWrite.h"
+#include <bolib/file/RomFile.h>
+#include <bolib/file/TextFile.h>
 #include "common/srcpath.h"
 #include "common/strres.h"
 #include "common/Observer.h"
 #include "common/InsertList.h"
 #include "common/Funex.h"
-#include "file/libfile.h"
-#include "file/FilePath.h"
-#include "file/File.h"
-#include "file/RomFile.h"
-#include "file/TextFile.h"
 #include "mewthree/Signature.h"
 #include "mewthree/RomMap.h"
 #include "mewthree/MewEnv.h"
@@ -170,27 +167,27 @@ static bool sigInjection_t(TextFile* f, void* d)
 {
 	numinfo* ni = (numinfo*)d;
 
-	f->Printf(f, "g_sprite_group = $%02x\n",ni->grp);
-	f->Printf(f, "g_sprite_number = $%02x\n",ni->num);
-	f->Printf(f, "g_sprite_type = $%02x\n",ni->stype);
-	f->Printf(f, "g_sprite_subtype = $%02x\n",ni->spsubtype);
-	f->Printf(f, "dcb " SpSignature_db "\n");
+	f->printf(f, "g_sprite_group = $%02x\n",ni->grp);
+	f->printf(f, "g_sprite_number = $%02x\n",ni->num);
+	f->printf(f, "g_sprite_type = $%02x\n",ni->stype);
+	f->printf(f, "g_sprite_subtype = $%02x\n",ni->spsubtype);
+	f->printf(f, "dcb " SpSignature_db "\n");
 	return true;
 }
 static bool sigInjection_a(TextFile* f, void* d)
 {
 	numinfo* ni = (numinfo*)d;
 
-	f->Printf(f, "!DEBUG := 0\n");
-	f->Printf(f, "!SYSTEM_INITIALIZING := 0\n");
-	f->Printf(f, "!LIBRARY_ASSEMBLING := 0\n");
-	f->Printf(f, "!g_sprite_group := $%02x\n",ni->grp);
-	f->Printf(f, "!g_sprite_number := $%02x\n",ni->num);
-	f->Printf(f, "!g_sprite_type := $%02x\n",ni->stype);
-	f->Printf(f, "!g_sprite_subtype := $%02x\n",ni->spsubtype);
-	f->Printf(f, "!g_extra_bytes_len := $%02x\n",ni->exblen);
-	f->Printf(f, "freecode\n");
-	f->Printf(f, "db " SpSignature_db "\n");
+	f->printf(f, "!DEBUG := 0\n");
+	f->printf(f, "!SYSTEM_INITIALIZING := 0\n");
+	f->printf(f, "!LIBRARY_ASSEMBLING := 0\n");
+	f->printf(f, "!g_sprite_group := $%02x\n",ni->grp);
+	f->printf(f, "!g_sprite_number := $%02x\n",ni->num);
+	f->printf(f, "!g_sprite_type := $%02x\n",ni->stype);
+	f->printf(f, "!g_sprite_subtype := $%02x\n",ni->spsubtype);
+	f->printf(f, "!g_extra_bytes_len := $%02x\n",ni->exblen);
+	f->printf(f, "freecode\n");
+	f->printf(f, "db " SpSignature_db "\n");
 	return true;
 }
 static bool MatchLocCommon(const char* line, uint32* ip, Observers* obs, const char* identifier)

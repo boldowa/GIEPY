@@ -1,12 +1,9 @@
 /**
  * GetFmtStrTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "cui/GetFmtStr.h"
+#include <bolib.h>
+#include "common/GetFmtStr.h"
 #include "common/strres.h"
-}
 
 #include "CppUTest/TestHarness.h"
 

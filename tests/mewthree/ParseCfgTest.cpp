@@ -1,11 +1,8 @@
 /**
  * ParseCfgTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "ParseCfg.h"
-}
+#include <bolib.h>
+#include "mewthree/ParseCfg.h"
 
 #include "CppUTest/TestHarness.h"
 

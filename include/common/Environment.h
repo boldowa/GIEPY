@@ -2,6 +2,9 @@
 /**
  * @file Environment.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define TempAsmName	"temp.asm"
 #define SearchPathNums	4
@@ -30,3 +33,6 @@ extern EnvironmentStruct Environment;
 void SetSystemEnvironment();
 /*void SetSearchPath();*/
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

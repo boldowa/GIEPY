@@ -1,11 +1,8 @@
 /**
  * @file DirButtonProcTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
+#include <bolib.h>
 #include "win32/DirButtonProc.h"
-}
 
 #include "CppUTest/TestHarness.h"
 

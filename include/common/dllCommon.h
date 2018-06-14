@@ -2,6 +2,9 @@
 /**
  * @file dllCommon.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #if isWindows
 #  define SHARED_LIB_PREFIX ""
@@ -15,3 +18,6 @@
 
 #define TRASMEXE_FILE "trasm_b" EXECUTABLE_EXT
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

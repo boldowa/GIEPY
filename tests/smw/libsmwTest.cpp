@@ -1,12 +1,10 @@
-extern "C"
-{
-#include "common/types.h"
-#include "file/File.h"
-#include "file/RomFile.h"
-#include "../file/TestRomFile.h"
+/**
+ * @file libsmwTest.cpp
+ */
+#include <bolib.h>
+#include <bolib/file/TestRomFile.h>
 #include "smw/libsmw.h"
 #include "common/puts.h"
-}
 
 #include "CppUTest/TestHarness.h"
 

@@ -2,6 +2,9 @@
 /**
  * @file strres.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define		GSID_BEGIN			42000
 #define		GSID_ENG_INDEX			0
@@ -14,3 +17,6 @@
 /* japanese */
 #include "strres_jp.h"
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

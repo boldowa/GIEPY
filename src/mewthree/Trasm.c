@@ -1,11 +1,14 @@
 /**
  * @file Trasm.c
  */
-#include "common/types.h"
 #include <assert.h>
+#include <bolib.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <setjmp.h>
-#include "common/Str.h"
-#include "common/ReadWrite.h"
+#include <bolib/file/TextFile.h>
+#include <bolib/file/RomFile.h>
 #include "common/InsertList.h"
 #include "common/strres.h"
 #include "common/Observer.h"
@@ -13,11 +16,6 @@
 #include "common/srcpath.h"
 #include "common/dllCommon.h"
 #include "common/PipeMan.h"
-#include "file/FilePath.h"
-#include "file/File.h"
-#include "file/TextFile.h"
-#include "file/RomFile.h"
-#include "file/libfile.h"
 #include "mewthree/Signature.h"
 #include "mewthree/RomMap.h"
 #include "mewthree/Rats.h"
@@ -134,7 +132,7 @@ static uint8* readbin(const char* path, uint32* size, Observers* obs)
 	long sz;
 	uint8* bin;
 
-	sz = getfilesize(path);
+	sz = fsize(path);
 	if((SpSigLen+5) > sz)
 	{
 		obs->err(0, GSID_ASSEMBLE_EMPTY_ASM);
@@ -201,21 +199,21 @@ static bool AssembleSub(
 	char* work;
 
 	/* open base asm */
-	if(FileOpen_NoError != tmpAsm->Open2(tmpAsm, "w"))
+	if(FileOpen_NoError != tmpAsm->open2(tmpAsm, "w"))
 	{
 		return false;
 	}
 
 	/* write rommap inf */
-	tmpAsm->Printf(tmpAsm, ";%s\n", map->name);
-	tmpAsm->Printf(tmpAsm, "map = %d\n", map->val);
+	tmpAsm->printf(tmpAsm, ";%s\n", map->name);
+	tmpAsm->printf(tmpAsm, "map = %d\n", map->val);
 
 	/* write label / define src include */
 	tmpPath = Str_concat(env->WorkDir, TrasmLibAsm);
-	tmpAsm->Printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
+	tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
 	free(tmpPath);
 	tmpPath = Str_concat(env->WorkDir, TrasmDefAsm);
-	tmpAsm->Printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
+	tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
 	free(tmpPath);
 
 	/* include rommap define file */
@@ -227,11 +225,11 @@ static bool AssembleSub(
 	{
 		tmpPath = Str_concat(env->ExeDir, TrasmLoDef);
 	}
-	tmpAsm->Printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
+	tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
 	free(tmpPath);
 
 	/* write base address */
-	tmpAsm->Printf(tmpAsm, "org $%06x\n", orgaddr);
+	tmpAsm->printf(tmpAsm, "org $%06x\n", orgaddr);
 
 	/* write injection define */
 	if(NULL != siginj) siginj(tmpAsm, data);
@@ -240,20 +238,20 @@ static bool AssembleSub(
 	tmpPath = Str_concat(env->ListDir, TrasmInc);
 	if(fexists(tmpPath))
 	{
-		tmpAsm->Printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
+		tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
 	}
 	else
 	{
 		free(tmpPath);
 		tmpPath = Str_concat(env->ExeDir, TrasmIncSys);
-		if(fexists(tmpPath)) tmpAsm->Printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
+		if(fexists(tmpPath)) tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
 	}
 	free(tmpPath);
 
 	/* write main src include */
-	tmpAsm->Printf(tmpAsm, "incsrc \"%s\"\n", path);
+	tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", path);
 
-	tmpAsm->super.Close(&tmpAsm->super);
+	tmpAsm->close(tmpAsm);
 
 	/* execute trasm */
 	pman = new_PipeMan(cmd);

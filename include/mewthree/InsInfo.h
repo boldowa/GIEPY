@@ -3,6 +3,9 @@
  * @file InsInfo.h
  *   GIEPY Install information struct
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define SA_NULL		0	/* SNES ADDRESS NULL */
 
@@ -65,3 +68,6 @@ typedef struct _MewInsInfo {
 	uint8*		giepyTableGrps[5];
 }MewInsInfo;
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

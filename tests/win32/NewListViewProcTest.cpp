@@ -1,11 +1,8 @@
 /**
  * @file NewListViewProcTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
+#include <bolib.h>
 #include "win32/NewListViewProc.h"
-}
 
 #include "CppUTest/TestHarness.h"
 

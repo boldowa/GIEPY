@@ -2,6 +2,10 @@
 /**
  * @file CfgData.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct _TagData {
 	char*		name;
 	char*		description;
@@ -27,3 +31,7 @@ typedef struct _CfgData {
 	InsertInf	insinf2;
 	TagData		tag;
 }CfgData;
+
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

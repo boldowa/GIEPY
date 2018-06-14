@@ -1,11 +1,8 @@
 /**
  * JsonTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "Json.h"
-}
+#include <bolib.h>
+#include "mewthree/Json.h"
 
 #include "CppUTest/TestHarness.h"
 

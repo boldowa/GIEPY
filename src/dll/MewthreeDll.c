@@ -1,8 +1,8 @@
 /**
  * @file MewthreeDll.c
  */
-
-#include "common/types.h"
+#include <bolib.h>
+#include <stdio.h>
 #include <setjmp.h>
 #include "common/dllCommon.h"
 #include "common/Observer.h"
@@ -11,7 +11,6 @@
 #include "common/CfgData.h"
 #include "common/AsmType.h"
 #include "common/MewInterfaces.h"
-#include "file/libfile.h"
 
 #define LIBRARY_NAME	"mewthree"
 

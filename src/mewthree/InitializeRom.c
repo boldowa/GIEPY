@@ -1,16 +1,15 @@
 /**
  * @file InitializeRom.c
  */
-#include "common/types.h"
 #include <assert.h>
-#include "common/Str.h"
-#include "common/List.h"
+#include <bolib.h>
+#include <stdlib.h>
+#include <memory.h>
+#include <bolib/file/RomFile.h>
+#include <bolib/file/TextFile.h>
 #include "common/strres.h"
 #include "common/srcpath.h"
 #include "common/InsertList.h"
-#include "file/File.h"
-#include "file/RomFile.h"
-#include "file/TextFile.h"
 #include "common/version.h"
 #include "common/Observer.h"
 #include "mewthree/Signature.h"
@@ -29,12 +28,12 @@
 
 static bool sigInjection(TextFile* f, void* d)
 {
-	f->Printf(f, "!DEBUG := 0\n");
-	f->Printf(f, "!SYSTEM_INITIALIZING := 1\n");
-	f->Printf(f, "!LIBRARY_ASSEMBLING := 0\n");
-	f->Printf(f, "freecode\n");
-	f->Printf(f, "db " Signature_db "\n");
-	f->Printf(f, "db \"MAIN\",$00,$00\n");
+	f->printf(f, "!DEBUG := 0\n");
+	f->printf(f, "!SYSTEM_INITIALIZING := 1\n");
+	f->printf(f, "!LIBRARY_ASSEMBLING := 0\n");
+	f->printf(f, "freecode\n");
+	f->printf(f, "db " Signature_db "\n");
+	f->printf(f, "db \"MAIN\",$00,$00\n");
 	return true;
 }
 

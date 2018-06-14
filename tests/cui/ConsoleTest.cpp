@@ -1,11 +1,8 @@
 /**
  * ConsoleTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "Console.h"
-}
+#include <bolib.h>
+#include "cui/Console.h"
 
 #include "CppUTest/TestHarness.h"
 

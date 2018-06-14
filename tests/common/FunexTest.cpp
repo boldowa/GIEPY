@@ -1,11 +1,8 @@
 /**
  * FunexTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
+#include <bolib.h>
 #include "common/Funex.h"
-}
 
 #include "CppUTest/TestHarness.h"
 

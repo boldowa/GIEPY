@@ -1,13 +1,13 @@
 /**
  * @file CollectInfo.c
  */
-#include "common/types.h"
+#include <bolib.h>
 #include <assert.h>
+#include <stdlib.h>
+#include <memory.h>
+#include <bolib/file/RomFile.h>
 #include "common/strres.h"
 #include "common/Observer.h"
-#include "common/ReadWrite.h"
-#include "file/File.h"
-#include "file/RomFile.h"
 #include "smw/libsmw.h"
 #include "mewthree/Signature.h"
 #include "mewthree/InsInfo.h"

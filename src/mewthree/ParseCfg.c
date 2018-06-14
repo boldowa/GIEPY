@@ -1,18 +1,17 @@
 /**
  * @file ParseCfg.c
  */
-#include "common/types.h"
+#include <bolib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <setjmp.h>
 #include <assert.h>
-#include "common/Str.h"
-#include "common/List.h"
+#include <bolib/file/TextFile.h>
 #include "common/strres.h"
 #include "common/Observer.h"
 #include "common/Funex.h"
 #include "common/InsertList.h"
-#include "file/File.h"
-#include "file/TextFile.h"
-#include "file/libfile.h"
 #include "mewthree/ParseCfg.h"
 
 void DiscardCfgData(CfgData** cfgp, Observers* obs)
@@ -317,7 +316,7 @@ static bool ReadTagData(CfgData* data, TextFile* cfgFile, Observers* obs)
 
 	if(0 == setjmp(e))
 	{
-		linebuf = cfgFile->GetLine(cfgFile);
+		linebuf = cfgFile->getline(cfgFile);
 		while(NULL != linebuf)
 		{
 			work = Str_copy(linebuf);
@@ -342,7 +341,7 @@ static bool ReadTagData(CfgData* data, TextFile* cfgFile, Observers* obs)
 
 			/* next line */
 			free(work); work=NULL;
-			linebuf = cfgFile->GetLine(cfgFile);
+			linebuf = cfgFile->getline(cfgFile);
 		}
 	}
 	else
@@ -412,7 +411,7 @@ CfgData* ParseCfg(const char* cfgPath, int number, Observers* obs)
 	if(0 == setjmp(e)) /* try */
 	{
 		cfgFile = new_TextFile(cfgPath);
-		if(FileOpen_NoError != cfgFile->Open(cfgFile))
+		if(FileOpen_NoError != cfgFile->open(cfgFile))
 		{
 			obs->err(0, GSID_DEBUG);
 			longjmp(e, 1);
@@ -421,7 +420,7 @@ CfgData* ParseCfg(const char* cfgPath, int number, Observers* obs)
 		obs->debug(0, GSID_PARSECFG_READING_FILE, cfgPath);
 
 		/* read config file */
-		linebuf = cfgFile->GetLine(cfgFile);
+		linebuf = cfgFile->getline(cfgFile);
 		while(NULL != linebuf)
 		{
 			if(true == isPrevEmpty)
@@ -522,7 +521,7 @@ CfgData* ParseCfg(const char* cfgPath, int number, Observers* obs)
 
 			/* next line */
 			free(work);
-			linebuf = cfgFile->GetLine(cfgFile);
+			linebuf = cfgFile->getline(cfgFile);
 		}
 
 		/* line check */

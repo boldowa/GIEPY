@@ -1,11 +1,8 @@
 /**
  * @file DirOptDialogProcTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
+#include <bolib.h>
 #include "win32/DirOptDialogProc.h"
-}
 
 #include "CppUTest/TestHarness.h"
 

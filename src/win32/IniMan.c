@@ -2,17 +2,14 @@
  * @file IniMan.c
  * Singleton ini manager
  */
-#include "common/types.h"
+#include <bolib.h>
 #include <windows.h>
 #include <tchar.h>
 #include <assert.h>
-#include "common/List.h"
-#include "common/Str.h"
 #include "common/Funex.h"
 #include "common/defaults.h"
 #include "common/defines.h"
 #include "common/Environment.h"
-#include "file/libfile.h"
 
 #include "win32/IniMan.h"
 

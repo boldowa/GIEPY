@@ -1,11 +1,8 @@
 /**
  * UninstallTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "Uninstall.h"
-}
+#include <bolib.h>
+#include "mewthree/Uninstall.h"
 
 #include "CppUTest/TestHarness.h"
 

@@ -1,23 +1,23 @@
 /**
  * @file Asar.c
  */
-#include "common/types.h"
+#include <bolib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <assert.h>
 #include <setjmp.h>
 #if !isWindows
 #include <strings.h>
 #endif
-#include "common/Str.h"
+#include <bolib/file/TextFile.h>
+#include <bolib/file/RomFile.h>
 #include "common/InsertList.h"
 #include "common/strres.h"
 #include "common/Observer.h"
 #include "common/Funex.h"
 #include "common/version.h"
 #include "common/srcpath.h"
-#include "file/File.h"
-#include "file/TextFile.h"
-#include "file/RomFile.h"
-#include "file/libfile.h"
 #include "mewthree/RomMap.h"
 #include "mewthree/MewEnv.h"
 #include "mewthree/InsInfo.h"
@@ -210,7 +210,7 @@ bool AssembleAsar(
 		}
 
 		/* open base asm */
-		if(FileOpen_NoError != tmpAsm->Open2(tmpAsm, "w"))
+		if(FileOpen_NoError != tmpAsm->open2(tmpAsm, "w"))
 		{
 			longjmp(e, 1);
 		}
@@ -218,75 +218,75 @@ bool AssembleAsar(
 		obs->debug(0, GSID_ASSEMBLE_FILE, path);
 
 		/* write rommap inf */
-		tmpAsm->Printf(tmpAsm, "%s\n", map->name);
-		tmpAsm->Printf(tmpAsm, "!map = %d\n", map->val);
+		tmpAsm->printf(tmpAsm, "%s\n", map->name);
+		tmpAsm->printf(tmpAsm, "!map = %d\n", map->val);
 
 		/* write sa-1 config include */
 		tmpPath = Str_concat(env->ExeDir, SA1Def);
-		tmpAsm->Printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
+		tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
 		free(tmpPath);
 
 		/* write injection define */
 		if(NULL != siginj) siginj(tmpAsm, data);
 
 		/* write sys define */
-		tmpAsm->Printf(tmpAsm, "!SYSTEM_INITIALIZING ?= 0\n");
-		tmpAsm->Printf(tmpAsm, "!GIEPY_VER := %06d\n", DllAppVersionInt);
+		tmpAsm->printf(tmpAsm, "!SYSTEM_INITIALIZING ?= 0\n");
+		tmpAsm->printf(tmpAsm, "!GIEPY_VER := %06d\n", DllAppVersionInt);
 
 		/* FastROM detection */
 		if(MapMode_20H==rom->mapmode_get(rom) || MapMode_21H==rom->mapmode_get(rom))
 		{
-			tmpAsm->Printf(tmpAsm, "!FastROM := 1\n", tmpPath);
+			tmpAsm->printf(tmpAsm, "!FastROM := 1\n", tmpPath);
 		}
 
 		/* pixi inc */
 		if(isPixiCompatible)
 		{
-			tmpAsm->Printf(tmpAsm, "!PIXI_COMPATIBLE = 1\n", tmpPath);
+			tmpAsm->printf(tmpAsm, "!PIXI_COMPATIBLE = 1\n", tmpPath);
 			tmpPath = Str_concat(env->ExeDir, PixiDef);
-			tmpAsm->Printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
+			tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
 			free(tmpPath);
 		}
 
 		/*------------------------------------*/
-		tmpAsm->Printf(tmpAsm, "pushpc\n");
+		tmpAsm->printf(tmpAsm, "pushpc\n");
 
 		/* write label / define src include */
 		tmpPath = Str_concat(env->WorkDir, AsarLibAsm);
-		tmpAsm->Printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
+		tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
 		free(tmpPath);
 		tmpPath = Str_concat(env->WorkDir, AsarDefAsm);
-		tmpAsm->Printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
+		tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
 		free(tmpPath);
 		tmpPath = Str_concat(env->WorkDir, AsarFNMacAsm);
-		tmpAsm->Printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
+		tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
 		free(tmpPath);
 
 		/* write asar include */
 		tmpPath = Str_concat(env->ListDir, AsarInc);
 		if(fexists(tmpPath))
 		{
-			tmpAsm->Printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
+			tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
 		}
 		else
 		{
 			free(tmpPath);
 			tmpPath = Str_concat(env->ExeDir, AsarIncSys);
-			if(fexists(tmpPath)) tmpAsm->Printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
+			if(fexists(tmpPath)) tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
 		}
 		free(tmpPath);
 
-		tmpAsm->Printf(tmpAsm, "pullpc\n");
+		tmpAsm->printf(tmpAsm, "pullpc\n");
 		/*------------------------------------*/
 
 		/* write main src include */
-		tmpAsm->Printf(tmpAsm, "__main__:\n");
-		tmpAsm->Printf(tmpAsm, "incsrc \"%s\"\n", path);
+		tmpAsm->printf(tmpAsm, "__main__:\n");
+		tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", path);
 
 		/* write injection signature */
 		/* if(NULL != sigput) sigput(tmpAsm, data); */
 
-		tmpAsm->super.Close(&tmpAsm->super);
+		tmpAsm->close(tmpAsm);
 
 		/* Pass 1 */
 		pass--;

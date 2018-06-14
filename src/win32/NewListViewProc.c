@@ -1,7 +1,7 @@
 /**
  * @file NewListViewProc.c
  */
-#include "common/types.h"
+#include <bolib.h>
 #include <windows.h>
 #include <commctrl.h>
 #include <tchar.h>

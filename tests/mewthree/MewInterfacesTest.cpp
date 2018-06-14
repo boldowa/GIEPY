@@ -1,11 +1,8 @@
 /**
  * MewInterfacesTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "MewInterfaces.h"
-}
+#include <bolib.h>
+#include "mewthree/MewInterfaces.h"
 
 #include "CppUTest/TestHarness.h"
 

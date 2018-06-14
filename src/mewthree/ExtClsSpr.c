@@ -1,16 +1,13 @@
 /**
  * @file ExtClsSpr.c
  */
-#include "common/types.h"
+#include <bolib.h>
 #include <assert.h>
-#include "common/List.h"
-#include "common/ReadWrite.h"
+#include <bolib/file/RomFile.h>
 #include "common/strres.h"
 #include "common/InsertList.h"
 #include "common/Observer.h"
 #include "common/CfgData.h"
-#include "file/File.h"
-#include "file/RomFile.h"
 #include "mewthree/Rats.h"
 #include "mewthree/MewEnv.h"
 #include "mewthree/InsInfo.h"

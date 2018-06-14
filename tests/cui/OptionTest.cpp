@@ -1,9 +1,9 @@
-extern "C"
-{
+/**
+ * @file OptionTest.cpp
+ */
 #include <stdlib.h>
-#include "puts.h"
-#include "Option.h"
-}
+#include "common/puts.h"
+#include "cui/Option.h"
 
 #include "CppUTest/TestHarness.h"
 

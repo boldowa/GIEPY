@@ -1,11 +1,8 @@
 /**
  * ExportTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "Export.h"
-}
+#include <bolib.h>
+#include "mewthree/Export.h"
 
 #include "CppUTest/TestHarness.h"
 

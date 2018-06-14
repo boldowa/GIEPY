@@ -2,7 +2,7 @@
  * @file wmain.c
  *   - The sprite insertion tool gui interface main source
  */
-#include "common/types.h"
+#include <bolib.h>
 #include <windows.h>
 #include <tchar.h>
 #include "common/strres.h"

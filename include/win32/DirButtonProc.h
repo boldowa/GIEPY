@@ -2,6 +2,9 @@
 /**
  * @file DirButtonProc.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define DirButtonClass _T("DIRBUTTON")
 extern WNDPROC lpfnDefButtonProc;
@@ -16,3 +19,6 @@ typedef struct {
 	INT iconInx;
 } DirBtnInitData;
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

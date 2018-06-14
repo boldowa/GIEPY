@@ -1,12 +1,9 @@
 /**
  * MewthreeDllTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
+#include <bolib.h>
 #include "common/Environment.h"
 #include "common/Observer.h"
-}
 
 #include "dll/MewthreeDll.h"
 #include "CppUTest/TestHarness.h"

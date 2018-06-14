@@ -3,11 +3,10 @@
  *   In this source, json is decoded using the following library.
  *   - Jansson : https://github.com/akheron/jansson
  */
-#include "common/types.h"
+#include <bolib.h>
 #include "jansson.h"
 #include <setjmp.h>
 #include <assert.h>
-#include "common/Str.h"
 #include "common/strres.h"
 #include "common/Observer.h"
 #include "common/InsertList.h"

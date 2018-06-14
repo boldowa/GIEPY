@@ -2,36 +2,37 @@
 " Set path
 "-------------------
 "let &path.=","."/usr/i686-w64-mingw32/include"
-let &path ="/usr/i686-w64-mingw32/include"
+"let &path ="/usr/i686-w64-mingw32/include"
+let &path.=",/usr/local/include"
 
 let &path.=",".$CPPUTEST_HOME."/include"
 let &path.=",".getcwd()."/include"
 let &path.=",".getcwd()."/../jansson/src"
-let includes = split(glob("include/*"), "\n")
-for p in includes
-	let &path.=",".getcwd()."/".p
-endfor
+"let includes = split(glob("include/*"), "\n")
+"for p in includes
+"	let &path.=",".getcwd()."/".p
+"endfor
 
-let &path.=",".getcwd()."/../bolib/include"
-let includes = split(glob("../bolib/include/*"), "\n")
-for p in includes
-	let &path.=",".getcwd()."/".p
-endfor
+"let &path.=",".getcwd()."/../bolib/include"
+"let includes = split(glob("../bolib/include/*"), "\n")
+"for p in includes
+"	let &path.=",".getcwd()."/".p
+"endfor
 
 "---------------------------------------
 " ale config
 "---------------------------------------
 let g:ale_linters = {'c': ['gcc']}
 let g:ale_c_gcc_options  = '-ansi '
-let g:ale_c_gcc_options .= '-I./build/bolib/ '
+"let g:ale_c_gcc_options .= '-I./build/bolib/ '
+"let g:ale_c_gcc_options .= '-I../bolib/include '
 let g:ale_c_gcc_options .= '-I./build/jansson/include/ '
 let g:ale_c_gcc_options .= '-I./include '
-let g:ale_c_gcc_options .= '-I../bolib/include '
 let g:ale_c_gcc_options .= '-I../jansson/src '
 let g:ale_c_gcc_options .= '-Wall -Wno-format -Wconversion '
 
 "--- mingw32 option
-let g:ale_c_gcc_executable  = 'i686-w64-mingw32-gcc'
-let g:ale_c_gcc_options .= '-DWIN32 -DWindows '
-let g:ale_c_gcc_options .= '-DGUI '
+"let g:ale_c_gcc_executable  = 'i686-w64-mingw32-gcc'
+"let g:ale_c_gcc_options .= '-DWIN32 -DWindows '
+"let g:ale_c_gcc_options .= '-DGUI '
 

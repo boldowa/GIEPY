@@ -1,11 +1,8 @@
 /**
  * ChkAsmTypeTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "ChkAsmType.h"
-}
+#include <bolib.h>
+#include "mewthree/ChkAsmType.h"
 
 #include "CppUTest/TestHarness.h"
 

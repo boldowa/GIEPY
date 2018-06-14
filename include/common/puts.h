@@ -4,7 +4,11 @@
  */
 #pragma once
 
-#include "common/types.h"
+#include <bolib.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * It requires this var.
@@ -21,3 +25,7 @@ extern bool vdebug;
 #define puterror(fmt, ...)            fprintf(stderr, "[ERROR] " fmt "\n", ##__VA_ARGS__)
 #define putfatal(fmt, ...)            fprintf(stderr, "[FATAL] " fmt "\n", ##__VA_ARGS__)
 */
+
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

@@ -2,7 +2,9 @@
  * @file Mewthree.c
  *   ... mewthree.dll main instance source
  */
-#include "common/types.h"
+#include <bolib.h>
+#include <stdlib.h>
+#include <memory.h>
 #include <assert.h>
 #if isWindows
 #  include <windows.h>
@@ -14,15 +16,11 @@
 #  include <unistd.h>
 #  define ms_sleep(sec) usleep(sec*1000)
 #endif
-#include "common/Str.h"
-#include "common/List.h"
+#include <bolib/file/RomFile.h>
+#include <bolib/file/TextFile.h>
 #include "common/strres.h"
 #include "common/Observer.h"
 #include "common/srcpath.h"
-#include "file/libfile.h"
-#include "file/File.h"
-#include "file/RomFile.h"
-#include "file/TextFile.h"
 #include "mewthree/MewEnv.h"
 #include "mewthree/RomMap.h"
 #include "mewthree/CollectInfo.h"
@@ -156,7 +154,7 @@ void delete_Mewthree_members(Mewthree* self)
 	/* delete protected members */
 	if(NULL != self->pro->rom)
 	{
-		self->pro->rom->Close(self->pro->rom);
+		self->pro->rom->close(self->pro->rom);
 		delete_RomFile(&self->pro->rom);
 	}
 	delete_LibsInsertMan(&self->pro->libsMan);
@@ -224,7 +222,7 @@ static bool OpenRomFile(Mewthree* mi, const char* path)
 	}
 
 	/* open */
-	if(FileOpen_NoError != rom->Open(rom))
+	if(FileOpen_NoError != rom->open(rom))
 	{
 		mi->pro->obs.err(0, GSID_ROM_OPEN_FAILED);
 		delete_RomFile(&mi->pro->rom);
@@ -250,12 +248,12 @@ static bool OpenRomFile(Mewthree* mi, const char* path)
 
 static bool WriteRomFile(Mewthree* mi)
 {
-	return mi->pro->rom->Write(mi->pro->rom);
+	return mi->pro->rom->write(mi->pro->rom);
 }
 
 static void CloseRomFile(Mewthree* mi)
 {
-	mi->pro->rom->Close(mi->pro->rom);
+	mi->pro->rom->close(mi->pro->rom);
 }
 
 static bool UninstallAll(Mewthree* mi)
@@ -331,9 +329,9 @@ static bool labelInjection(const struct labeldata* labs, int cnt, InsertInf* inf
 }
 static bool sigInjection(TextFile* f, void* d)
 {
-	f->Printf(f, "!DEBUG := 0\n");
-	f->Printf(f, "!SYSTEM_INITIALIZING := 1\n");
-	f->Printf(f, "!LIBRARY_ASSEMBLING := 0\n");
+	f->printf(f, "!DEBUG := 0\n");
+	f->printf(f, "!SYSTEM_INITIALIZING := 1\n");
+	f->printf(f, "!LIBRARY_ASSEMBLING := 0\n");
 	return true;
 }
 static bool _CollectLibraries(Mewthree* mi, const char* dir)

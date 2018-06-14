@@ -1,11 +1,8 @@
 /**
- * WndProcTest.cpp
+ * MainWndProcTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "WndProc.h"
-}
+#include <bolib.h>
+#include "win32/MainWndProc.h"
 
 #include "CppUTest/TestHarness.h"
 

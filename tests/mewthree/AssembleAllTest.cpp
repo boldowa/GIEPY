@@ -1,11 +1,8 @@
 /**
  * AssembleAllTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "AssembleAll.h"
-}
+#include <bolib.h>
+#include "mewthree/AssembleAll.h"
 
 #include "CppUTest/TestHarness.h"
 

@@ -2,6 +2,9 @@
 /**
  * @file Funex.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "common/Observer.h"
 
@@ -31,3 +34,7 @@ void SkipSpaces(const char*, size_t*, const size_t);
 void SkipUntilSpaces(const char*, size_t*, const size_t);
 void SkipSpacesRev(const char*, size_t*);
 void SkipUntilChar(const char*, size_t*, const char, const size_t);
+
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

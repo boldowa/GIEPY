@@ -2,7 +2,9 @@
 /**
  * @file defaults.h
  */
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * Option default values
@@ -14,3 +16,6 @@
 #define DefaultClsDirName	"clusters"
 #define DefaultOWSDirName	"overworlds"
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

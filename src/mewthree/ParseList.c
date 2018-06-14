@@ -1,18 +1,16 @@
 /**
  * @file ParseList.c
  */
-#include "common/types.h"
+#include <bolib.h>
+#include <stdlib.h>
+#include <string.h>
 #include <setjmp.h>
 #include <assert.h>
-#include "common/Str.h"
+#include <bolib/file/TextFile.h>
 #include "common/strres.h"
 #include "common/Observer.h"
 #include "common/Funex.h"
 #include "common/InsertList.h"
-#include "file/File.h"
-#include "file/TextFile.h"
-#include "file/libfile.h"
-#include "common/List.h"
 #include "mewthree/MewEnv.h"
 #include "mewthree/ParseCfg.h"
 #include "mewthree/ParseList.h"
@@ -584,7 +582,7 @@ bool ParseList(const char* listName, List** listPtr, MewEnvStruct* env, Observer
 	{
 		lstFile = new_TextFile(lstPath);
 		free(lstPath);
-		if(FileOpen_NoError != lstFile->Open(lstFile))
+		if(FileOpen_NoError != lstFile->open(lstFile))
 		{
 			obs->err(0, GSID_LIST_OPEN_FAILED, lstFile->super.path_get(&lstFile->super));
 			longjmp(e, 1);
@@ -593,7 +591,7 @@ bool ParseList(const char* listName, List** listPtr, MewEnvStruct* env, Observer
 		obs->debug(0, GSID_LIST_PARSE_START, lstFile->super.path_get(&lstFile->super));
 
 		/* read list file */
-		linebuf = lstFile->GetLine(lstFile);
+		linebuf = lstFile->getline(lstFile);
 		while(NULL != linebuf)
 		{
 			work = Str_copy(linebuf);
@@ -603,7 +601,7 @@ bool ParseList(const char* listName, List** listPtr, MewEnvStruct* env, Observer
 			if('\0' == *work)
 			{
 				free(work); work = NULL;
-				linebuf = lstFile->GetLine(lstFile);
+				linebuf = lstFile->getline(lstFile);
 				continue;
 			}
 
@@ -623,7 +621,7 @@ bool ParseList(const char* listName, List** listPtr, MewEnvStruct* env, Observer
 
 			/* next line */
 			free(work); work=NULL;
-			linebuf = lstFile->GetLine(lstFile);
+			linebuf = lstFile->getline(lstFile);
 		}
 
 		env->ListDir =  abspath(lstFile->super.dir_get(&lstFile->super));

@@ -2,6 +2,9 @@
 /**
  * @file Console.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef enum _ConsoleAttribute {
 	CA_Default,
@@ -21,3 +24,6 @@ void MoveBackLines(FILE *fp, int);
 HWND GetConsoleHwnd(void);
 #endif
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

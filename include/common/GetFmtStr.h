@@ -2,6 +2,9 @@
 /**
  * @file GetFmtStr.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "common/strres.h"
 
@@ -15,3 +18,6 @@ TCHAR* GetFmtStr(uint);
 #define putmemerr() \
 	putfatal(0,GSID_MEMALLOC_FAILED,__func__)
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

@@ -1,8 +1,7 @@
 /**
  * @file Rats.c
  */
-#include "common/types.h"
-#include "common/ReadWrite.h"
+#include <bolib.h>
 #include "mewthree/Rats.h"
 
 /**

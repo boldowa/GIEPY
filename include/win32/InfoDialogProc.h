@@ -2,6 +2,9 @@
 /**
  * @file InfoDialogProc.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define WC_INFODIALOG _T("INFODIALOG")
 INT_PTR CALLBACK InfoDialogProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -37,3 +40,6 @@ typedef struct _InfDlgInitData {
 #define ID_TV_TABERROR		114
 #define ID_TV_TABFATAL		115
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

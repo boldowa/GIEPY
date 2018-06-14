@@ -2,6 +2,9 @@
 /**
  * @file Trasm.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 bool AssembleTrasm(
 	MewEnvStruct* env,
@@ -14,4 +17,6 @@ bool AssembleTrasm(
 	bool (*siginj)(TextFile*, void*),
 	void* data);
 
-
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

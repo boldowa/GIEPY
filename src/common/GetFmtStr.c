@@ -2,7 +2,7 @@
  * @file GetFmtStr.c
  */
 
-#include "common/types.h"
+#include <bolib.h>
 #if isWindows
 #  include <tchar.h>
 #endif

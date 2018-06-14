@@ -1,11 +1,8 @@
 /**
  * WorkspaceTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "Workspace.h"
-}
+#include <bolib.h>
+#include "mewthree/Workspace.h"
 
 #include "CppUTest/TestHarness.h"
 

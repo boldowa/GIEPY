@@ -1,8 +1,10 @@
 /**
  * @file ParseCmdDefs.c
  */
-
-#include "common/types.h"
+#include <bolib.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 #if isWindows
 #  include <windows.h>
 #  include <tchar.h>
@@ -11,9 +13,7 @@
 #include <assert.h>
 #include "common/Observer.h"
 #include "common/puts.h"
-#include "common/Str.h"
 #include "common/Funex.h"
-#include "common/List.h"
 typedef struct _RomFile RomFile; /* for Asarctl.h */
 #include "cui/ParseCmdDefs.h"
 #include "common/GetFmtStr.h"

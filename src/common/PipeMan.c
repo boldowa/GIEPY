@@ -5,8 +5,10 @@
 #ifndef _POSIX_C_SOURCE
 #  define _POSIX_C_SOURCE 2
 #endif
-#include "common/types.h"
-#include "common/Str.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <bolib.h>
 #include <assert.h>
 #if isWindows
 #  include <windows.h>

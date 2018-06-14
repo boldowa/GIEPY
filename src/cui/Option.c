@@ -1,7 +1,8 @@
 /**
  * @file Option.c
  */
-#include "common/types.h"
+#include <stdio.h>
+#include <bolib.h>
 #if isWindows
 #  include <windows.h>
 #  include <tchar.h>
@@ -10,7 +11,6 @@
 #include <string.h>
 #include <ctype.h>
 #include "common/Observer.h"
-#include "common/Str.h"
 #include "common/puts.h"
 #include "common/strres.h"
 

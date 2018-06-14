@@ -1,15 +1,15 @@
 /**
  * @file ChkAsmType.c
  */
-#include "common/types.h"
+#include <bolib.h>
+#include <string.h>
+#include <stdlib.h>
 #if !isWindows
 #  include <strings.h>
 #endif
-#include "common/Str.h"
+#include <bolib/file/TextFile.h>
 #include "common/Observer.h"
 #include "common/Funex.h"
-#include "file/File.h"
-#include "file/TextFile.h"
 #include "common/strres.h"
 #include "mewthree/ChkAsmType.h"
 
@@ -86,14 +86,14 @@ AsmType ChkAsmType(const char* asmPath, Observers* obs)
 		obs->fatal(0, GSID_MEMALLOC_FAILED, __func__);
 		return AsmType_Unknown;
 	}
-	if(FileOpen_NoError != asmFile->Open2(asmFile, "r"))
+	if(FileOpen_NoError != asmFile->open2(asmFile, "r"))
 	{
 		obs->err(0, GSID_ASM_OPEN_FAILED, asmPath);
 		delete_TextFile(&asmFile);
 		return AsmType_Unknown;
 	}
 
-	linebuf = asmFile->GetLine(asmFile);
+	linebuf = asmFile->getline(asmFile);
 	while(NULL != linebuf)
 	{
 		work = Str_copy(linebuf);
@@ -193,7 +193,7 @@ LabelChk:
 		}
 Next:
 		free(work); work=NULL;
-		linebuf = asmFile->GetLine(asmFile);
+		linebuf = asmFile->getline(asmFile);
 	}
 
 	delete_TextFile(&asmFile);

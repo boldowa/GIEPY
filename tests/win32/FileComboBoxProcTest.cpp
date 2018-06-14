@@ -1,11 +1,8 @@
 /**
  * @file FileComboBoxProcTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
+#include <bolib.h>
 #include "win32/FileComboBoxProc.h"
-}
 
 #include "CppUTest/TestHarness.h"
 

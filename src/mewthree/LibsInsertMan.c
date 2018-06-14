@@ -1,7 +1,8 @@
 /**
  * @file LibsInsertMan.c
  */
-#include "common/types.h"
+#include <bolib.h>
+#include <stdlib.h>
 #include <assert.h>
 #include <setjmp.h>
 #include <string.h>
@@ -10,16 +11,11 @@
 #else
 #  include <dirent.h>
 #endif
+#include <bolib/file/TextFile.h>
 #include "common/strres.h"
 #include "common/puts.h"
-#include "common/Str.h"
-#include "common/List.h"
 #include "common/Funex.h"
 #include "common/Observer.h"
-#include "file/FilePath.h"
-#include "file/File.h"
-#include "file/TextFile.h"
-#include "file/libfile.h"
 #include "mewthree/MewEnv.h"
 #include "mewthree/SearchPath.h"
 #include "mewthree/LibsInsertMan.h"
@@ -317,13 +313,13 @@ static void ReadAsmFile(LibraryFileItem* fileItem, List* labelList, const char* 
 			longjmp(e, 1);
 		}
 
-		if(FileOpen_NoError != asmFile->Open(asmFile))
+		if(FileOpen_NoError != asmFile->open(asmFile))
 		{
 			obs->warn(0, GSID_LIBRARY_CANT_OPEN, asmFile->super.path_get(&asmFile->super));
 			longjmp(e, 1);
 		}
 
-		linebuf = asmFile->GetLine(asmFile);
+		linebuf = asmFile->getline(asmFile);
 		while(NULL != linebuf)
 		{
 			/* match func */
@@ -337,10 +333,10 @@ static void ReadAsmFile(LibraryFileItem* fileItem, List* labelList, const char* 
 				}
 				free(label);
 			}
-			linebuf = asmFile->GetLine(asmFile);
+			linebuf = asmFile->getline(asmFile);
 		}
 
-		asmFile->super.Close(&asmFile->super);
+		asmFile->close(asmFile);
 	}
 	else
 	{

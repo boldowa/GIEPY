@@ -2,6 +2,9 @@
 /**
  * @file RomMap.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef enum {
 	MT_Unknown = 0,
@@ -19,3 +22,6 @@ typedef struct _RomMap {
 
 void getmapmode(RomFile*, RomMap*);
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

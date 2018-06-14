@@ -1,7 +1,7 @@
 /**
  * @file NewLVEditProc.c
  */
-#include "common/types.h"
+#include <bolib.h>
 #include <windows.h>
 #include <tchar.h>
 #include <commctrl.h>

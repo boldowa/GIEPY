@@ -1,11 +1,10 @@
 /**
  * @file InfoDialogProc.c
  */
-#include "common/types.h"
+#include <bolib.h>
 #include <windows.h>
 #include <tchar.h>
 #include <commctrl.h>
-#include "common/List.h"
 #include "common/strres.h"
 #include "common/GetFmtStr.h"
 #include "win32/icon.h"

@@ -1,11 +1,8 @@
 /**
  * @file PieeDialogTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
+#include <bolib.h>
 #include "win32/PieeDialog.h"
-}
 
 #include "CppUTest/TestHarness.h"
 

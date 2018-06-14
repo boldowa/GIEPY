@@ -2,8 +2,9 @@
  * @file main.c
  *   - The sprite insertion tool cui interface main source
  */
-
-#include "common/types.h"
+#include <bolib.h>
+#include <stdio.h>
+#include <string.h>
 #include "common/defaults.h"
 #include "common/strres.h"
 #include "common/version.h"
@@ -13,9 +14,7 @@
 #  include <windows.h>
 #  include <tchar.h>
 #endif
-#include "common/List.h"
 #include "common/puts.h"
-#include "common/ReadWrite.h"
 #include "common/srcpath.h"
 #include "common/AsmType.h"
 #include "common/Observer.h"
@@ -28,6 +27,10 @@
 #include "cui/Option.h"
 #include "cui/ParseCmdDefs.h"
 #include "common/GetFmtStr.h"
+
+/* TODO */
+#define C_COMPILER "cc"
+#define C_COMPILER_VER "8.1.0"
 
 #ifndef _tprintf
 #define _tprintf printf

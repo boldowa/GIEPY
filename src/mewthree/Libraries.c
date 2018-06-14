@@ -1,16 +1,12 @@
 /**
  * @file Libraries.c
  */
-#include "common/types.h"
+#include <bolib.h>
 #include <setjmp.h>
-#include "common/List.h"
-#include "common/Str.h"
+#include <bolib/file/TextFile.h>
+#include <bolib/file/RomFile.h>
 #include "common/Observer.h"
 #include "common/InsertList.h"
-#include "file/FilePath.h"
-#include "file/File.h"
-#include "file/TextFile.h"
-#include "file/RomFile.h"
 #include "dll/asardll.h"
 #include "mewthree/RomMap.h"
 #include "mewthree/Signature.h"
@@ -23,12 +19,12 @@
 
 static bool sigInjection(TextFile* f, void* d)
 {
-	f->Printf(f, "!DEBUG := 0\n");
-	f->Printf(f, "!SYSTEM_INITIALIZING := 0\n");
-	f->Printf(f, "!LIBRARY_ASSEMBLING := 1\n");
-	f->Printf(f, "freecode\n");
-	f->Printf(f, "db " Signature_db "\n");
-	f->Printf(f, "db \"LIB_\",$00,$00\n");
+	f->printf(f, "!DEBUG := 0\n");
+	f->printf(f, "!SYSTEM_INITIALIZING := 0\n");
+	f->printf(f, "!LIBRARY_ASSEMBLING := 1\n");
+	f->printf(f, "freecode\n");
+	f->printf(f, "db " Signature_db "\n");
+	f->printf(f, "db \"LIB_\",$00,$00\n");
 	return true;
 }
 

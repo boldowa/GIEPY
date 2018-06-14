@@ -10,7 +10,7 @@
 #define expectedapiversion 300
 
 /* #include <stdbool.h> */
-#include "common/types.h"
+#include <bolib.h>
 
 #if isWindows
 #  define STDCALL __cdecl

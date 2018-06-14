@@ -1,11 +1,8 @@
 /**
  * @file NewLVEditProcTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
+#include <bolib.h>
 #include "win32/NewLVEditProc.h"
-}
 
 #include "CppUTest/TestHarness.h"
 

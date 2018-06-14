@@ -2,6 +2,9 @@
 /**
  * @file MewEnv.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define SPMAX 16
 typedef struct _MewEnvStruct {
@@ -22,3 +25,6 @@ void SetSearchPath(MewEnvStruct* env);
 void SetSystemPath(MewEnvStruct* env, const char* cur, const char* exe, Observers* obs);
 void ReleaseEnvironment(MewEnvStruct* env);
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

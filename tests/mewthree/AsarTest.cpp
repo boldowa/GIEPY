@@ -1,11 +1,8 @@
 /**
  * AsarTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "Asar.h"
-}
+#include <bolib.h>
+#include "mewthree/Asar.h"
 
 #include "CppUTest/TestHarness.h"
 

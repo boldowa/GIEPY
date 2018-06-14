@@ -1,11 +1,8 @@
 /**
  * TrasmTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "Trasm.h"
-}
+#include <bolib.h>
+#include "mewthree/Trasm.h"
 
 #include "CppUTest/TestHarness.h"
 

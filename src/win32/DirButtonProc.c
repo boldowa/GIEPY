@@ -1,7 +1,7 @@
 /**
  * @file DirButtonProc.c
  */
-#include "common/types.h"
+#include <bolib.h>
 #include <windows.h>
 #include <tchar.h>
 #include "win32/DirButtonProc.h"

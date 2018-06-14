@@ -2,6 +2,9 @@
 /**
  * @file PipeMan.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * public accessor
@@ -25,3 +28,6 @@ PipeMan* new_PipeMan(const char* command);
  */
 void delete_PipeMan(PipeMan**);
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

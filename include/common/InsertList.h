@@ -2,8 +2,9 @@
 /**
  * @file InsertList.h
  */
-
-#include "common/List.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef enum {
 	SpriteType_Undefined = 0,
@@ -31,3 +32,6 @@ typedef struct _InsertItem {
 
 bool InsertedChk(const void* sval, const void* lval); /* in Asar.c */
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

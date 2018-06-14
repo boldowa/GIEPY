@@ -1,11 +1,8 @@
 /**
  * ExtClsSprTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "ExtClsSpr.h"
-}
+#include <bolib.h>
+#include "mewthree/ExtClsSpr.h"
 
 #include "CppUTest/TestHarness.h"
 

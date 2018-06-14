@@ -2,16 +2,14 @@
  * @file MewInterfaces.c
  *   ... These functions are exported to the outside.
  */
-#include "common/types.h"
+#include <bolib.h>
 #include <assert.h>
+#include <bolib/file/RomFile.h>
 #include "jansson.h"
-#include "common/List.h"
 #include "common/version.h"
 #include "common/strres.h"
 #include "common/srcpath.h"
 #include "common/Observer.h"
-#include "file/File.h"
-#include "file/RomFile.h"
 #include "mewthree/MewEnv.h"
 #include "mewthree/CollectInfo.h"
 #include "mewthree/Uninstall.h"

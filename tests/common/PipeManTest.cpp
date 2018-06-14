@@ -2,11 +2,8 @@
  * PipeManTest.cpp
  */
 #include <assert.h>
-extern "C"
-{
-#include "common/types.h"
+#include <bolib.h>
 #include "common/PipeMan.h"
-}
 
 #include "CppUTest/TestHarness.h"
 
@@ -17,7 +14,7 @@ TEST_GROUP(PipeMan)
 
 	void setup()
 	{
-		target = new_PipeMan();
+		target = new_PipeMan("echo a");
 	}
 
 	void teardown()

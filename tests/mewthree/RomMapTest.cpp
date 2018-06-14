@@ -1,11 +1,8 @@
 /**
  * RomMapTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "RomMap.h"
-}
+#include <bolib.h>
+#include "mewthree/RomMap.h"
 
 #include "CppUTest/TestHarness.h"
 

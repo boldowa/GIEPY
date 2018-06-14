@@ -1,11 +1,8 @@
 /**
  * LibrariesTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "Libraries.h"
-}
+#include <bolib.h>
+#include "mewthree/Libraries.h"
 
 #include "CppUTest/TestHarness.h"
 

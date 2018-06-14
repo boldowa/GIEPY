@@ -2,19 +2,17 @@
  * @file Sprites.c
  *   ... construct and insert sprite tables...
  */
-#include "common/types.h"
 #include <assert.h>
-#include "common/List.h"
-#include "common/ReadWrite.h"
+#include <bolib.h>
+#include <stdio.h>
+#include <memory.h>
+#include <bolib/file/RomFile.h>
+#include <bolib/file/TextFile.h>
 #include "common/strres.h"
 #include "common/InsertList.h"
 #include "common/strres.h"
 #include "common/Observer.h"
 #include "common/CfgData.h"
-#include "file/FilePath.h"
-#include "file/File.h"
-#include "file/RomFile.h"
-#include "file/TextFile.h"
 #include "mewthree/MewEnv.h"
 #include "mewthree/InsInfo.h"
 #include "mewthree/Exbytes.h"
@@ -206,12 +204,12 @@ static void WriteSsc(InsertItem* item, TextFile* ssc)
 	if(NULL==ssc) return;
 
 	if(NULL!=item->cfg->tag.description)
-		ssc->Printf(ssc, "%02X	%2d	%s\n", item->number, item->grp*10, item->cfg->tag.description);
+		ssc->printf(ssc, "%02X	%2d	%s\n", item->number, item->grp*10, item->cfg->tag.description);
 	else
-		ssc->Printf(ssc, "%02X	%2d	%s\n", item->number, item->grp*10, item->cfg->basename);
+		ssc->printf(ssc, "%02X	%2d	%s\n", item->number, item->grp*10, item->cfg->basename);
 
 	if(NULL!=item->cfg->tag.label)
-		ssc->Printf(ssc, "%02X	%2d	0,0,*%s*\n", item->number, (item->grp*10)+2, item->cfg->tag.label);
+		ssc->printf(ssc, "%02X	%2d	0,0,*%s*\n", item->number, (item->grp*10)+2, item->cfg->tag.label);
 	else
 	{
 		Iterator* it;
@@ -219,13 +217,13 @@ static void WriteSsc(InsertItem* item, TextFile* ssc)
 		List* l = item->cfg->tag.tiles;
 		if(0 != l->length(l))
 		{
-			ssc->Printf(ssc, "%02X	%2d	", item->number, (item->grp*10)+2);
+			ssc->printf(ssc, "%02X	%2d	", item->number, (item->grp*10)+2);
 			for(it=l->begin(l); NULL!=it; it=it->next(it))
 			{
 				v = (int*)it->data(it);
-				ssc->Printf(ssc, "%d,%d,%X ", v[0], v[1], v[2]);
+				ssc->printf(ssc, "%d,%d,%X ", v[0], v[1], v[2]);
 			}
-			ssc->Printf(ssc, "\n");
+			ssc->printf(ssc, "\n");
 		}
 	}
 }
@@ -235,12 +233,12 @@ static void WriteMwt(InsertItem* item, TextFile* mwt)
 	static int nPrevious = -1;
 	if(NULL==mwt) return;
 
-	if(nPrevious != item->number) mwt->Printf(mwt, "%02X", item->number);
+	if(nPrevious != item->number) mwt->printf(mwt, "%02X", item->number);
 	nPrevious = item->number;
 	if(NULL != item->cfg->tag.name)
-		mwt->Printf(mwt, "	%s\n", item->cfg->tag.name);
+		mwt->printf(mwt, "	%s\n", item->cfg->tag.name);
 	else
-		mwt->Printf(mwt, "	%s\n", item->cfg->basename);
+		mwt->printf(mwt, "	%s\n", item->cfg->basename);
 }
 
 static void WriteMw2(InsertItem* item, FILE* mw2)
@@ -621,12 +619,12 @@ bool InsertSprites(RomFile* rom, MewInsInfo* inf, List* iList, bool disableSscGe
 			fp->ext_set(fp, ".mwt");
 			mwt = new_TextFile(fp->path_get(fp));
 			fp->ext_set(fp, ".mw2");
-			if(NULL==ssc || FileOpen_NoError!=ssc->Open2(ssc,"w"))
+			if(NULL==ssc || FileOpen_NoError!=ssc->open2(ssc,"w"))
 			{
 				obs->err(0, GSID_TOOLTIP_OPEN_FAILED, ssc->super.path_get(&ssc->super));
 				delete_TextFile(&ssc);
 			}
-			if(NULL==mwt || FileOpen_NoError!=mwt->Open2(mwt,"w"))
+			if(NULL==mwt || FileOpen_NoError!=mwt->open2(mwt,"w"))
 			{
 				obs->err(0, GSID_TOOLTIP_OPEN_FAILED, mwt->super.path_get(&mwt->super));
 				delete_TextFile(&mwt);
@@ -652,15 +650,15 @@ bool InsertSprites(RomFile* rom, MewInsInfo* inf, List* iList, bool disableSscGe
 		fp->ext_set(fp, ".ssx");
 		ssx = new_TextFile(fp->path_get(fp));
 
-		if(NULL!=ssx && FileOpen_NoError==ssx->Open2(ssx,"r"))
+		if(NULL!=ssx && FileOpen_NoError==ssx->open2(ssx,"r"))
 		{
 			const char* linebuf;
 
-			linebuf = ssx->GetLine(ssx);
+			linebuf = ssx->getline(ssx);
 			while(NULL!=linebuf)
 			{
-				ssc->Printf(ssc, "%s\n",linebuf);
-				linebuf = ssx->GetLine(ssx);
+				ssc->printf(ssc, "%s\n",linebuf);
+				linebuf = ssx->getline(ssx);
 			}
 		}
 		delete_TextFile(&ssx);

@@ -2,12 +2,11 @@
  * @file Observer.c
  */
 
-#include "common/types.h"
+#include <bolib.h>
 #include <stdarg.h>
 #include <windows.h>
 #include <tchar.h>
 #include <commctrl.h>
-#include "common/List.h"
 #include "common/Observer.h"
 #include "dll/Mewthree.def"
 #include "common/GetFmtStr.h"

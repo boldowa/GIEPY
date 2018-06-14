@@ -1,7 +1,8 @@
-extern "C"
-{
-#include "Observer.h"
-}
+/**
+ * @file ObserverTest.cpp
+ */
+#include <bolib.h>
+#include "common/Observer.h"
 
 #include "CppUTest/TestHarness.h"
 

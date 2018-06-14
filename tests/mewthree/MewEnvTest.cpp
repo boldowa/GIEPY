@@ -1,11 +1,8 @@
 /**
  * MewEnvTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "MewEnv.h"
-}
+#include <bolib.h>
+#include "mewthree/MewEnv.h"
 
 #include "CppUTest/TestHarness.h"
 

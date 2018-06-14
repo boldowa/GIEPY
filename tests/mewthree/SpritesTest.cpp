@@ -1,11 +1,8 @@
 /**
  * SpritesTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "Sprites.h"
-}
+#include <bolib.h>
+#include "mewthree/Sprites.h"
 
 #include "CppUTest/TestHarness.h"
 

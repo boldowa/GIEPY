@@ -2,13 +2,9 @@
  * LibsInsertManTest.cpp
  */
 #include <assert.h>
-extern "C"
-{
-#include "common/types.h"
-#include "common/Str.h"
-#include "unko/LibsInsertMan.h"
-#include "common/Enviroment.h"
-}
+#include <bolib.h>
+#include "common/Environment.h"
+#include "mewthree/LibsInsertMan.h"
 
 #include "CppUTest/TestHarness.h"
 
@@ -21,7 +17,7 @@ TEST_GROUP(LibsInsertMan)
 	{
 		for(int i=0; i<SearchPathNums; i++)
 		{
-			Enviroment.SearchPath[i] = NULL;
+			Environment.SearchPath[i] = NULL;
 		}
 
 		target = new_LibsInsertMan();
@@ -75,7 +71,7 @@ TEST(LibsInsertMan, labelsCount)
  */
 TEST(LibsInsertMan, buildData)
 {
-	Enviroment.SearchPath[0] = "./testdata/unko/";
+	Environment.SearchPath[0] = "./testdata/unko/";
 
 	target->buildData(target, "lib1");
 

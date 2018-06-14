@@ -2,6 +2,9 @@
 /**
  * @file IniMan.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef struct _DefineListItem{
 	TCHAR* name;
@@ -81,4 +84,6 @@ IniMan* IniMan_GetInstance(void);
  */
 void IniMan_DiscardInstance(void);
 
-
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

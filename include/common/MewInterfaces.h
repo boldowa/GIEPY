@@ -2,6 +2,9 @@
 /**
  * @file MewInterfaces.h
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "common/AsmType.h"
 #include "common/InsertList.h"
@@ -55,3 +58,6 @@ struct _MewInterface {
 	void* instance;
 };
 
+#ifdef __cplusplus
+} /*extern "C" */
+#endif

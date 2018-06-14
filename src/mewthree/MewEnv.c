@@ -1,11 +1,9 @@
 /**
  * @file MewEnv.c
  */
-#include "common/types.h"
+#include <bolib.h>
 #include <assert.h>
-#include "common/Str.h"
 #include "common/Observer.h"
-#include "file/libfile.h"
 #include "mewthree/MewEnv.h"
 
 #if isWindows

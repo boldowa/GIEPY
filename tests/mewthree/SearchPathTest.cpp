@@ -1,11 +1,8 @@
 /**
  * SearchPathTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "unko/SearchPath.h"
-}
+#include <bolib.h>
+#include "mewthree/SearchPath.h"
 
 #include "CppUTest/TestHarness.h"
 

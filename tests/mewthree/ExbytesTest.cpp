@@ -1,11 +1,8 @@
 /**
  * ExbytesTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "Exbytes.h"
-}
+#include <bolib.h>
+#include "mewthree/Exbytes.h"
 
 #include "CppUTest/TestHarness.h"
 

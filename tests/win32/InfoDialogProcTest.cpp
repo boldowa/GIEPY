@@ -1,11 +1,8 @@
 /**
  * @file InfoDialogProcTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
+#include <bolib.h>
 #include "win32/InfoDialogProc.h"
-}
 
 #include "CppUTest/TestHarness.h"
 

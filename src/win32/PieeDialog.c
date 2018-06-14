@@ -1,10 +1,9 @@
 /**
  * @file PieeDialog.c
  */
-#include "common/types.h"
+#include <bolib.h>
 #include <windows.h>
 #include <tchar.h>
-#include "common/List.h"
 #include "common/strres.h"
 #include "common/GetFmtStr.h"
 #include "win32/menures.h"

@@ -1,11 +1,8 @@
 /**
  * RatsTest.cpp
  */
-extern "C"
-{
-#include "common/types.h"
-#include "Rats.h"
-}
+#include <bolib.h>
+#include "mewthree/Rats.h"
 
 #include "CppUTest/TestHarness.h"
 
