@@ -4,7 +4,6 @@
 #include <bolib.h>
 #include <windows.h>
 #include <tchar.h>
-#include "common/List.h"
 #include "common/defines.h"
 #include "common/strres.h"
 #include "common/GetFmtStr.h"

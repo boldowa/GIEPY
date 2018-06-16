@@ -2,6 +2,8 @@
  * @file MainWndProc.c
  */
 #include <bolib.h>
+#include <stdlib.h>
+#include <string.h>
 #include <assert.h>
 #include <windows.h>
 #include <tchar.h>

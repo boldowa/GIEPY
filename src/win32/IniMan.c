@@ -3,6 +3,8 @@
  * Singleton ini manager
  */
 #include <bolib.h>
+#include <stdlib.h>
+#include <string.h>
 #include <windows.h>
 #include <tchar.h>
 #include <assert.h>

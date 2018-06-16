@@ -2,7 +2,7 @@
 //  giepy.rc
 //----------------------------------------------------------
 
-#include "version.h"
+#include "common/version.h"
 #include <windows.h>
 
 // StringVersionInfo

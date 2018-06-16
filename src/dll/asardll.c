@@ -14,7 +14,7 @@
 #		pragma warning(disable : 4668)
 #	endif
 
-#	include <Windows.h>
+#	include <windows.h>
 
 #	if defined(_MSC_VER)
 #		pragma warning(pop)

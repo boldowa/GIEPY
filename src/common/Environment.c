@@ -5,6 +5,7 @@
 #include <string.h>
 #if isWindows
 #  include <windows.h>
+#  include <stdlib.h>
 #else
 #  ifndef __USE_XOPEN2K
 #    define __USE_XOPEN2K
