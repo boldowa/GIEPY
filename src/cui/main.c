@@ -5,6 +5,7 @@
 #include <bolib.h>
 #include <stdio.h>
 #include <string.h>
+#include "compiler.h"
 #include "common/defaults.h"
 #include "common/strres.h"
 #include "common/version.h"
@@ -27,10 +28,6 @@
 #include "cui/Option.h"
 #include "cui/ParseCmdDefs.h"
 #include "common/GetFmtStr.h"
-
-/* TODO */
-#define C_COMPILER "cc"
-#define C_COMPILER_VER "8.1.0"
 
 #ifndef _tprintf
 #define _tprintf printf
@@ -69,7 +66,7 @@ static void ShowVersion()
 	printf("  by boldowa\n");
 	printf("  since    : December 10 2017\n");
 	printf("  compiled : %s\n", __DATE__);
-	printf("             with %s ver.%s\n", C_COMPILER, C_COMPILER_VER);
+	printf("             with %s ver.%s\n", GIEPY_C_COMPILER, GIEPY_C_COMPILER_VERSION);
 	printf("  Mewthree : v%s\n", GetMewthreeVersionStr());
 	printf("  Asar     : v%s API v%s\n",
 			GetAsarVersion(), GetAsarAPIVersion() );

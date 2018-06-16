@@ -1,32 +1,43 @@
-/**
- * @file asardll.c
- */
 
 #define NULL 0
-#ifdef _WIN32
-	#pragma warning(push)
-	#pragma warning(disable : 4668)
-	#include <windows.h>
-	#pragma warning(pop)
-	#define getlib() LoadLibraryEx("asar.dll", NULL, LOAD_WITH_ALTERED_SEARCH_PATH)
-	#define getlibfrompath(path) LoadLibrary(path)
-	#define loadraw(name, target) *((int(**)())&target)=(int(*)())GetProcAddress((HINSTANCE)asardll, name); require(target)
-	#define closelib(var) FreeLibrary((HINSTANCE)var)
+
+#if defined(__cplusplus) || __STDC_VERSION__ >= 199001L
+#  define INLINE inline
 #else
-	#include <dlfcn.h>
-	#include <stdio.h>
+#  define INLINE /*inline*/
+#endif
 
-	#ifdef __APPLE__
-		#define EXTENSION ".dylib"
-	#else
-		#define EXTENSION ".so"
-	#endif
+#if defined(_WIN32)
+#	if defined(_MSC_VER)
+#		pragma warning(push)
+#		pragma warning(disable : 4255)
+#		pragma warning(disable : 4668)
+#	endif
 
-	/*inline*/ static void * getlib(void)
+#	include <Windows.h>
+
+#	if defined(_MSC_VER)
+#		pragma warning(pop)
+#	endif
+
+#	define getlib() LoadLibrary("asar.dll")
+#	define getlibfrompath(path) LoadLibrary(path)
+#	define loadraw(name, target) *((int(**)(void))&target)=(int(*)(void))GetProcAddress((HINSTANCE)asardll, name); require(target)
+#	define closelib(var) FreeLibrary((HINSTANCE)var)
+#else
+#	include <dlfcn.h>
+#	include <stdio.h>
+
+#	ifdef __APPLE__
+#		define EXTENSION ".dylib"
+#	else
+#		define EXTENSION ".so"
+#	endif
+
+	INLINE static void * getlib(void)
 	{
-		int i;
-		const char * names[]={"components/libasar"EXTENSION, "./libasar"EXTENSION, "libasar", NULL};
-		for (i=0;names[i];i++)
+		const char * names[]={"./libasar"EXTENSION, "libasar", NULL};
+		for (int i=0;names[i];i++)
 		{
 			void * rval=dlopen(names[i], RTLD_LAZY);
 			const char*e=dlerror();
@@ -36,7 +47,7 @@
 		return NULL;
 	}
 
-	/*inline*/ static void * getlibfrompath(const char * path)
+	INLINE static void * getlibfrompath(const char * path)
 	{
 		void * rval = dlopen(path, RTLD_LAZY);
 		const char*e = dlerror();
@@ -45,9 +56,15 @@
 		return NULL;
 	}
 
-	#define loadraw(name, target) *(void **)(&target)=dlsym(asardll, name); require(target)
-	#define closelib(var) dlclose(var)
+#	define loadraw(name, target) *(void **)(&target)=dlsym(asardll, name); require(target)
+#	define closelib(var) dlclose(var)
 #endif
+
+#include "dll/asardll.h"
+
+#undef asarfunc
+#undef ASAR_DLL_H_INCLUDED
+
 #define asarfunc
 #include "dll/asardll.h"
 
@@ -60,7 +77,7 @@ static void(*asar_i_close)(void);
 #define loadi(name) loadraw("asar_"#name, asar_i_##name)
 #define load(name) loadraw("asar_"#name, asar_##name)
 
-bool asar_init_shared(void)
+static bool asar_init_shared(void)
 {
 	loadi(init);
 	loadi(close);
@@ -68,6 +85,7 @@ bool asar_init_shared(void)
 	load(apiversion);
 	load(reset);
 	load(patch);
+	load(patch_ex);
 	load(maxromsize);
 	load(geterrors);
 	load(getwarnings);
@@ -79,6 +97,7 @@ bool asar_init_shared(void)
 	load(math);
 	load(getwrittenblocks);
 	load(getmapper);
+	load(getsymbolsfile);
 	if (asar_apiversion() < expectedapiversion || (asar_apiversion() / 100) > (expectedapiversion / 100)) return false;
 	require(asar_i_init());
 	return true;

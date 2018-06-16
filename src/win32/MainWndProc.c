@@ -10,6 +10,7 @@
 #include <commctrl.h>
 #include <process.h>
 
+#include "compiler.h"
 #include "common/version.h"
 #include "common/Observer.h"
 #include "common/defines.h"
@@ -971,7 +972,7 @@ static void InitInfoDlgData(InfDlgInitData* idid)
 	_stprintf_s(buf, 2048, _T("compiled : %s"), __DATE__);
 	li->push(li,Str_copy(buf));
 
-	_stprintf_s(buf, 2048, _T("           with %s ver.%s\r\n"),C_COMPILER, C_COMPILER_VER);
+	_stprintf_s(buf, 2048, _T("           with %s ver.%s\r\n"), GIEPY_C_COMPILER, GIEPY_C_COMPILER_VERSION);
 	li->push(li,Str_copy(buf));
 
 	_stprintf_s(buf, 2048, _T("Mewthree : v%s"),GetMewthreeVersionStr());

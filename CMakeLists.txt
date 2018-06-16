@@ -9,6 +9,8 @@ endif("${CMAKE_CURRENT_SOURCE_DIR}" STREQUAL "${CMAKE_SOURCE_DIR}")
 
 project(GIEPY C CXX)
 
+GenerateCompilerH(GIEPY compiler.h)
+
 option(GIEPY_EXECUTE_TEST "Execute test suite" ON)
 option(GIEPY_COVERAGE "Check code coverage" ON)
 set(GIEPY_COVERAGE_EXECUTE FALSE)
