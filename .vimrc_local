@@ -13,7 +13,8 @@ let &path.=",".getcwd()."/../jansson/src"
 "	let &path.=",".getcwd()."/".p
 "endfor
 
-"let &path.=",".getcwd()."/../bolib/include"
+let &path.=",".getcwd()."/../bolib2/include"
+let &path.=",".getcwd()."/../build/bolib2"
 "let includes = split(glob("../bolib/include/*"), "\n")
 "for p in includes
 "	let &path.=",".getcwd()."/".p
@@ -23,10 +24,10 @@ let &path.=",".getcwd()."/../jansson/src"
 " ale config
 "---------------------------------------
 let g:ale_linters = {'c': ['gcc']}
-let g:ale_c_gcc_options  = '-ansi '
-"let g:ale_c_gcc_options .= '-I./build/bolib/ '
-"let g:ale_c_gcc_options .= '-I../bolib/include '
-let g:ale_c_gcc_options .= '-I./build/jansson/include/ '
+let g:ale_c_gcc_options  = '-std=c99 '
+let g:ale_c_gcc_options .= '-I../build/bolib2/ '
+let g:ale_c_gcc_options .= '-I../bolib2/include '
+let g:ale_c_gcc_options .= '-I../build/jansson/include/ '
 let g:ale_c_gcc_options .= '-I./include '
 let g:ale_c_gcc_options .= '-I../jansson/src '
 let g:ale_c_gcc_options .= '-Wall -Wno-format -Wconversion '

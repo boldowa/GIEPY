@@ -39,7 +39,7 @@
 #  endif
 #  include <dlfcn.h>
 #  define LoadFunction(func)\
-            *(void **)(&func) = dlsym(mew, "mew_"#func);\
+            *(void**)&func = dlsym(mew, "mew_"#func);\
             Require(func)
 #endif
 

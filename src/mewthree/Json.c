@@ -4,7 +4,8 @@
  *   - Jansson : https://github.com/akheron/jansson
  */
 #include <bolib.h>
-#include "jansson.h"
+#include <string.h>
+#include <jansson.h>
 #include <setjmp.h>
 #include <assert.h>
 #include "common/strres.h"

@@ -3,6 +3,7 @@
  */
 #include <bolib.h>
 #include <assert.h>
+#include <memory.h>
 #include <bolib/file/RomFile.h>
 #include "common/strres.h"
 #include "common/InsertList.h"

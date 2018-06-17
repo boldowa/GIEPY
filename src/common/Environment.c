@@ -2,6 +2,7 @@
  * @file Environment.c
  */
 #include <bolib.h>
+#include <stdio.h>
 #include <string.h>
 #if isWindows
 #  include <windows.h>

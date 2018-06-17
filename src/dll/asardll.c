@@ -1,5 +1,7 @@
 
-#define NULL 0
+#ifndef NULL
+#  define NULL 0
+#endif
 
 #if defined(__cplusplus) || __STDC_VERSION__ >= 199001L
 #  define INLINE inline

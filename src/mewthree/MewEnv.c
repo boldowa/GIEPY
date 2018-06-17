@@ -3,6 +3,8 @@
  */
 #include <bolib.h>
 #include <assert.h>
+#include <stdlib.h>
+#include <string.h>
 #include "common/Observer.h"
 #include "mewthree/MewEnv.h"
 

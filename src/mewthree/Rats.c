@@ -2,6 +2,7 @@
  * @file Rats.c
  */
 #include <bolib.h>
+#include <memory.h>
 #include "mewthree/Rats.h"
 
 /**

@@ -2,6 +2,7 @@
  * @file InfoDialogProc.c
  */
 #include <bolib.h>
+#include <stdlib.h>
 #include <windows.h>
 #include <tchar.h>
 #include <commctrl.h>

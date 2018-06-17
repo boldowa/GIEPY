@@ -11,7 +11,7 @@
 /**
  * CUI Version
  */
-#define AppVersion		"1.0.2"
+#define AppVersion		1.0.2
 #define ResVersion		1,0,2,0
 #define FileVersion		4
 
@@ -36,7 +36,7 @@
 /**
  * GUI App Version
  */
-#define Win32AppVersion		"1.0.2"
+#define Win32AppVersion		1.0.2
 #define Win32ResVersion		1,0,2,0
 #define Win32FileVersion	3
 

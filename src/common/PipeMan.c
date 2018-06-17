@@ -2,9 +2,13 @@
  * @file PipeMan.c
  *   ... pipe manager
  */
-#ifndef _POSIX_C_SOURCE
-#  define _POSIX_C_SOURCE 2
+
+/* for use popen(GNU) */
+#ifndef __USE_POSIX2
+#  define __USE_POSIX2
 #endif
+#undef __STRICT_ANSI__
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

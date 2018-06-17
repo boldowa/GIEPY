@@ -2,6 +2,7 @@
  * @file MainWndProc.c
  */
 #include <bolib.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
@@ -1171,7 +1172,7 @@ static BOOL CommandHandler(HWND hWnd, WORD wId, WORD wNotify, HWND hControl)
 			idid.tabs = &tabs;
 			tabs.msgList = new_List(NULL, free);
 			InitInfoDlgData(&idid);
-			_stprintf_s(buf, 2048, GetFmtStr(GSID_INFDLG_VER_DESC), Win32AppName, Win32AppVersion, CodeVersion);
+			_stprintf_s(buf, 2048, GetFmtStr(GSID_INFDLG_VER_DESC), Win32AppName, _STR(Win32AppVersion), CodeVersion);
 			idid.description = buf;
 			PieeDialog(hWnd, ID_DLG_INFO, &idid);
 			delete_List(&tabs.msgList);
