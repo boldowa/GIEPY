@@ -46,7 +46,7 @@ def build():
     if(os.system(' '.join(cmakecmd))) : return False
 
     # make
-    if(os.system("make -j%d" % Jobs)) : return False
+    if(os.system("cmake --build . -- -j%d" % Jobs)) : return False
     return True
 
 def makedir(dest):

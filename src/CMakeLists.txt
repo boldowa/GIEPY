@@ -10,7 +10,7 @@ else(MSVC)
 	# encode flags
 	add_flags(GIEPY_FLAGS "-fexec-charset=cp932")
 	# Warning flags
-	add_flags(GIEPY_FLAGS "-Wall -Wno-format -Wconversion")
+	add_flags(GIEPY_FLAGS "-Wall -Wpedantic -Wno-format -Wconversion -Wimplicit-function-declaration")
 	# Test flags
 	if(GIEPY_EXECUTE_TEST)
 		add_flags(GIEPY_FLAGS "-include CppUTest/MemoryLeakDetectorNewMacros.h")
@@ -112,10 +112,10 @@ if(MSVC OR MINGW)
 		set_target_properties(piee PROPERTIES LINK_FLAGS "-mwindows")
 	elseif(MSVC)
 		set_target_properties(piee PROPERTIES COMPILE_FLAGS "${GIEPY_FLAGS} /DGUI /DWINVER=0x0500")
-		set_target_properties(piee PROPERTIES LINK_FLAGS "/MANIFEST:NO ${WIN2000OBJ}")
+		set_target_properties(piee PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS /MANIFEST:NO ${WIN2000OBJ}")
 	endif()
-	if(GIEPY_COVERAGE)
+	if(GIEPY_COVERAGE AND MINGW)
 		target_link_libraries(piee gcov)
-	endif(GIEPY_COVERAGE)
+	endif(GIEPY_COVERAGE AND MINGW)
 endif(MSVC OR MINGW)
 

@@ -13,7 +13,8 @@ extern "C" {
 #  include <tchar.h>
    typedef TCHAR* path_t;
 #else
-#  ifndef TCHAR
+#  ifndef _TCHAR_DEFINED
+#    define _TCHAR_DEFINED
      typedef char TCHAR;
 #  endif
    typedef char* path_t;

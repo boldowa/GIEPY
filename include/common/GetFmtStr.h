@@ -11,7 +11,10 @@ extern "C" {
 #if isWindows
 #  include <tchar.h>
 #else
-   typedef char TCHAR;
+#  ifndef _TCHAR_DEFINED
+#    define _TCHAR_DEFINED
+     typedef char TCHAR;
+#  endif
 #endif
 TCHAR* GetFmtStr(uint);
 
