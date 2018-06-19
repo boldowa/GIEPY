@@ -129,7 +129,7 @@ static uint32 SearchData(const uint8* p1, const uint8* p2, int32 len, const uint
 static uint8* readbin(const char* path, uint32* size, Observers* obs)
 {
 	FILE *fp;
-	long sz;
+	uint sz;
 	uint8* bin;
 
 	sz = fsize(path);
@@ -139,7 +139,7 @@ static uint8* readbin(const char* path, uint32* size, Observers* obs)
 		return NULL;
 	}
 
-	bin = malloc(sizeof(uint8)*(uint)sz);
+	bin = malloc(sizeof(uint8)*sz);
 	assert(bin);
 
 	fp = fopen(path, "rb");
