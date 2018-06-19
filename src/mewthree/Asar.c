@@ -157,6 +157,21 @@ static void addErrorLabel(List* labels, const char* errline)
 }
 
 /**
+ * @brief Includes source file
+ *
+ * @param asmFile ASM file object
+ * @param path include file path
+ */
+void IncludeSource(TextFile* asmFile, const char* path)
+{
+	char* escPath;
+
+	escPath = Str_replace("!", "\\!", path);
+	asmFile->printf(asmFile, "incsrc \"%s\"\n", escPath);
+	free(escPath);
+}
+
+/**
  * @brief Assemble the source code using asar library
  *
  * @param env Environment
@@ -223,7 +238,7 @@ bool AssembleAsar(
 
 		/* write sa-1 config include */
 		tmpPath = Str_concat(env->ExeDir, SA1Def);
-		tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
+		IncludeSource(tmpAsm, tmpPath);
 		free(tmpPath);
 
 		/* write injection define */
@@ -244,7 +259,7 @@ bool AssembleAsar(
 		{
 			tmpAsm->printf(tmpAsm, "!PIXI_COMPATIBLE = 1\n", tmpPath);
 			tmpPath = Str_concat(env->ExeDir, PixiDef);
-			tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
+			IncludeSource(tmpAsm, tmpPath);
 			free(tmpPath);
 		}
 
@@ -253,26 +268,26 @@ bool AssembleAsar(
 
 		/* write label / define src include */
 		tmpPath = Str_concat(env->WorkDir, AsarLibAsm);
-		tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
+		IncludeSource(tmpAsm, tmpPath);
 		free(tmpPath);
 		tmpPath = Str_concat(env->WorkDir, AsarDefAsm);
-		tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
+		IncludeSource(tmpAsm, tmpPath);
 		free(tmpPath);
 		tmpPath = Str_concat(env->WorkDir, AsarFNMacAsm);
-		tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
+		IncludeSource(tmpAsm, tmpPath);
 		free(tmpPath);
 
 		/* write asar include */
 		tmpPath = Str_concat(env->ListDir, AsarInc);
 		if(fexists(tmpPath))
 		{
-			tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
+			IncludeSource(tmpAsm, tmpPath);
 		}
 		else
 		{
 			free(tmpPath);
 			tmpPath = Str_concat(env->ExeDir, AsarIncSys);
-			if(fexists(tmpPath)) tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", tmpPath);
+			if(fexists(tmpPath)) IncludeSource(tmpAsm, tmpPath);
 		}
 		free(tmpPath);
 
@@ -281,7 +296,7 @@ bool AssembleAsar(
 
 		/* write main src include */
 		tmpAsm->printf(tmpAsm, "__main__:\n");
-		tmpAsm->printf(tmpAsm, "incsrc \"%s\"\n", path);
+		IncludeSource(tmpAsm, path);
 
 		/* write injection signature */
 		/* if(NULL != sigput) sigput(tmpAsm, data); */
