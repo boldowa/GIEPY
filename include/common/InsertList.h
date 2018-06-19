@@ -30,8 +30,6 @@ typedef struct _InsertItem {
 	struct _CfgData*	cfg;	/* use insint in this one if use cfg sprites */
 }InsertItem;
 
-bool InsertedChk(const void* sval, const void* lval); /* in Asar.c */
-
 #ifdef __cplusplus
 } /*extern "C" */
 #endif
