@@ -63,6 +63,7 @@ extern ProgressMode pMode;
 static void ShowVersion()
 {
 	printf("%s v%s [Code: v0x%04x]\n", AppName, _STR(AppVersion), CodeVersion);
+	printf("--- %s\n", GIEPY_GIT_REVISION);
 	printf("  by boldowa\n");
 	printf("  since    : December 10 2017\n");
 	printf("  compiled : %s\n", __DATE__);

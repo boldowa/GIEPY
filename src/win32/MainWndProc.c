@@ -969,22 +969,25 @@ static void InitInfoDlgData(InfDlgInitData* idid)
 	idid->caption = GetFmtStr(GSID_INFDLG_VERSION);
 	idid->icon = IconType_Piee;
 
-	_stprintf_s(buf, 2048, _T("since    : December 10 2017"));
+	_stprintf_s(buf, 2048, _T("--- %s"), _T(GIEPY_GIT_REVISION));
 	li->push(li,Str_copy(buf));
 
-	_stprintf_s(buf, 2048, _T("compiled : %s"), __DATE__);
+	_stprintf_s(buf, 2048, _T("  since    : December 10 2017"));
 	li->push(li,Str_copy(buf));
 
-	_stprintf_s(buf, 2048, _T("           with %s ver.%s\r\n"), GIEPY_C_COMPILER, GIEPY_C_COMPILER_VERSION);
+	_stprintf_s(buf, 2048, _T("  compiled : %s"), __DATE__);
 	li->push(li,Str_copy(buf));
 
-	_stprintf_s(buf, 2048, _T("Mewthree : v%s"),GetMewthreeVersionStr());
+	_stprintf_s(buf, 2048, _T("             with %s ver.%s\r\n"), GIEPY_C_COMPILER, GIEPY_C_COMPILER_VERSION);
 	li->push(li,Str_copy(buf));
 
-	_stprintf_s(buf, 2048, _T("Asar     : v%s API v%s"),GetAsarVersion(), GetAsarAPIVersion());
+	_stprintf_s(buf, 2048, _T("  Mewthree : v%s"),GetMewthreeVersionStr());
 	li->push(li,Str_copy(buf));
 
-	_stprintf_s(buf, 2048, _T("Jansson  : v%s"),GetJanssonVersion());
+	_stprintf_s(buf, 2048, _T("  Asar     : v%s API v%s"),GetAsarVersion(), GetAsarAPIVersion());
+	li->push(li,Str_copy(buf));
+
+	_stprintf_s(buf, 2048, _T("  Jansson  : v%s"),GetJanssonVersion());
 	li->push(li,Str_copy(buf));
 }
 

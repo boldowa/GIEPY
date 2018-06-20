@@ -54,7 +54,7 @@ static char* GetUndefinedSymbol(const char* const errmsg, const char* const symT
 		ssearch = strstr(work, symTypeStr);
 		if(NULL == ssearch) longjmp(e,1);
 
-		i = beg = (size_t)(ssearch - work) + strlen(symTypeStr) + 1;
+		i = beg = (size_t)(ssearch - work) + strlen(symTypeStr) + 1; /* strTypeStr + "'" */
 		SkipUntilChar(work, &i, '\'', len);
 		if(i == len) longjmp(e, 1);
 
@@ -85,7 +85,6 @@ static void addErrorMacro(List* macros, const char* errline, const char* block)
 	/**
 	 * Error message match finder
 	 *
-	 *   Macro error format:
 	 *   Macro error format:
 	 *     ... - 1.50
 	 *       Unknown macro [%XXXXX()]
