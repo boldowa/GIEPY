@@ -14,6 +14,8 @@
 #include "common/InsertList.h"
 #include "mewthree/ParseCfg.h"
 
+#define putmemerr(Observer) Observer->fatal(0, GSID_MEMALLOC_FAILED, __FILE__, __LINE__, __func__)
+
 void DiscardCfgData(CfgData** cfgp, Observers* obs)
 {
 	CfgData *cfg;
@@ -128,7 +130,7 @@ static bool MatchStrSecCommon(const char* line, char** data, Observers* obs)
 	free(work);
 	if(NULL==newDesc)
 	{
-		obs->fatal(0, GSID_MEMALLOC_FAILED, __func__);
+		putmemerr(obs);
 		return false;
 	}
 
@@ -257,7 +259,7 @@ static bool MatchSection(const char* line, void* data, Observers* obs)
 	strSection = calloc(strSectionLen+1, sizeof(char));
 	if(NULL == strSection)
 	{
-		obs->fatal(0, GSID_MEMALLOC_FAILED, __func__);
+		putmemerr(obs);
 		return false;
 	}
 	strncpy_s(strSection, strSectionLen+1, &line[beg], strSectionLen);

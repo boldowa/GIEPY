@@ -83,7 +83,7 @@ AsmType ChkAsmType(const char* asmPath, Observers* obs)
 	asmFile = new_TextFile(asmPath);
 	if(NULL == asmFile)
 	{
-		obs->fatal(0, GSID_MEMALLOC_FAILED, __func__);
+		obs->fatal(0, GSID_MEMALLOC_FAILED, __FILE__, __LINE__, __func__);
 		return AsmType_Unknown;
 	}
 	if(FileOpen_NoError != asmFile->open2(asmFile, "r"))

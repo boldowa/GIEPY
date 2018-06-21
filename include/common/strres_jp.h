@@ -34,7 +34,7 @@
 #define		GSID_JP_MEW_LOAD_FAILED			(GSID_JP_BEGIN +  100)
 #define		GSTR_JP_MEW_LOAD_FAILED			"Mewthreeモジュールの読み込みに失敗しました。セットアップをやり直してください。"
 #define		GSID_JP_MEMALLOC_FAILED			(GSID_JP_BEGIN +  101)
-#define		GSTR_JP_MEMALLOC_FAILED			"メモリ確保に失敗しました。お使いのパソコンでは、このプログラムの実行を継続できません。(場所:%s)"
+#define		GSTR_JP_MEMALLOC_FAILED			"メモリ確保に失敗しました。お使いのパソコンでは、このプログラムの実行を継続できません。(場所:%s %d行目: %s)"
 #define		GSID_JP_PROCESS_FAILED			(GSID_JP_BEGIN +  102)
 #define		GSTR_JP_PROCESS_FAILED			"--- 失敗しちゃいました… ヾ(・ω・`;)ﾉぁゎゎ"
 #define		GSID_JP_PROCESS_SUCCEED			(GSID_JP_BEGIN +  103)
@@ -372,7 +372,7 @@
 #define		GSID_JP_INFDLG_VERSION		(GSID_JP_BEGIN + 2231)
 #define		GSTR_JP_INFDLG_VERSION		"バージョン情報"
 #define		GSID_JP_INFDLG_VER_DESC		(GSID_JP_BEGIN + 2232)
-#define		GSTR_JP_INFDLG_VER_DESC		"%s バージョン %0.2lf [コード: v0x%04x]\n(C)2018 boldowa"
+#define		GSTR_JP_INFDLG_VER_DESC		"%s バージョン %s [コード: v0x%04x]\n(C)2018 boldowa"
 #define		GSID_JP_INFDLG_DEBUG		(GSID_JP_BEGIN + 2233)
 #define		GSTR_JP_INFDLG_DEBUG		"デバッグ情報"
 #define		GSID_JP_INFDLG_WARNING		(GSID_JP_BEGIN + 2234)

@@ -29,7 +29,7 @@ bool ConstructSearchPath(char** paths, const char* suffix, MewEnvStruct* env, Ob
 		p = Str_concat(env->SearchPath[i], suffix);
 		if(NULL == p)
 		{
-			obs->fatal(0, GSID_MEMALLOC_FAILED);
+			obs->fatal(0, GSID_MEMALLOC_FAILED, __FILE__, __LINE__, __func__);
 			DestroySearchPath(paths);
 			return false;
 		}

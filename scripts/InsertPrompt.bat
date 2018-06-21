@@ -1,6 +1,5 @@
 @echo off
 cd /d "%~dp0"
-setlocal enabledelayedexpansion
 set return=exit /b
 
 rem +---------------------------------------------+
@@ -49,6 +48,7 @@ if not '%1' == '' (
 	set ListPath=%~1
 )
 
+setlocal enabledelayedexpansion
 echo.
 if '"%RomPath%"' == '""' (
 :romloop
@@ -60,8 +60,13 @@ if '"%RomPath%"' == '""' (
 		%return% 1
 	)
 	if not exist "!RomPath!" (
-		echo Error: "!RomPath!" not found.
-		goto :romloop
+		set RSMC=!RomPath!.smc
+		if exist "!RSMC!" (
+			set RomPath=!RSMC!
+		) else (
+			echo Error: "!RomPath!" not found.
+			goto :romloop
+		)
 	)
 )
 
@@ -74,12 +79,18 @@ if '"%ListPath%"' == '""' (
 		echo List empty. use the default value.
 	) else (
 		if not exist "!ListPath!" (
-			echo Error: "!ListPath!" not found.
-			goto :listloop
+			set LTXT=!ListPath!.txt
+			if exist "!LTXT!" (
+				set ListPath=!LTXT!
+			) else (
+				echo Error: "!ListPath!" not found.
+				goto :listloop
+			)
 		)
 	)
 )
 
+setlocal disabledelayedexpansion
 call :GiepyCaller %0 "%RomPath%" "%ListPath%"
 set result=%ERRORLEVEL%
 pause

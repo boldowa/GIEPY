@@ -19,7 +19,7 @@ extern "C" {
 TCHAR* GetFmtStr(uint);
 
 #define putmemerr() \
-	putfatal(0,GSID_MEMALLOC_FAILED,__func__)
+	putfatal(0,GSID_MEMALLOC_FAILED,__FILE__,__LINE__,__func__)
 
 #ifdef __cplusplus
 } /*extern "C" */

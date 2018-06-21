@@ -217,7 +217,7 @@ static bool OpenRomFile(Mewthree* mi, const char* path)
 	rom = mi->pro->rom;
 	if(NULL == rom)
 	{
-		mi->pro->obs.fatal(0, GSID_MEMALLOC_FAILED, __func__);
+		mi->pro->obs.fatal(0, GSID_MEMALLOC_FAILED, __FILE__, __LINE__, __func__);
 		return false;
 	}
 

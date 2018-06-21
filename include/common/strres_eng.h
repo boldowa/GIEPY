@@ -27,7 +27,7 @@
 #define		GSID_MEW_LOAD_FAILED		(GSID_BEGIN +  100)
 #define		GSTR_MEW_LOAD_FAILED		"Failed to load Mewthree module. Please try setup again."
 #define		GSID_MEMALLOC_FAILED		(GSID_BEGIN +  101)
-#define		GSTR_MEMALLOC_FAILED		"Memory allocation failed. Processing can't be continued on the computer you are using. (location: %s)"
+#define		GSTR_MEMALLOC_FAILED		"Memory allocation failed. Processing can't be continued on the computer you are using. (location: %s line %s: %s)"
 #define		GSID_PROCESS_FAILED		(GSID_BEGIN +  102)
 #define		GSTR_PROCESS_FAILED		"--- Failed... ;("
 #define		GSID_PROCESS_SUCCEED		(GSID_BEGIN +  103)

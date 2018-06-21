@@ -9,7 +9,18 @@ endif("${CMAKE_CURRENT_SOURCE_DIR}" STREQUAL "${CMAKE_SOURCE_DIR}")
 
 project(GIEPY C CXX)
 
-GenerateCompilerH(GIEPY compiler.h)
+GenerateCompilerH(GIEPY include/compiler.h)
+
+#execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_BINARY_DIR}/include/common)
+#if("Windows" STREQUAL "${CMAKE_SYSTEM_NAME}")
+#	add_custom_target(strres
+#		SOURCES "${PROJECT_BINARY_DIR}/include/common/strres_jp.h")
+#	add_custom_command(OUTPUT "include/common/strres_jp.h"
+#		WORKING_DIRECTORY "${PROJECT_BINARY_DIR}"
+#		COMMAND iconv -c -f utf-8 -t cp932 -o "include/common/strres_jp.h" "${PROJECT_SOURCE_DIR}/include/common/strres_jp.h.in")
+#else("Windows" STREQUAL "${CMAKE_SYSTEM_NAME}")
+#	configure_file("${PROJECT_SOURCE_DIR}/include/common/strres_jp.h.in" "include/common/strres_jp.h" COPYONLY)
+#endif("Windows" STREQUAL "${CMAKE_SYSTEM_NAME}")
 
 option(GIEPY_EXECUTE_TEST "Execute test suite" ON)
 option(GIEPY_COVERAGE "Check code coverage" ON)
@@ -29,7 +40,7 @@ if(GIEPY_COVERAGE AND GIEPY_EXECUTE_TEST)
 endif()
 
 include_directories(
-	"${PROJECT_BINARY_DIR}"
+	"${PROJECT_BINARY_DIR}/include"
 	"${CMAKE_BINARY_DIR}/bolib2/"
 	"${CMAKE_BINARY_DIR}/jansson/include"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"

@@ -8,7 +8,9 @@ if(MSVC)
 else(MSVC)
 	set(GIEPY_FLAGS "-fno-strict-aliasing")
 	# encode flags
+	if("Windows" STREQUAL "${CMAKE_SYSTEM_NAME}")
 	add_flags(GIEPY_FLAGS "-fexec-charset=cp932")
+	endif("Windows" STREQUAL "${CMAKE_SYSTEM_NAME}")
 	# Warning flags
 	add_flags(GIEPY_FLAGS "-Wall -Wpedantic -Wno-format -Wconversion -Wimplicit-function-declaration")
 	# Test flags
@@ -23,7 +25,7 @@ endif(MSVC)
 
 
 link_directories(
-        "${CMAKE_CURRENT_BINARY_DIR}/components"
+        "${PROJECT_BINARY_DIR}/components"
 )
 
 
@@ -40,6 +42,7 @@ if(MINGW OR MSVC)
 	set(Mewthree_Res "${CMAKE_CURRENT_SOURCE_DIR}/res/mewthree.rc")
 endif(MINGW OR MSVC)
 add_library(mewthree SHARED ${Mewthree_Sources} ${Mewthree_Res})
+#add_dependencies(mewthree strres)
 set_target_properties(mewthree PROPERTIES COMPILE_FLAGS "${GIEPY_FLAGS}")
 set_target_properties(mewthree PROPERTIES
         LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/components"
@@ -75,6 +78,7 @@ if(MINGW OR MSVC)
 	set(CUI_Resource "${CMAKE_CURRENT_SOURCE_DIR}/res/giepy.rc")
 endif(MINGW OR MSVC)
 add_executable(giepy ${CUI_Sources} ${CUI_Resource})
+#add_dependencies(giepy strres)
 set_target_properties(giepy PROPERTIES
 	COMPILE_FLAGS "${GIEPY_FLAGS}"
 	RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}"
@@ -106,6 +110,7 @@ if(MSVC OR MINGW)
 	set_target_properties(piee PROPERTIES
 		RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
 	target_link_libraries(piee comctl32 shell32 bolib2)
+	#add_dependencies(piee strres)
 	if(MINGW)
 		# Windows application
 		set_target_properties(piee PROPERTIES COMPILE_FLAGS "${GIEPY_FLAGS} -DGUI -DWINVER=0x0500")

@@ -15,6 +15,8 @@
 #include "mewthree/ParseCfg.h"
 #include "mewthree/ParseList.h"
 
+#define putmemerr(Observer) Observer->fatal(0, GSID_MEMALLOC_FAILED, __FILE__, __LINE__, __func__)
+
 /**
  * @brief Remove comments from input string
  *
@@ -468,7 +470,7 @@ static bool MatchSection(const char* line, void* data, Observers* obs)
 	strSection = calloc(strSectionLen+1, sizeof(char));
 	if(NULL == strSection)
 	{
-		obs->fatal(0, GSID_MEMALLOC_FAILED, __func__);
+		putmemerr(obs);
 		return false;
 	}
 	strncpy_s(strSection, strSectionLen+1, &line[beg], strSectionLen);
@@ -546,7 +548,7 @@ bool ParseList(const char* listName, List** listPtr, MewEnvStruct* env, Observer
 	list = new_List(NULL, DeleteListItem);
 	if(NULL == list)
 	{
-		obs->fatal(0, GSID_MEMALLOC_FAILED, __func__);
+		putmemerr(obs);
 		return false;
 	}
 	fs[1].match = list;
