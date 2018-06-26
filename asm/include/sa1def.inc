@@ -185,6 +185,8 @@ endif
 %define_base2_address(extended_x_high, 1733)
 %define_base2_address(extended_y_speed, 173d)	: !173D = !173d
 %define_base2_address(extended_x_speed, 1747)
+%define_base2_address(extended_y_speed_frac, 1751)
+%define_base2_address(extended_x_speed_frac, 175b)	: !175B = !175b
 %define_base2_address(extended_table, 1765)
 %define_base2_address(extended_timer, 176f)	: !176F = !176f
 %define_base2_address(extended_behind, 1779)
