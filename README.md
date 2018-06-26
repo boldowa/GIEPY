@@ -36,32 +36,21 @@ This program require [cmake](https://cmake.org).
 
 Please install it.
 
-And if you are using the Linux OS, it needs libasar.so.
+And this project is submodule for [smw-utils project](https://github.com/boldowa/smw-utils).
 
-### Windows
+With this project alone, you can't build.
 
-1. Clone [this repository](https://github.com/boldowa/smw-utils).
-
-2. Update submodules.
-
-3. Move to **GIEPY** directory.
-
-4. Load **CMakeList.txt** with cmake(or cmake-gui).
-
-5. Compile.
-
-And if you are using python(3), you can use **release\_win32.py** to create a release package.  
-(However, I think customization is essential.)
-
-### Linux
+### Procedure
 
 1. Clone [this repository](https://github.com/boldowa/smw-utils).
 
 2. Update submodules.
 
-3. Move to **GIEPY/build** directory.
+3. Type it.
 
-4. Run "build.sh".
+```
+cmake -DCMAKE_BUILD_TYPE=Release .. && cmake --build . --target giepy
+```
 
 
 ## TODO
