@@ -13,10 +13,43 @@ pushpc
 	%org_assert_long2($02a861, 0585,ceb7)
 		jml	SprLoadHijack
 
-if !true == !EXTRA_BYTES_EXT
+	%org_assert_word($028b1d, fc20)
+		jsr	LoadSpriteInLevel
+
+	%org_assert_long2($02ac7a, 20a8,0220)
+		jsr	LoadSprite
+		jsr	LoadSprite
+
+	%org_assert_long2($02acba, 20a8,0220)
+		jsr	LoadSprite
+		jsr	LoadSprite
+
 	%org_assert_long2($02a846, 80e8,c8c8)
 		jml	LoadNextSprHijack
-endif
+
+	if !false == !sa1
+		%org_assert_word($02abf2, 3fa2)
+			ldx.b	$7f
+	endif
+
+	%org_assert_long2($02b5ec, ffff,ffff)
+	LoadSprite:
+		pei	($ce)
+		jsr	$a802
+		pla
+		sta.b	$ce
+		pla
+		sta.b	$cf
+		rts
+
+	LoadSpriteInLevel:
+		pei	($ce)
+		jsr	$a7fc
+		pla
+		sta.b	$ce
+		pla
+		sta.b	$cf
+		rts
 
 pullpc
 
@@ -111,6 +144,7 @@ LoadScroller:
 
 	;--- read extra_bytes
 	if !true == !EXTRA_BYTES_EXT
+		phy
 		iny
 		jsr	LoadExBytesSub
 		beq	+			;\  Load extra bytes.
@@ -119,7 +153,7 @@ LoadScroller:
 		iny				; | latest extra byte value.
 		dec	$04			; |
 		bne	-			;/
-	+
+	+	ply
 	endif
 
 	lda.b	$07			; extra bits
@@ -133,7 +167,6 @@ LoadScroller:
 	%jml_assert_long(jml, $02a87c, ceb788)	; jmp to LoadScrollSprite
 
 
-
 LoadGenerator:
 	%putdebug("LoadGenerator")
 	plp
@@ -144,8 +177,14 @@ LoadGenerator:
 	lda.b	$05
 	inc	a
 	sta.w	!18b9
-	stz.w	!1938,x
+	if !true == !sa1
+		lda.b	#0
+		sta.l	!1938,x
+	else
+		stz.w	!1938,x
+	endif
 	if !true == !EXTRA_BYTES_EXT
+		phy
 		iny
 		jsr	LoadExBytesSub
 		beq	.return
@@ -155,11 +194,9 @@ LoadGenerator:
 		dec	$04			; | latest extra byte value.
 		bne	-			;/
 	.return
-		inx
-		%jml_assert_long(jml, $02a82e, c9ceb7)	; jmp to LoadSpriteLoopStart
-	else
-		%jml_assert_long(jml, $02a846, e8c8c8)	; jmp to LoadNextSprite
+		ply
 	endif
+	%jml_assert_long(jml, $02a846, e8c8c8)	; jmp to LoadNextSprite
 	
 
 LoadInitializer:
@@ -217,6 +254,11 @@ LoadShooter:
 	%putdebug("LoadShooter")
 	plp
 	plx
+
+	if !true == !sa1
+		sep #$10
+	endif
+
 	stx.b	$02
 	dey
 	sty.b	$03
@@ -226,33 +268,39 @@ LoadShooter:
 -	lda.w	!1783,x
 	beq	+
 	dex
-	bne	-
+	bpl	-
+	ldx.b	#$07
++	stx	$18ff|!base2
 
-+	dec.w	$18ff|!base2
-	bpl	+
-	lda.b	#$07
-	sta.w	$18ff|!base2
-+	ldx.w	$18ff|!base2
 	ldy.w	$17b3|!base2,x
 	lda.b	$07			; extra bits
 	ora.b	#$80
 	sta.l	!extra_bits_sh,x
-	stz.w	!1938,x
+	if !true == !sa1
+		lda.b	#0
+		sta.l	!1938,x
+	else
+		stz.w	!1938,x
+	endif
 	ldy.b	$03
 	lda.b	$05
 	inc
 	sta.w	!1783,x
-	jml	$02aba8|!bankB
+
+	if !true == !sa1
+		rep #$10
+	endif
+
 	%jml_assert_long(jml, $02aba8, 4a5ba5)
-
-
 
 ;-------------------------------------------------
 ; Load Next Sprite Hijack
 ;-------------------------------------------------
-if !true == !EXTRA_BYTES_EXT
-	LoadNextSprHijack:
-		%putdebug("LoadNextSprHijack")
+
+LoadNextSprHijack:
+	%putdebug("LoadNextSprHijack")
+
+	if !true == !EXTRA_BYTES_EXT
 		; Skip extra bytes
 		iny
 		lda.b	[$ce],y
@@ -266,11 +314,53 @@ if !true == !EXTRA_BYTES_EXT
 		ldx.b	$05			; load table inx
 		clc
 		adc.l	EBLengthTable,x
-		sep	#$10
+		xba
+		lda.b	#$00
+		xba
 		tay
-		plp
+		cpy.w	#$00f1
+		bcc	+
+		rep	#$20
+		lda.b	$ce
+		clc
+		adc.w	#$0080
+		sta.b	$ce
+		tya
+		sec
+		sbc.w	#$0080
+		tay
+	+	plp
 		plx
 		inx
 		%jml_assert_long(jml, $02a82e, c9ceb7)	; jmp to LoadSpriteLoopStart
-endif
+	else
+		iny
+		iny
+		if !false == !sa1
+			cpy.b	#$fd
+		else
+			cpy.w	#$00fd
+		endif
+		bcc	+
+		rep	#$20
+		lda.b	$ce
+		clc
+		adc.w	#$0080
+		sta.b	$ce
+		if !false == !sa1
+			sep #$20
+		endif
+		tya
+		sec
+		if !false == !sa1
+			sbc.b	#$80
+			tay
+		else
+			sbc.w	#$0080
+			tay
+			sep	#$20
+		endif
+	+	inx
+		%jml_assert_long(jml, $02a82e, c9ceb7)	; jmp to LoadSpriteLoopStart
+	endif
 

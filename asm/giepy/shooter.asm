@@ -7,16 +7,21 @@ pushpc
 		jsl	SetShooterExBits
 		nop
 
-if !true == !EXTRA_BYTES_EXT
-	if !sa1	
+	%org_assert_word($02a8d8, 7820)
+		jmp	$ab78
+
+	if !true == !sa1
 		%org_assert_long2($02abeb, 5c02,a6c8)
 	else
 		%org_assert_long2($02abeb, e802,a6c8)
 	endif
-			jsl	LoadShooterExByte
-endif
+	jml	LoadShooterExByte
 
-	%org_assert_long2($02b39e, abde,0390)
+	if !true == !sa1
+		%org_assert_long2($02b395, f077,abbc)
+	else
+		%org_assert_long2($02b395, f017,abbc)
+	endif
 		jml	ShooterHijack
 pullpc
 
@@ -40,9 +45,11 @@ endif
 ;-------------------------------------------------
 ; Load Shooter's Extra byte
 ;-------------------------------------------------
-if !true == !EXTRA_BYTES_EXT
+
 LoadShooterExByte:
 	%putdebug("LoadShooterExByte")
+if !true == !EXTRA_BYTES_EXT
+	phy
 	jsr	LoadExBytesSub
 	beq	+			;\  Load extra bytes.
 -	lda.b	[$ce],y			; | if extra bytes size greater than 4,
@@ -50,16 +57,22 @@ LoadShooterExByte:
 	iny				; | latest extra byte value.
 	dec	$04			; |
 	bne	-			;/
-+	ldx.b	$02
-	inx
-	rtl
++	ply
 endif
+	dey
+	ldx.b	$02
+	jml	$02a846|!bankB
 
 ;-------------------------------------------------
 ; Shooter Hijack
 ;-------------------------------------------------
 ShooterHijack:
 	%putdebug("ShooterHijack")
+	pha
+	ldy	!17ab,x
+	beq	+
+	lda	$13
+	lsr
 	bcc	+
 	dec	!17ab,x
 +	lda.l	!extra_bits_sh,x	; C---EE-- : C=custom, EE=sprite grp
