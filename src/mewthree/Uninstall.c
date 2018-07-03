@@ -132,7 +132,11 @@ static bool Restore_v0100(RomFile* rom, Observers* obs)
 		/* load.asm */
 		{ 0x02a837, 4, (uint8*)"\x29\x10\x85\x02"     },
 		{ 0x02a861, 4, (uint8*)"\xb7\xce\x85\x05"     },
+		{ 0x028b1d, 3, (uint8*)"\x20\xfc\xa7"         },
+		{ 0x02ac7a, 6, (uint8*)"\x20\x02\xa8\x20\x02\xa8" },
+		{ 0x02acba, 6, (uint8*)"\x20\x02\xa8\x20\x02\xa8" },
 		{ 0x02a846, 4, (uint8*)"\xc8\xc8\xe8\x80"     },
+		{ 0x02b5ec, 24, (uint8*)"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff" },
 
 		/* normspr.asm */
 		{ 0x02a971, 4, (uint8*)"\xc8\xc8\xa5\x04"     },
@@ -148,6 +152,7 @@ static bool Restore_v0100(RomFile* rom, Observers* obs)
 
 		/* shooter.asm */
 		{ 0x02b39e, 4, (uint8*)"\x90\x03\xde\xab"     },
+		{ 0x02a8d8, 3, (uint8*)"\x20\x78\xab"         },
 
 		/* generator.asm */
 		{ 0x02a8b4, 4, (uint8*)"\x38\xe9\xcb\x1a"     },
@@ -178,6 +183,9 @@ static bool Restore_v0100(RomFile* rom, Observers* obs)
 	/* Restore data (LoROM)				*/
 	/************************************************/
 	static RestoreData LoRomRestore[] = {
+		/* init.asm */
+		{ 0x02abf2, 2, (uint8*)"\xa2\x3f"             },
+
 		/* normspr.asm */
 		{ 0x02a9a3, 4, (uint8*)"\xda\xb5\x9e\xaa"     },
 		{ 0x02a9d4, 4, (uint8*)"\x9d\xe2\x1f\xc8"     },
@@ -190,6 +198,7 @@ static bool Restore_v0100(RomFile* rom, Observers* obs)
 		/* shooter.asm */
 		{ 0x02aba3, 5, (uint8*)"\xe9\xc8\x9d\x83\x17" },
 		{ 0x02abeb, 4, (uint8*)"\xc8\xa6\x02\xe8"     },
+		{ 0x02b395, 4, (uint8*)"\xbc\xab\x17\xf0"     },
 
 		/* scroll.asm */
 		{ 0x05bc79, 4, (uint8*)"\xad\x9d\x00\xd0"     },
@@ -229,6 +238,7 @@ static bool Restore_v0100(RomFile* rom, Observers* obs)
 		/* shooter.asm */
 		{ 0x02aba3, 5, (uint8*)"\xe9\xc8\x9d\x83\x77" },
 		{ 0x02abeb, 4, (uint8*)"\xc8\xa6\x02\x5c"     },
+		{ 0x02b395, 4, (uint8*)"\xbc\xab\x77\xf0"     },
 
 		/* scroll.asm */
 		{ 0x05bc79, 4, (uint8*)"\xad\x9d\x30\xd0"     },
