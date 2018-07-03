@@ -8,7 +8,7 @@
 #include "mewthree/Rats.h"
 #include "mewthree/Exbytes.h"
 
-#define SPRDATA_MAX	0x200		/** Usually within 0x100 bytes... */
+#define SPRDATA_MAX	15*255+1	/** 255 sprites with 12 extra bytes each */
 #define SprAddrPtr	0x02ec00	/** snes:$05:ec00, 2bytes * 512 */
 #define SprBankPtr	0x077100	/** snes:$0e:f100, 1byte  * 512 */
 

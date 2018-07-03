@@ -11,7 +11,7 @@ pushpc
 	else
 		%org_assert_long2($02a9d4, c81f,e29d)
 	endif
-		jsl	LoadNrmSprExtraInfo
+		jml	LoadNrmSprExtraInfo
 
 	if !true == !sa1
 		%org_assert_long2($018172, 429d,08a9)
@@ -124,8 +124,14 @@ LoadNrmSprExtraInfo:
 	%putdebug("LoadNrmSprExtraInfo")
 	sta.w	!1fe2,x
 
+if !true == !sa1
+	pla
+	pla
+endif
+
 if !true == !EXTRA_BYTES_EXT
 	;--- get extra bytes length
+	phy
 	jsr	LoadExBytesSub
 	beq	.return			;\  Load extra bytes.
 -	lda.b	[$ce],y			; | if extra bytes size greater than 7,
@@ -148,11 +154,13 @@ if !true == !EXTRA_BYTES_EXT
 	iny				; |
 	dec	$04			; |
 	bne	-			;/
-else
-	iny
-endif
 .return
-	rtl
+	ply
+endif
+
+	dey
+	ldx	$02
+	jml	$02a846|!bankB
 
 ;--- Subroutine for read extra bytes
 if !true == !EXTRA_BYTES_EXT
