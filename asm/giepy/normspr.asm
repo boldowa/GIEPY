@@ -84,12 +84,20 @@ pushpc
 		jsr	$8133
 		rtl
 
+	%org_assert_word($0180b5, b8ad)
+		jml CheckConversion
+
 	;--- Hammer Bro init routine overwrite
-	;  ... for generate custom sprite
+	;  ... for old-style generate custom sprite
 	%org_assert_jsl($0187a7, $02da59)
-		jml	SetSpriteTables
+		jml	SetConversionFlag
 	%org_assert_word($0182b3, 87a7)
 		dw	$85c2
+
+	;--- Unused routine call
+	;  ... for generate custom sprite
+	%org_assert_word($0187c5, af22)
+		jml	SetSpriteTables
 
 pullpc
 
@@ -181,6 +189,10 @@ SprInitHijack:
 	lda.b	#$08
 	sta.w	!14c8,x
 	
+	lda.l	!sprite_flags,x
+	bit.b	#$01
+	bne	.ret
+	
 	lda.l	!extra_bits,x	; C---EE-- : C=custom, EE=sprite grp
 	bmi	.isCustom
 .ret
@@ -206,6 +218,71 @@ SprInitHijack:
 	pea	$85c1
 	lda.l	!new_sprite_num,x
 	jmp	CallSpriteFunction
+
+;---------------------------------------
+; CheckConversion hijack
+;   ... Re-initialize any sprites marked for conversion.
+;---------------------------------------
+CheckConversion:
+	lda.l	!sprite_flags
+	bpl	.checkCluster
+
+	if !true == !sa1
+		ldx.b	#21
+	else
+		ldx.b	#11
+	endif
+-	lda.l	!sprite_flags,x
+	bit.b	#$01
+	beq	.next
+	and.b	#$fe
+	sta.l	!sprite_flags,x
+
+	lda.l	!extra_bits,x
+	ora.b	#$80
+	bit.b	#$08
+	bne	.custom
+	and.b	#$7f
+.custom
+	sta.l	!extra_bits,x
+
+	lda.b	#$ff
+	sta.w	!161a,x
+
+	jsl	SetSpriteTables
+.next
+	dex
+	bpl	-
+
+	lda.l	!sprite_flags
+	and.b	#$7f
+	sta.l	!sprite_flags
+.checkCluster
+	lda.w	$18b8|!base2
+	beq	.skipCluster
+	jml	$0180ba|!bankB
+
+.skipCluster
+	jml	$0180be|!bankB
+
+;---------------------------------------
+; SetConversionFlag subroutine
+;   ... Set flag to re-initialize custom sprite after the sprite loop.
+;   args:
+;     - !new_sprite_num,x ... custom sprite num
+;---------------------------------------
+SetConversionFlag:
+	; set master conversion flag
+	lda.l	!sprite_flags
+	ora.b	#$80
+	sta.l	!sprite_flags
+
+	; mark sprite as needing conversion
+	lda.l	!sprite_flags,x
+	ora.b	#$01
+	sta.l	!sprite_flags,x
+
+	rtl
 
 ;---------------------------------------
 ; SetSpriteTables subroutine
@@ -296,6 +373,10 @@ SprMainHijack:
 	%putdebug("SprMainHijack")
 	stz.w	$1491|!base2
 	
+	lda.l	!sprite_flags,x
+	bit.b	#$01
+	bne	.ret
+	
 	lda.l	!extra_bits,x
 	bmi	.isCustom
 	if !true == !sa1
@@ -303,6 +384,7 @@ SprMainHijack:
 	else
 		lda	!9e,x
 	endif
+.ret
 	rtl
 
 .isCustom
@@ -393,6 +475,7 @@ endif				; |
 	sep	#$30
 if !PIXI_COMPATIBLE
 	txy
+	lda.w	!14c8,x
 endif	
 	jml	[$0009|!base1]	; jump to code
 
@@ -456,7 +539,7 @@ SpriteStatusHandlerHijack:
 	beq	.CallMain
 
 	;--- MAIN routine doesn't handle these status:
-	;      $00-$02, $04-$09
+	;    $00-$02, $04-$09
 	pla
 	jml	$0185c2|!bankB
 
