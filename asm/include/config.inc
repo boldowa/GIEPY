@@ -153,6 +153,15 @@ if 0 == !__config_inc
 !_extra_byte_scr	= 7fab79
 !_extra_byte_scr_sa1	= 4000fd
 
+
+;-------------------------------------------------
+; Sprite flags ... 12(22) bytes
+;   The only current use of this table is to store compatibility flags.
+;   Bit 7 of the first entry is a flag for whether any sprite needs conversion.
+;-------------------------------------------------
+!_sprite_flags		= 7fabb5
+!_sprite_flags_sa1	= 400118
+
 ;
 ;           :
 ;           :

@@ -137,6 +137,8 @@ if !true == !EXTRA_BYTES_EXT
 	%define_sprite_table(extra_byte_gen, !_extra_byte_gen, !_extra_byte_scr_sa1)
 	%define_sprite_table(extra_byte_scr, !_extra_byte_gen, !_extra_byte_scr_sa1)
 endif
+%define_sprite_table(sprite_flags, !_sprite_flags, !_sprite_flags_sa1)
+%define_sprite_table(7FABB5, !_sprite_flags, !_sprite_flags_sa1)
 
 
 
