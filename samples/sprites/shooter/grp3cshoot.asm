@@ -85,9 +85,9 @@ endif
 	tyx
 	sta.l	!new_sprite_num,x	; --- set
 	jsl	$07f7d2|!bankB		;
-	lda.b	#$80|(!Group<<2)	; >>> Important: Set the extra bits before
-	sta.l	!extra_bits,x		;                call $0187a7(custom tweak filler) routine
-	jsl	$0187a7			; --- set custom sprite's tweak.
+	lda.b	#$80|(!Group<<2)	; >>> Important: Set the extra bits and then
+	sta.l	!extra_bits,x		;                call $0187c5(custom tweak filler) routine
+	jsl	$0187c5			; --- set custom sprite's tweak.
 	plx
 
 	;--- generate smoke
