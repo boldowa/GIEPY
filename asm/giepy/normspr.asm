@@ -186,16 +186,22 @@ endif
 ;-------------------------------------------------
 SprInitHijack:
 	%putdebug("SprInitHijack")
-	lda.b	#$08
-	sta.w	!14c8,x
-	
 	lda.l	!sprite_flags,x
 	bit.b	#$01
-	bne	.ret
+	bne	.skip
+	
+	lda.b	#$08
+	sta.w	!14c8,x
 	
 	lda.l	!extra_bits,x	; C---EE-- : C=custom, EE=sprite grp
 	bmi	.isCustom
 .ret
+	rtl
+
+.skip
+	pla
+	pla
+	pea	$85c1
 	rtl
 
 .isCustom
@@ -375,7 +381,7 @@ SprMainHijack:
 	
 	lda.l	!sprite_flags,x
 	bit.b	#$01
-	bne	.ret
+	bne	.skip
 	
 	lda.l	!extra_bits,x
 	bmi	.isCustom
@@ -385,6 +391,12 @@ SprMainHijack:
 		lda	!9e,x
 	endif
 .ret
+	rtl
+
+.skip
+	pla
+	pla
+	pea	$85c1
 	rtl
 
 .isCustom
