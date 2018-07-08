@@ -145,6 +145,7 @@ static bool Restore_v0100(RomFile* rom, Observers* obs)
 		{ 0x02a94c, 1, (uint8*)"\x0d"                 },
 		{ 0x0187a7, 4, (uint8*)"\x22\x59\xda\x02"     },
 		{ 0x0182b3, 2, (uint8*)"\xa7\x87"             },
+		{ 0x0187c5, 4, (uint8*)"\x22\xaf\xdc\x02"     },
 
 		/* shooter.asm */
 		{ 0x02b39e, 4, (uint8*)"\x90\x03\xde\xab"     },
@@ -186,6 +187,7 @@ static bool Restore_v0100(RomFile* rom, Observers* obs)
 		{ 0x07f787, 4, (uint8*)"\x9d\xa0\x15\x6b"     },
 		{ 0x018127, 5, (uint8*)"\xbd\xc8\x14\xf0\x25" },
 		{ 0x01d43e, 4, (uint8*)"\x9e\xc8\x14\x60"     },
+		{ 0x0180b5, 5, (uint8*)"\xad\xb8\x18\xf0\x04" },
 
 		/* shooter.asm */
 		{ 0x02aba3, 5, (uint8*)"\xe9\xc8\x9d\x83\x17" },
@@ -208,6 +210,7 @@ static bool Restore_v0100(RomFile* rom, Observers* obs)
 	static RestoreData FastRomRestore[] = {
 		/* normspr.asm */
 		{ 0x0187a7, 4, (uint8*)"\x22\x59\xda\x82"     },
+		{ 0x0187c5, 4, (uint8*)"\x22\xaf\xdc\x82"     },
 
 		{ 0x000000, 0,          NULL         }
 	};
@@ -225,6 +228,7 @@ static bool Restore_v0100(RomFile* rom, Observers* obs)
 		{ 0x07f787, 4, (uint8*)"\x9d\x76\x33\x6b"     },
 		{ 0x018127, 5, (uint8*)"\xbd\x42\x32\xf0\x25" },
 		{ 0x01d43e, 4, (uint8*)"\x9e\x42\x32\x60"     },
+		{ 0x0180b5, 5, (uint8*)"\xad\xb8\x78\xf0\x04" },
 
 		/* shooter.asm */
 		{ 0x02aba3, 5, (uint8*)"\xe9\xc8\x9d\x83\x77" },

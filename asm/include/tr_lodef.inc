@@ -30,13 +30,15 @@ extra_bits_l1scr	= $7FABB3
 S7FABB3			= $7FABB3
 extra_bits_l2scr	= $7FABB4
 S7FABB4			= $7FABB4
+sprite_flags	= $7FABB5
+S7FABB5			= $7FABB5
 extra_byte_1		= $7FAB40
 extra_byte_2		= $7FAB4C
 extra_byte_3		= $7FAB58
 extra_byte_4		= $7FAB64
 extra_byte_sh		= $7FAB70
-extra_byte_gen		= $7FAB71
-extra_byte_scr		= $7FAB72
+extra_byte_gen		= $7FAB78
+extra_byte_scr		= $7FAB79
 
 
 ;---------------------------------------

@@ -137,21 +137,30 @@ if 0 == !__config_inc
 ; Shooter extra byte ... 8 bytes
 ;-------------------------------------------------
 !_extra_byte_sh		= 7fab70
-!_extra_byte_sh_sa1	= 41c800
+!_extra_byte_sh_sa1	= 400110
 
 
 ;-------------------------------------------------
 ; Generator extra byte ... 1 byte
 ;-------------------------------------------------
-!_extra_byte_gen	= 7fab71
+!_extra_byte_gen	= 7fab78
 !_extra_byte_gen_sa1	= 4000fc
 
 
 ;-------------------------------------------------
 ; Scroller extra byte ... 1 byte
 ;-------------------------------------------------
-!_extra_byte_scr	= 7fab72
+!_extra_byte_scr	= 7fab79
 !_extra_byte_scr_sa1	= 4000fd
+
+
+;-------------------------------------------------
+; Sprite flags ... 12(22) bytes
+;   The only current use of this table is to store compatibility flags.
+;   Bit 7 of the first entry is a flag for whether any sprite needs conversion.
+;-------------------------------------------------
+!_sprite_flags		= 7fabb5
+!_sprite_flags_sa1	= 400118
 
 ;
 ;           :

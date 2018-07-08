@@ -103,6 +103,7 @@ ClearExtraRam:
 		sta.l	!extra_byte_3,x
 		sta.l	!extra_byte_4,x
 	endif
+	sta.l	!sprite_flags,x
 	dex
 	bpl	-
 
